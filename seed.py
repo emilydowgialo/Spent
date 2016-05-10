@@ -42,7 +42,7 @@ def load_expenditures():
     """ Load movies from expenditures.csv into database """
 
     print "Expenditures"
-    Expenditure.query.delete()
+    # Expenditure.query.delete()
 
     for row in open("seed_data/expenditures.csv"):
         row = row.rstrip()
@@ -65,17 +65,23 @@ def load_expenditures():
         else:
             date_of_expenditure = None
 
-        expenditure = Expenditure(id=id,
-                      category=category,
-                      price=price,
-                      date_of_expenditure=date_of_expenditure,
-                      expenditure_userid=expenditure_userid,
-                      where_bought=where_bought,
-                      description=description,
-                      tracking_num=tracking_num)
+        expenditure = Expenditure(id=id, category=category, price=price, date_of_expenditure=date_of_expenditure, expenditure_userid=expenditure_userid, where_bought=where_bought, description=description, tracking_num=tracking_num)
 
         db.session.add(expenditure)
 
+    db.session.commit()
+
+
+def set_val_user_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(User.user_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('users_user_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 
 
@@ -83,7 +89,7 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # In case tables haven't been created, create them
-    # db.create_all()
+    db.create_all()
 
     # Import different types of data
     load_users()

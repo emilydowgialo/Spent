@@ -1,9 +1,9 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, redirect, flash, session, url_for
+from flask import Flask, render_template, session
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db
+from model import connect_to_db
 
 app = Flask(__name__)
 
@@ -17,10 +17,6 @@ def index():
     """Homepage."""
 
     return render_template("login.html", user_session_info=session)
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login_page():
 
 
 if __name__ == "__main__":
