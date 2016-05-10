@@ -1,4 +1,4 @@
-"""Utility file to seed spending database in seed_data/"""
+""" Utility file to seed spending database in seed_data/ """
 
 from sqlalchemy import func
 from model import User, Expenditure
@@ -75,7 +75,7 @@ def load_expenditures():
 
 
 def set_val_user_id():
-    """Set value for the next user_id after seeding database"""
+    """ Set value for the next user_id after seeding database """
 
     # Get the Max user_id in the database
     result = db.session.query(func.max(User.user_id)).one()
