@@ -27,6 +27,7 @@ def load_users():
         username = user_data[3]
 
         user = User(id=id,
+                    email=email,
                     password=password,
                     username=username)
 
@@ -41,31 +42,49 @@ def load_expenditures():
     """ Load movies from expenditures.csv into database """
 
     print "Expenditures"
-    Movie.query.delete()
+    Expenditure.query.delete()
 
     for row in open("seed_data/expenditures.csv"):
         row = row.rstrip()
         expenditure_data = row.split("|")
-        category = expenditure_data[0]
-        title = movies_data[1]
-        released_at = movies_data[2]
-        imdb_url = movies_data[4]
-
+        id = expenditure_data[0]
+        category = expenditure_data[1]
+        price = expenditure_data[2]
+        date_of_expenditure = expenditure_data[3]
+        expenditure_userid = expenditure_data[4]
+        where_bought = expenditure_data[5]
+        description = expenditure_data[6]
+        tracking_num = expenditure_data[7]
 
         # this list holds the title and the date
-        title = title[:-6].rstrip()
+        # title = title[:-6].rstrip()
 
         # convert released_at from string to datetime format
-        if released_at:
-            released_at = datetime.datetime.strptime(released_at, '%d-%b-%Y')
+        if date_of_expenditure:
+            date_of_expenditure = datetime.datetime.strptime(date_of_expenditure, '%d-%b-%Y')
         else:
-            released_at = None
+            date_of_expenditure = None
 
-        movie = Movie(movie_id=movie_id,
-                      title=title,
-                      released_at=released_at,
-                      imdb_url=imdb_url)
+        expenditure = Expenditure(id=id,
+                      category=category,
+                      price=price,
+                      date_of_expenditure=date_of_expenditure,
+                      expenditure_userid=expenditure_userid,
+                      where_bought=where_bought,
+                      description=description,
+                      tracking_num=tracking_num)
 
-        db.session.add(movie)
+        db.session.add(expenditure)
 
     db.session.commit()
+
+
+if __name__ == "__main__":
+    connect_to_db(app)
+
+    # In case tables haven't been created, create them
+    # db.create_all()
+
+    # Import different types of data
+    load_users()
+    load_expenditures
