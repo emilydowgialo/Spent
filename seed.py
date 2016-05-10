@@ -54,7 +54,6 @@ def load_expenditures():
         expenditure_userid = expenditure_data[4]
         where_bought = expenditure_data[5]
         description = expenditure_data[6]
-        tracking_num = expenditure_data[7]
 
         # convert date_of_expenditure from string to datetime format
         # if date_of_expenditure:
@@ -68,8 +67,7 @@ def load_expenditures():
                                   date_of_expenditure=date_of_expenditure,
                                   expenditure_userid=expenditure_userid,
                                   where_bought=where_bought,
-                                  description=description,
-                                  tracking_num=tracking_num)
+                                  description=description)
 
         db.session.add(expenditure)
 
@@ -97,4 +95,4 @@ if __name__ == "__main__":
 
     # Import different types of data
     load_users()
-    load_expenditures
+    load_expenditures()

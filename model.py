@@ -30,7 +30,7 @@ class Expenditure(db.Model):
     expenditure_userid = db.Column(db.Integer, db.ForeignKey('users.id'))
     where_bought = db.Column(db.String(100), nullable=True)
     description = db.Column(db.UnicodeText, nullable=True)
-    tracking_num = db.Column(db.Integer, nullable=True)
+    # tracking_num = db.Column(db.Integer, nullable=True)
 
     user = db.relationship("User", backref=db.backref('expenditures'))
 
