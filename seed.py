@@ -5,7 +5,7 @@ from model import User, Expenditure
 
 from model import connect_to_db, db
 from server import app
-import datetime
+# import datetime
 
 
 def load_users():
@@ -39,10 +39,10 @@ def load_users():
 
 
 def load_expenditures():
-    """ Load movies from expenditures.csv into database """
+    """ Load expenditures from expenditures.csv into database """
 
     print "Expenditures"
-    # Expenditure.query.delete()
+    Expenditure.query.delete()
 
     for row in open("seed_data/expenditures.csv"):
         row = row.rstrip()
@@ -56,16 +56,20 @@ def load_expenditures():
         description = expenditure_data[6]
         tracking_num = expenditure_data[7]
 
-        # this list holds the title and the date
-        # title = title[:-6].rstrip()
+        # convert date_of_expenditure from string to datetime format
+        # if date_of_expenditure:
+        #     date_of_expenditure = datetime.datetime.strptime(date_of_expenditure, '%d-%b-%Y')
+        # else:
+        #     date_of_expenditure = None
 
-        # convert released_at from string to datetime format
-        if date_of_expenditure:
-            date_of_expenditure = datetime.datetime.strptime(date_of_expenditure, '%d-%b-%Y')
-        else:
-            date_of_expenditure = None
-
-        expenditure = Expenditure(id=id, category=category, price=price, date_of_expenditure=date_of_expenditure, expenditure_userid=expenditure_userid, where_bought=where_bought, description=description, tracking_num=tracking_num)
+        expenditure = Expenditure(id=id,
+                                  category=category,
+                                  price=price,
+                                  date_of_expenditure=date_of_expenditure,
+                                  expenditure_userid=expenditure_userid,
+                                  where_bought=where_bought,
+                                  description=description,
+                                  tracking_num=tracking_num)
 
         db.session.add(expenditure)
 
