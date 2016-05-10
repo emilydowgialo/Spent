@@ -10,9 +10,9 @@ class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    name = db.Column(db.String(64))
     email = db.Column(db.String(64), nullable=True)
     password = db.Column(db.String(64))
-    username = db.Column(db.String(64))
 
 
 class Expenditure(db.Model):
