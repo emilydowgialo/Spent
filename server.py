@@ -61,49 +61,32 @@ def expenditure_form():
 def add_expenditure():
     """ Add new expenditure to the database """
 
-    print
-    print
-    print
-    print
+    # Set the value of the user id of the user in the session
     id = session.get('id')
-    print id
 
+    user_id = Expenditure.query.filter(Expenditure.id == id).first()
+    user_id = user_id.id
+
+    # Get values from the form
     category = request.form.get("category")
     price = request.form.get("price")
     date_of_expenditure = request.form.get("date")
     where_bought = request.form.get("wherebought")
     description = request.form.get("description")
 
-    print
-    print
-    print
-    print category
-    print
-    print
-    print
-
-    # new_expdenditure.category = category
-    # new_expdenditure.price = price
-    # new_expdenditure.date = date
-    # new_expdenditure.wherebought = wherebought
-    # new_expdenditure.description = description
-
+    # Create a new expenditure object to insert into the expenditures table
     new_expenditure = Expenditure(category=category,
                                   price=price,
                                   date_of_expenditure=date_of_expenditure,
                                   where_bought=where_bought,
                                   description=description,
-                                  id=id)
-    print
-    print
-    print
-    print new_expenditure
-    print
-    print
-    print
+                                  expenditure_userid=user_id)
+
+    # Insert the new expenditure into the expenditures table and commit the insert
     db.session.add(new_expenditure)
     db.session.commit()
 
+    # Redirect to the dashboard
     return redirect(url_for('dashboard', id=id))
 
 
