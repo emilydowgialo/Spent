@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
-Hello world
+Hello world<p>
+
+<form action="/sign-up-form" method="GET">
+    <input type="submit" value="Sign Up">
+</form>
+
+<p>
+</p>
+
+<form action="/login" method="POST">
+    <input type="submit" value="Log In">
+</form>
 
 
 {% endblock %}

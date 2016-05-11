@@ -22,14 +22,14 @@ def load_users():
         row = row.rstrip()
         user_data = row.split("|")
         id = user_data[0]
-        email = user_data[1]
-        password = user_data[2]
-        username = user_data[3]
+        name = user_data[1]
+        email = user_data[2]
+        password = user_data[3]
 
         user = User(id=id,
+                    name=name,
                     email=email,
-                    password=password,
-                    username=username)
+                    password=password)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(user)
