@@ -1,7 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
 
-Dashboard
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<h2>Dashboard</h2>
+
+    <p>
+      Welcome {{name}}<br>
+    </p>
+
+    <p>
+        Your email: {{email}}
+        <br>
+        Your password: {{password}}
+    </p>
+
+    <ul>
+      {% for expenditure in expenditures %}
+      <li>
+        {{ expenditure.date_of_expenditure }}: <br>
+        {{ expenditure.category }}<br>
+        {{ expenditure.price }}<br>
+        {{ expenditure.where_bought }}<br>
+        {{ expenditure.description }}<br>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <p>
+        <form action="/logout" method="POST">
+    <input type="submit" value="Log Out">
+        </form>
+
+
 
 
 {% endblock %}

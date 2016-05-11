@@ -3,7 +3,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, request, render_template, session, url_for, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, connect_to_db, db
+from model import User, connect_to_db, db, Expenditure
 
 from sqlalchemy.sql import and_
 
@@ -18,47 +18,53 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """ Homepage """
 
+    # This is the homepage
     return render_template("homepage.html", user_session_info=session)
 
 
-# @app.route('/dashboard/<int:id>')
-# def dashboard():
-#     """ This is the user dashboard """
+@app.route('/dashboard/<int:id>')
+def dashboard(id):
+    """ This is the user dashboard """
 
-#     # if the user is logged into the session, check the user's id
-#     # and gather information about the user based on this
-#     if id in session:
-#         user = User.query.filter_by(id=id).first()
+    # If the user id is in the session, this will render the dashboard
+    # template, which will display their information and expenditure information
+    if 'id' in session:
+        # This is the user object
+        user = User.query.filter_by(id=id).first()
 
-#     return render_template("dashboard.html",
-#                             email=user.email,
-#                             password=user.password,
-#                             username=user.username)
+        # This is the expenditure object, which contains information about
+        # expenditures specific to the user from the expenditure table in the
+        # database
+        expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
+
+        # Renders the dashboard, which displays the following info
+        return render_template("dashboard.html",
+                                name=user.name,
+                                password=user.password,
+                                email=user.email,
+                                expenditures=expenditures)
+
 
 @app.route('/sign-up-form', methods=["GET", "POST"])
 def sign_up_form():
     """ Sign up form """
 
+    # Takes the user to the signup page
     return render_template("signup.html")
 
 
 @app.route('/sign-up', methods=["GET", "POST"])
 def sign_up():
     """ Sign up form consumption """
-    # FIXME
 
+    # Gathering information from the sign up form
     name = request.form.get("name")
     email = request.form.get("email")
     password = request.form.get("password")
 
+    # If the user does not exist, this will return None, and we will add them
+    # to the database, otherwise we will flash an error message
     email_login_query = User.query.filter_by(email=email).first()
-    print
-    print
-    print
-    print email_login_query
-    print
-    print
-    print
 
     # Check if user already exists
     if email_login_query is None:
@@ -80,39 +86,87 @@ def sign_up():
 
         return redirect(url_for('index'))
 
-    # If the user already exists in the database
+    # Should the user already exist in the database, this will
+    # redirect them back to the homepage and flash a message that says
+    # a user with that information already exists
     else:
         user_existence_check = User.query.filter(
                                                 and_(
                                                     User.email == email,
                                                     User.password == password)).first()
 
-        # Should the user already exist in the database, this will
-        # redirect them back to the homepage and flash a message that says
-        # a user with that information already exists
         if user_existence_check:
 
             # Flash a message saying a user by this name already exists
             flash('A user by this name already exists')
 
+            # Take the user back to the homepage
             return redirect(url_for("index"))
 
 
-# @app.route('/login', methods=["GET", "POST"])
-# def login():
-#     email = request.form.get("email")
-#     password = request.form.get("password")
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    """ Directs the user to the login form """
 
-#     email_login_query = User.query.filter_by(email=email).first()
+    # Take the user to the login page
+    return render_template("login.html")
 
-#     # Check if email_login_query is empty
-#     if email_login_query:
+
+@app.route('/login-form', methods=["GET", "POST"])
+def login_form():
+    """ Login form """
+
+    # Gather information from the login form
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    # If either of these return None, the user will not be able to
+    # successfully log in
+    email_login_query = User.query.filter_by(email=email).first()
+    password_login_query = User.query.filter_by(password=password).first()
+
+    print
+    print
+    print
+    print email_login_query
+    print
+    print
+    print
+
+    # Check if email_login_query is empty
+    if email_login_query is None and password_login_query is None:
+
+        # Flash an error message if the login information provided by the user
+        # does not match any records
+        flash('Error in logging in')
+
+        # Take the user back to the homepage so they can try logging in again
+        # or sign up if they haven't
+        return redirect(url_for("index"))
+
+    else:
+        # Put the id into the session
+        session['id'] = email_login_query.id
+
+        # Take the user to the dashboard page, using their id
+        return redirect(url_for('dashboard', id=session['id']))
+
+
+@app.route('/logout', methods=["GET", "POST"])
+def logout():
+
+    # Remove the user id from the session if it exists
+    session.pop('id', None)
+
+    # Bring the user back to the homepage once they have been logged out
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
     app.debug = True
+    app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     connect_to_db(app)
 

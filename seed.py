@@ -83,6 +83,7 @@ def set_val_user_id():
     max_id = int(result[0])
 
     # Set the value for the next user_id to be max_id + 1
+    # Note to self: the 'users_id_seq' variable is based on the Users table
     query = "SELECT setval('users_id_seq', :new_id)"
 
     db.session.execute(query, {'new_id': max_id + 1})
