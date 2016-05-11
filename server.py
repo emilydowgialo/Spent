@@ -42,7 +42,69 @@ def dashboard(id):
                                 name=user.name,
                                 password=user.password,
                                 email=user.email,
-                                expenditures=expenditures)
+                                expenditures=expenditures,
+                                id=id)
+
+
+@app.route('/expenditure-form', methods=["GET", "POST"])
+def expenditure_form():
+    """ Add more expenditures on this expenditure form """
+
+    # id = User.query.filter_by(id=id).first()
+    # id = user_id.id
+
+    # This is the homepage
+    return render_template("expenditures-form.html")
+
+
+@app.route('/add-expenditure-to-db', methods=["GET", "POST"])
+def add_expenditure():
+    """ Add new expenditure to the database """
+
+    print
+    print
+    print
+    print
+    id = session.get('id')
+    print id
+
+    category = request.form.get("category")
+    price = request.form.get("price")
+    date_of_expenditure = request.form.get("date")
+    where_bought = request.form.get("wherebought")
+    description = request.form.get("description")
+
+    print
+    print
+    print
+    print category
+    print
+    print
+    print
+
+    # new_expdenditure.category = category
+    # new_expdenditure.price = price
+    # new_expdenditure.date = date
+    # new_expdenditure.wherebought = wherebought
+    # new_expdenditure.description = description
+
+    new_expenditure = Expenditure(category=category,
+                                  price=price,
+                                  date_of_expenditure=date_of_expenditure,
+                                  where_bought=where_bought,
+                                  description=description,
+                                  id=id)
+    print
+    print
+    print
+    print new_expenditure
+    print
+    print
+    print
+    db.session.add(new_expenditure)
+    db.session.commit()
+
+    return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/sign-up-form', methods=["GET", "POST"])
@@ -124,14 +186,6 @@ def login_form():
     # successfully log in
     email_login_query = User.query.filter_by(email=email).first()
     password_login_query = User.query.filter_by(password=password).first()
-
-    print
-    print
-    print
-    print email_login_query
-    print
-    print
-    print
 
     # Check if email_login_query is empty
     if email_login_query is None and password_login_query is None:

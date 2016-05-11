@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <h2>Input Expenditures</h2>
+
+    <form action="/add-expenditure-to-db" method="POST">
+    Category: 
+      <select>
+    <option value="volvo">Food</option>
+    <option value="saab">Travel</option>
+    <option value="opel">Online Purchase</option>
+    <option value="audi">Clothing</option>
+    <option value="audi">Groceries</option>
+      </select>
+    <p><input type="text" id="price" placeholder="Price" name="price"><br>
+    <br><input type="text" id="date" placeholder="Date of purchase" name="date"><br>
+    <br><input type="text" id="wherebought" placeholder="Where was this purchased?" name="wherebought"><br>
+    <br><input type="text" id="description" placeholder="Describe your purchase" name="description"><p>
+
+    <input type="submit" value="Submit">
+    </form>
+
+
+{% endblock %}
