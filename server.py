@@ -26,16 +26,46 @@ def index():
 def dashboard(id):
     """ This is the user dashboard """
 
+    print
+    print
+    print
+    print id
+    print
+    print
+    print
+
     # If the user id is in the session, this will render the dashboard
     # template, which will display their information and expenditure information
     if 'id' in session:
+
         # This is the user object
         user = User.query.filter_by(id=id).first()
+
+        print
+        print
+        print user
+        print
+        print
+
+        print
+        print
+        print
+        print user.name
+        print
+        print
+        print
 
         # This is the expenditure object, which contains information about
         # expenditures specific to the user from the expenditure table in the
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
+
+        print
+        print
+        print expenditures
+        print
+        print
+        print
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
@@ -50,7 +80,7 @@ def dashboard(id):
 def expenditure_form():
     """ Add more expenditures on this expenditure form """
 
-    # This is the homepage
+    # This is the expenditure form
     return render_template("expenditures-form.html")
 
 
@@ -82,6 +112,27 @@ def add_expenditure():
 
     # Redirect to the dashboard
     return redirect(url_for('dashboard', id=id))
+
+
+@app.route('/remove-expenditure/<int:id>', methods=["GET", "POST"])
+def remove_expenditure(id):
+    """ Remove an expenditure from the database """
+
+    # This is the expenditure object we are working with
+    expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
+
+    # This queries for the id of the user tied to the expenditure
+    expenditure_id = expenditure_at_hand.expenditure_userid
+
+    # This queries the expenditure details
+    expenditure_stuff = Expenditure.query.filter_by(id=id).first()
+
+    # Deletes the expenditure item from the expenditure table
+    db.session.delete(expenditure_stuff)
+    db.session.commit()
+
+    # Redirect the user to their dashboard
+    return redirect(url_for('dashboard', id=expenditure_id))
 
 
 @app.route('/sign-up-form', methods=["GET", "POST"])

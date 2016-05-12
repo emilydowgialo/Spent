@@ -24,13 +24,19 @@
     </p>
 
     <ul>
+
       {% for expenditure in expenditures %}
+      <form action="/remove-expenditure/{{ expenditure.id }}" method="POST">
       <li>
         {{ expenditure.date_of_expenditure }}: <br>
         {{ expenditure.category }}<br>
         {{ expenditure.price }}<br>
         {{ expenditure.where_bought }}<br>
         {{ expenditure.description }}<br>
+
+            <input type="Submit" value="Remove">
+        </form>
+
       </li>
       {% endfor %}
     </ul>
