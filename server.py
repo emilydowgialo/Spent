@@ -38,13 +38,92 @@ def dashboard(id):
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
+        ########################################################################
+        # CALCULATE TOTALS FOR EACH EXPENDITURE CATEGORY
+        ########################################################################
+
+        # Food expenditure total
+        expenditures_food = Expenditure.query.filter_by(category="Food", expenditure_userid=id).all()
+
+        # Loop through each item in the food category, add up the prices
+        i = 0
+        total_food_price = 0
+
+        for food_expenditure in expenditures_food:
+            food_expenditure = expenditures_food[i].price
+            i += 1
+            total_food_price += food_expenditure
+
+        total_food_price = str(total_food_price)
+
+        # Travel expenditure total
+        expenditures_travel = Expenditure.query.filter_by(category="Travel", expenditure_userid=id).all()
+
+        # Loop through each item in the travel category, add up the prices
+        i = 0
+        total_travel_price = 0
+
+        for travel_expenditure in expenditures_travel:
+            travel_expenditure = expenditures_travel[i].price
+            i += 1
+            total_travel_price += travel_expenditure
+
+        total_travel_price = str(total_travel_price)
+
+        # Clothing expenditure total
+        expenditures_clothing = Expenditure.query.filter_by(category="Clothing", expenditure_userid=id).all()
+
+        # Loop through each item in the clothing category, add up the prices
+        i = 0
+        total_clothing_price = 0
+
+        for clothing_expenditure in expenditures_clothing:
+            clothing_expenditure = expenditures_clothing[i].price
+            i += 1
+            total_clothing_price += clothing_expenditure
+
+        total_clothing_price = str(total_clothing_price)
+
+        # Entertainment expenditure total
+        expenditures_entertainment = Expenditure.query.filter_by(category="Entertainment", expenditure_userid=id).all()
+
+        # Loop through each item in the entertainment category, add up the prices
+        i = 0
+        total_entertainment_price = 0
+
+        for entertainment_expenditure in expenditures_entertainment:
+            entertainment_expenditure = expenditures_entertainment[i].price
+            i += 1
+            total_entertainment_price += entertainment_expenditure
+
+        total_entertainment_price = str(total_entertainment_price)
+
+        # Online purchase expenditure total
+        expenditures_online_purchase = Expenditure.query.filter_by(category="Online purchase", expenditure_userid=id).all()
+
+        # Loop through each item in the online purchase category, add up the prices
+        i = 0
+        total_online_purchase_price = 0
+
+        for online_purchase_expenditure in expenditures_online_purchase:
+            online_purchase_expenditure = expenditures_online_purchase[i].price
+            i += 1
+            total_online_purchase_price += online_purchase_expenditure
+
+        total_online_purchase_price = str(total_online_purchase_price)
+
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
                                                 name=user.name,
                                                 password=user.password,
                                                 email=user.email,
                                                 expenditures=expenditures,
-                                                id=id)
+                                                id=id,
+                                                total_food_price=total_food_price,
+                                                total_travel_price=total_travel_price,
+                                                total_clothing_price=total_clothing_price,
+                                                total_entertainment_price=total_entertainment_price,
+                                                total_online_purchase_price=total_online_purchase_price)
 
 
 @app.route('/expenditure-form', methods=["GET", "POST"])
