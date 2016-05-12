@@ -60,7 +60,44 @@ def dashboard(id):
             # Add to the total amount spent
             total_spent += total_food_price
 
+        # FIXME: getting the average spent for food category, handling
+        # dividing by zero
+
+        # This is the average amount spent on expenditures in the food category
+        try:
+            avg_food_expenditures = total_food_price/len(expenditures_food)
+        except ZeroDivisionError:
+            avg_food_expenditures = "0"
+
+        # Converting the total food price to a string for jinja
         total_food_price = str(total_food_price)
+
+        # Groceries expenditure total
+        expenditures_groceries = Expenditure.query.filter_by(category="Groceries", expenditure_userid=id).all()
+
+        # This is total amount spent - it will be increased with every purchase
+        total_spent = 0
+
+        # Loop through each item in the food category, add up the prices
+        i = 0
+        total_groceries_price = 0
+
+        for groceries_expenditure in expenditures_groceries:
+            groceries_expenditure = expenditures_groceries[i].price
+            i += 1
+            total_groceries_price += groceries_expenditure
+
+            # Add to the total amount spent
+            total_spent += total_groceries_price
+
+        # This is the average amount spent on expenditures in the groceries category
+        try:
+            avg_groceries_expenditures = total_groceries_price/len(expenditures_groceries)
+        except ZeroDivisionError:
+            avg_groceries_expenditures = "0"
+
+        # Converting the total groceries price to a string for jinja
+        total_groceries_price = str(total_groceries_price)
 
         # Travel expenditure total
         expenditures_travel = Expenditure.query.filter_by(category="Travel", expenditure_userid=id).all()
@@ -77,6 +114,13 @@ def dashboard(id):
             # Add to the total amount spent
             total_spent += total_travel_price
 
+        # This is the average amount spent on expenditures in the travel category
+        try:
+            avg_travel_expenditures = total_travel_price/len(expenditures_travel)
+        except ZeroDivisionError:
+            avg_travel_expenditures = "0"
+
+        # Converting the total travel price to a string for jinja
         total_travel_price = str(total_travel_price)
 
         # Clothing expenditure total
@@ -94,6 +138,13 @@ def dashboard(id):
             # Add to the total amount spent
             total_spent += total_clothing_price
 
+        # This is the average amount spent on expenditures in the clothing category
+        try:
+            avg_clothing_expenditures = total_clothing_price/len(expenditures_clothing)
+        except ZeroDivisionError:
+            avg_clothing_expenditures = "0"
+
+        # Converting the total clothing price to a string for jinja
         total_clothing_price = str(total_clothing_price)
 
         # Entertainment expenditure total
@@ -111,6 +162,13 @@ def dashboard(id):
             # Add to the total amount spent
             total_spent += total_entertainment_price
 
+        # This is the average amount spent on expenditures in the entertainment category
+        try:
+            avg_entertainment_expenditures = total_entertainment_price/len(expenditures_entertainment)
+        except ZeroDivisionError:
+            avg_entertainment_expenditures = "0"
+
+        # Converting the total clothing price to a string for jinja
         total_entertainment_price = str(total_entertainment_price)
 
         # Online purchase expenditure total
@@ -128,6 +186,13 @@ def dashboard(id):
             # Add to the total amount spent
             total_spent += total_online_purchase_price
 
+        # This is the average amount spent on expenditures in the online category
+        try:
+            avg_online_expenditures = total_online_purchase_price/len(expenditures_online_purchase)
+        except ZeroDivisionError:
+            avg_online_expenditures = "0"
+
+        # Converting the total online price to a string for jinja
         total_online_purchase_price = str(total_online_purchase_price)
 
         ########################################################################
@@ -146,6 +211,13 @@ def dashboard(id):
                                                 total_clothing_price=total_clothing_price,
                                                 total_entertainment_price=total_entertainment_price,
                                                 total_online_purchase_price=total_online_purchase_price,
+                                                total_groceries_price=total_groceries_price,
+                                                avg_online_expenditures=avg_online_expenditures,
+                                                avg_entertainment_expenditures=avg_entertainment_expenditures,
+                                                avg_clothing_expenditures=avg_clothing_expenditures,
+                                                avg_travel_expenditures=avg_travel_expenditures,
+                                                avg_groceries_expenditures=avg_groceries_expenditures,
+                                                avg_food_expenditures=avg_food_expenditures,
                                                 total_spent=total_spent)
 
 
@@ -192,6 +264,7 @@ def remove_expenditure(id):
     """ Remove an expenditure from the database """
 
     # This is the expenditure object we are working with
+    # FIXME: expenditure_at_hand and expenditure_stuff are the same. Fix this!
     expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
 
     # This queries for the id of the user tied to the expenditure
