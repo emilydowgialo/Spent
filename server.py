@@ -50,9 +50,6 @@ def dashboard(id):
 def expenditure_form():
     """ Add more expenditures on this expenditure form """
 
-    # id = User.query.filter_by(id=id).first()
-    # id = user_id.id
-
     # This is the homepage
     return render_template("expenditures-form.html")
 
@@ -63,9 +60,6 @@ def add_expenditure():
 
     # Set the value of the user id of the user in the session
     id = session.get('id')
-
-    user_id = Expenditure.query.filter(Expenditure.id == id).first()
-    user_id = user_id.id
 
     # Get values from the form
     category = request.form.get("category")
@@ -80,7 +74,7 @@ def add_expenditure():
                                   date_of_expenditure=date_of_expenditure,
                                   where_bought=where_bought,
                                   description=description,
-                                  expenditure_userid=user_id)
+                                  expenditure_userid=id)
 
     # Insert the new expenditure into the expenditures table and commit the insert
     db.session.add(new_expenditure)
