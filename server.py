@@ -39,11 +39,11 @@ def dashboard(id):
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
-                                name=user.name,
-                                password=user.password,
-                                email=user.email,
-                                expenditures=expenditures,
-                                id=id)
+                                                name=user.name,
+                                                password=user.password,
+                                                email=user.email,
+                                                expenditures=expenditures,
+                                                id=id)
 
 
 @app.route('/expenditure-form', methods=["GET", "POST"])

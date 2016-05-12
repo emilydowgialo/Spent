@@ -40,15 +40,19 @@ def init_app():
     from flask import Flask
     app = Flask(__name__)
 
-    connect_to_db(app)
+    spent_database = 'postgres:///spending'
+
+    connect_to_db(app, spent_database)
     print "Connected to DB."
 
 
-def connect_to_db(app):
+def connect_to_db(app, spent_database):
     """ Connect the database to our Flask app. """
 
+    # spent_database = 'postgres:///spending'
+
     # Configure to use the database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres:///spending'
+    app.config['SQLALCHEMY_DATABASE_URI'] = spent_database
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.app = app
@@ -64,5 +68,7 @@ if __name__ == "__main__":
 
     app = Flask(__name__)
 
-    connect_to_db(app)
+    spent_database = 'postgres:///spending'
+
+    connect_to_db(app, spent_database)
     print "Connected to DB."
