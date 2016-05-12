@@ -155,6 +155,9 @@ def login():
 def login_form():
     """ Login form """
 
+    # FIXME: login breaks if incorrect email but correct password
+    # login works with incorrect password
+
     # Gather information from the login form
     email = request.form.get("email")
     password = request.form.get("password")
@@ -173,6 +176,22 @@ def login_form():
 
         # Take the user back to the homepage so they can try logging in again
         # or sign up if they haven't
+        return redirect(url_for("index"))
+
+    # If the user logs in with the incorrect email an error message will flash
+    # and they will not be logged in
+    elif email_login_query is None:
+
+        flash('Error in logging in')
+
+        return redirect(url_for("index"))
+
+    # If the user logs in with the incorrect password an error message will flash
+    # and they will not be logged in
+    elif password_login_query is None:
+
+        flash('Error in logging in')
+
         return redirect(url_for("index"))
 
     else:
@@ -199,7 +218,8 @@ if __name__ == "__main__":
     app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-    connect_to_db(app)
+    spent_database = 'postgres:///spending'
+    connect_to_db(app, spent_database)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)

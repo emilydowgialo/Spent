@@ -5,10 +5,10 @@ from model import db, connect_to_db, User
 
 
 class SpentDatabaseTests(unittest.TestCase):
-    """Flask tests that use the database."""
+    """ Flask tests that use the database """
 
     def setUp(self):
-        """Stuff to do before every test."""
+        """ Stuff to do before every test """
         app.config['TESTING'] = True
         app.config['SECRET_KEY'] = 'key123'
         self.client = app.test_client()
@@ -21,7 +21,7 @@ class SpentDatabaseTests(unittest.TestCase):
         # example_data()
 
     def tearDown(self):
-        """Do at end of every test."""
+        """ Do at end of every test """
 
         # (uncomment when testing database)
         db.session.close()
