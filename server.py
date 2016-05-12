@@ -26,14 +26,6 @@ def index():
 def dashboard(id):
     """ This is the user dashboard """
 
-    print
-    print
-    print
-    print id
-    print
-    print
-    print
-
     # If the user id is in the session, this will render the dashboard
     # template, which will display their information and expenditure information
     if 'id' in session:
@@ -41,31 +33,10 @@ def dashboard(id):
         # This is the user object
         user = User.query.filter_by(id=id).first()
 
-        print
-        print
-        print user
-        print
-        print
-
-        print
-        print
-        print
-        print user.name
-        print
-        print
-        print
-
         # This is the expenditure object, which contains information about
         # expenditures specific to the user from the expenditure table in the
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
-
-        print
-        print
-        print expenditures
-        print
-        print
-        print
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
