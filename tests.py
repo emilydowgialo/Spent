@@ -9,6 +9,7 @@ class SpentDatabaseTests(unittest.TestCase):
 
     def setUp(self):
         """ Stuff to do before every test """
+
         app.config['TESTING'] = True
         app.config['SECRET_KEY'] = 'key123'
         self.client = app.test_client()
@@ -21,7 +22,7 @@ class SpentDatabaseTests(unittest.TestCase):
         # example_data()
 
     def tearDown(self):
-        """ Do at end of every test """
+        """ Do at end of every test - drop the database """
 
         # (uncomment when testing database)
         db.session.close()

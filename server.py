@@ -45,6 +45,9 @@ def dashboard(id):
         # Food expenditure total
         expenditures_food = Expenditure.query.filter_by(category="Food", expenditure_userid=id).all()
 
+        # This is total amount spent - it will be increased with every purchase
+        total_spent = 0
+
         # Loop through each item in the food category, add up the prices
         i = 0
         total_food_price = 0
@@ -53,6 +56,9 @@ def dashboard(id):
             food_expenditure = expenditures_food[i].price
             i += 1
             total_food_price += food_expenditure
+
+            # Add to the total amount spent
+            total_spent += total_food_price
 
         total_food_price = str(total_food_price)
 
@@ -68,6 +74,9 @@ def dashboard(id):
             i += 1
             total_travel_price += travel_expenditure
 
+            # Add to the total amount spent
+            total_spent += total_travel_price
+
         total_travel_price = str(total_travel_price)
 
         # Clothing expenditure total
@@ -81,6 +90,9 @@ def dashboard(id):
             clothing_expenditure = expenditures_clothing[i].price
             i += 1
             total_clothing_price += clothing_expenditure
+
+            # Add to the total amount spent
+            total_spent += total_clothing_price
 
         total_clothing_price = str(total_clothing_price)
 
@@ -96,6 +108,9 @@ def dashboard(id):
             i += 1
             total_entertainment_price += entertainment_expenditure
 
+            # Add to the total amount spent
+            total_spent += total_entertainment_price
+
         total_entertainment_price = str(total_entertainment_price)
 
         # Online purchase expenditure total
@@ -110,7 +125,14 @@ def dashboard(id):
             i += 1
             total_online_purchase_price += online_purchase_expenditure
 
+            # Add to the total amount spent
+            total_spent += total_online_purchase_price
+
         total_online_purchase_price = str(total_online_purchase_price)
+
+        ########################################################################
+        # END OF CATEGORY TOTAL PRICE CALCULATIONS
+        ########################################################################
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
@@ -123,7 +145,8 @@ def dashboard(id):
                                                 total_travel_price=total_travel_price,
                                                 total_clothing_price=total_clothing_price,
                                                 total_entertainment_price=total_entertainment_price,
-                                                total_online_purchase_price=total_online_purchase_price)
+                                                total_online_purchase_price=total_online_purchase_price,
+                                                total_spent=total_spent)
 
 
 @app.route('/expenditure-form', methods=["GET", "POST"])
