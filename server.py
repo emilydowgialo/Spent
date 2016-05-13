@@ -270,11 +270,8 @@ def remove_expenditure(id):
     # This queries for the id of the user tied to the expenditure
     expenditure_id = expenditure_at_hand.expenditure_userid
 
-    # This queries the expenditure details
-    expenditure_stuff = Expenditure.query.filter_by(id=id).first()
-
     # Deletes the expenditure item from the expenditure table
-    db.session.delete(expenditure_stuff)
+    db.session.delete(expenditure_at_hand)
     db.session.commit()
 
     # Redirect the user to their dashboard

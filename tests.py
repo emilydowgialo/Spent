@@ -1,7 +1,7 @@
 import unittest
 
 from server import app
-from model import db, connect_to_db, User
+from model import db, connect_to_db, User, example_data
 
 
 class SpentDatabaseTests(unittest.TestCase):
@@ -19,7 +19,7 @@ class SpentDatabaseTests(unittest.TestCase):
 
         # Create tables and add sample data (uncomment when testing database)
         db.create_all()
-        # example_data()
+        example_data()
 
     def tearDown(self):
         """ Do at end of every test - drop the database """
@@ -51,6 +51,22 @@ class SpentDatabaseTests(unittest.TestCase):
 
         # Verify that the user email is kitty@kitty.com - it will register as True
         self.assertTrue(user_test.email == "kitty@kitty.com")
+
+    def test_signup_fail(self):
+        """ Test for an error in signing up as a user that already exists """
+
+        result = self.client.post("/sign-up", data=dict(
+            name="Mu",
+            email="mu@mu.com",
+            password="mu"), follow_redirects=True)
+
+        print
+        print
+        print result.data
+        print
+        print
+
+        self.assertIn("A user by this name already exists", result.data)
 
 
 if __name__ == "__main__":
