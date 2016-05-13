@@ -61,7 +61,7 @@ def connect_to_db(app, spent_database):
 
 def example_data():
     """Create example data for the test database."""
-    #FIXME: write a function that creates a game and adds it to the database.
+
     fakeuser = User(name="Mu", email="mu@mu.com", password="mu")
 
     db.session.add_all([fakeuser])
