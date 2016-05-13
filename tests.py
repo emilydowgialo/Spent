@@ -28,7 +28,7 @@ class SpentDatabaseTests(unittest.TestCase):
         db.session.close()
         db.drop_all()
 
-    def test_signup(self):
+    def test_signup_creates_new_user(self):
         """ Test that registering creates a new user """
 
         # Adding a new test user to the database
@@ -36,12 +36,6 @@ class SpentDatabaseTests(unittest.TestCase):
             name="kitty",
             email="kitty@kitty.com",
             password="kitty"), follow_redirects=True)
-
-        print
-        print
-        print result.data
-        print
-        print
 
         # Checking is parameter a is in b
         self.assertIn("You have successfully signed up", result.data)
@@ -52,21 +46,51 @@ class SpentDatabaseTests(unittest.TestCase):
         # Verify that the user email is kitty@kitty.com - it will register as True
         self.assertTrue(user_test.email == "kitty@kitty.com")
 
-    def test_signup_fail(self):
+    def test_signup_fail_user_already_exists(self):
         """ Test for an error in signing up as a user that already exists """
 
+        # Try to sign up as an already existing user
         result = self.client.post("/sign-up", data=dict(
             name="Mu",
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
 
-        print
-        print
-        print result.data
-        print
-        print
-
+        # This should flash if a user already exists in the database
         self.assertIn("A user by this name already exists", result.data)
+
+    def test_signin_fail_wrong_password(self):
+        """ Test for an error in logging in with the incorrect password """
+
+        result = self.client.post("/login-form", data=dict(
+            email="mu@mu.com",
+            password="m"), follow_redirects=True)
+
+        self.assertIn("Error in logging in", result.data)
+
+    def test_signin_fail_wrong_email(self):
+        """ Test for an error in logging in with the incorrect email """
+
+        result = self.client.post("/login-form", data=dict(
+            email="mu@m.com",
+            password="mu"), follow_redirects=True)
+
+    def test_signin_fail_wrong_email_and_password(self):
+        """ Test for an error in logging in with the incorrect email and password """
+
+        result = self.client.post("/login-form", data=dict(
+            email="ashdgu@m.com",
+            password="maskj"), follow_redirects=True)
+
+        self.assertIn("Error in logging in", result.data)
+
+    def test_signin_success(self):
+        """ Test for successfully logging in """
+
+        result = self.client.post("/login-form", data=dict(
+            email="mu@mu.com",
+            password="mu"), follow_redirects=True)
+
+        self.assertIn("Dashboard", result.data)
 
 
 if __name__ == "__main__":
