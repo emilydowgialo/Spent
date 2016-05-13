@@ -74,6 +74,8 @@ class SpentDatabaseTests(unittest.TestCase):
             email="mu@m.com",
             password="mu"), follow_redirects=True)
 
+        self.assertIn("Error in logging in", result.data)
+
     def test_signin_fail_wrong_email_and_password(self):
         """ Test for an error in logging in with the incorrect email and password """
 
@@ -85,6 +87,15 @@ class SpentDatabaseTests(unittest.TestCase):
 
     def test_signin_success(self):
         """ Test for successfully logging in """
+
+        result = self.client.post("/login-form", data=dict(
+            email="mu@mu.com",
+            password="mu"), follow_redirects=True)
+
+        self.assertIn("Dashboard", result.data)
+
+    def test_login_redirect(self):
+        """ Test for successfully being redirected to the login form """
 
         result = self.client.post("/login-form", data=dict(
             email="mu@mu.com",
