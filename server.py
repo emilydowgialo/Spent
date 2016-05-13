@@ -49,12 +49,9 @@ def dashboard(id):
         total_spent = 0
 
         # Loop through each item in the food category, add up the prices
-        i = 0
         total_food_price = 0
 
         for food_expenditure in expenditures_food:
-            food_expenditure = expenditures_food[i].price
-            i += 1
             total_food_price += food_expenditure
 
             # Add to the total amount spent
@@ -79,16 +76,14 @@ def dashboard(id):
         total_spent = 0
 
         # Loop through each item in the food category, add up the prices
-        i = 0
         total_groceries_price = 0
 
         for groceries_expenditure in expenditures_groceries:
-            groceries_expenditure = expenditures_groceries[i].price
-            i += 1
-            total_groceries_price += groceries_expenditure
+            total_groceries_price += groceries_expenditure.price
 
             # Add to the total amount spent
-            total_spent += total_groceries_price
+            # total_spent += total_groceries_price
+            total_spent += groceries_expenditure.price
 
         # This is the average amount spent on expenditures in the groceries category
         try:
@@ -103,16 +98,13 @@ def dashboard(id):
         expenditures_travel = Expenditure.query.filter_by(category="Travel", expenditure_userid=id).all()
 
         # Loop through each item in the travel category, add up the prices
-        i = 0
         total_travel_price = 0
 
         for travel_expenditure in expenditures_travel:
-            travel_expenditure = expenditures_travel[i].price
-            i += 1
-            total_travel_price += travel_expenditure
+            total_travel_price += travel_expenditure.price
 
             # Add to the total amount spent
-            total_spent += total_travel_price
+            total_spent += travel_expenditure.price
 
         # This is the average amount spent on expenditures in the travel category
         try:
@@ -127,16 +119,13 @@ def dashboard(id):
         expenditures_clothing = Expenditure.query.filter_by(category="Clothing", expenditure_userid=id).all()
 
         # Loop through each item in the clothing category, add up the prices
-        i = 0
         total_clothing_price = 0
 
         for clothing_expenditure in expenditures_clothing:
-            clothing_expenditure = expenditures_clothing[i].price
-            i += 1
-            total_clothing_price += clothing_expenditure
+            total_clothing_price += clothing_expenditure.price
 
             # Add to the total amount spent
-            total_spent += total_clothing_price
+            total_spent += clothing_expenditure.price
 
         # This is the average amount spent on expenditures in the clothing category
         try:
@@ -151,16 +140,13 @@ def dashboard(id):
         expenditures_entertainment = Expenditure.query.filter_by(category="Entertainment", expenditure_userid=id).all()
 
         # Loop through each item in the entertainment category, add up the prices
-        i = 0
         total_entertainment_price = 0
 
         for entertainment_expenditure in expenditures_entertainment:
-            entertainment_expenditure = expenditures_entertainment[i].price
-            i += 1
-            total_entertainment_price += entertainment_expenditure
+            total_entertainment_price += entertainment_expenditure.price
 
             # Add to the total amount spent
-            total_spent += total_entertainment_price
+            total_spent += entertainment_expenditure.price
 
         # This is the average amount spent on expenditures in the entertainment category
         try:
@@ -178,10 +164,26 @@ def dashboard(id):
         i = 0
         total_online_purchase_price = 0
 
+        print
+        print "total online purchase price"
+        print total_online_purchase_price
+        print
+        print
+
         for online_purchase_expenditure in expenditures_online_purchase:
             online_purchase_expenditure = expenditures_online_purchase[i].price
             i += 1
             total_online_purchase_price += online_purchase_expenditure
+
+            print
+            print
+            print "total online purchase price"
+            print total_online_purchase_price
+            print
+            print "online_purchase_expenditure"
+            print online_purchase_expenditure
+            print
+            print
 
             # Add to the total amount spent
             total_spent += total_online_purchase_price
