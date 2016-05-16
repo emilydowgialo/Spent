@@ -75,9 +75,6 @@ def dashboard(id):
             # Add to the total amount spent
             total_spent += total_food_price
 
-        # FIXME: getting the average spent for food category, handling
-        # dividing by zero
-
         # This is the average amount spent on expenditures in the food category
         try:
             avg_food_expenditures = total_food_price/len(expenditures_food)
@@ -214,6 +211,146 @@ def dashboard(id):
         # END OF CATEGORY TOTAL PRICE CALCULATIONS
         ########################################################################
 
+        # Calculate how much is left in the budget based on expenditures
+        food_budget = Budget.query.filter_by(category="Food", budget_userid=id).first()
+        food_budget_minus_expenses = 0
+
+        if food_budget is not None:
+
+            print
+            print
+            print food_budget.category
+            print
+            print
+
+            food_budget_total = food_budget.budget
+            food_budget_minus_expenses = float(food_budget_total) - float(total_food_price)
+
+            print
+            print
+            print food_budget_minus_expenses
+            print
+            print
+
+        else:
+            food_budget_minus_expenses = "You haven't added a budget yet"
+
+        online_budget = Budget.query.filter_by(category="Online Purchase", budget_userid=id).first()
+        online_budget_minus_expenses = 0
+
+        if online_budget is not None:
+
+            print
+            print
+            print online_budget.category
+            print
+            print
+
+            online_budget_total = online_budget.budget
+            online_budget_minus_expenses = float(online_budget_total) - float(total_online_purchase_price)
+
+            print
+            print
+            print online_budget_minus_expenses
+            print
+            print
+
+        else:
+            online_budget_minus_expenses = "You haven't added a budget yet"
+
+        travel_budget = Budget.query.filter_by(category="Travel", budget_userid=id).first()
+        travel_budget_minus_expenses = 0
+
+        if travel_budget is not None:
+
+            print
+            print
+            print travel_budget.category
+            print
+            print
+
+            travel_budget_total = travel_budget.budget
+            travel_budget_minus_expenses = float(travel_budget_total) - float(total_travel_price)
+
+            print
+            print
+            print travel_budget_minus_expenses
+            print
+            print
+
+        else:
+            travel_budget_minus_expenses = "You haven't added a budget yet"
+
+        entertainment_budget = Budget.query.filter_by(category="Entertainment", budget_userid=id).first()
+        entertainment_budget_minus_expenses = 0
+
+        if entertainment_budget is not None:
+
+            print
+            print
+            print entertainment_budget.category
+            print
+            print
+
+            entertainment_budget_total = travel_budget.budget
+            entertainment_budget_minus_expenses = float(entertainment_budget_total) - float(total_entertainment_price)
+
+            print
+            print
+            print entertainment_budget_minus_expenses
+            print
+            print
+
+        else:
+            entertainment_budget_minus_expenses = "You haven't added a budget yet"
+
+        groceries_budget = Budget.query.filter_by(category="Groceries", budget_userid=id).first()
+        groceries_budget_minus_expenses = 0
+
+        if groceries_budget is not None:
+
+            print
+            print
+            print groceries_budget.category
+            print
+            print
+
+            groceries_budget_total = groceries_budget.budget
+            groceries_budget_minus_expenses = float(groceries_budget_total) - float(total_groceries_price)
+
+            print
+            print
+            print groceries_budget_minus_expenses
+            print
+            print
+
+        else:
+            groceries_budget_minus_expenses = "You haven't added a budget yet"
+
+        clothing_budget = Budget.query.filter_by(category="Clothing", budget_userid=id).first()
+        clothing_budget_minus_expenses = 0
+
+        if clothing_budget is not None:
+
+            print
+            print
+            print clothing_budget.category
+            print
+            print
+
+            clothing_budget_total = clothing_budget.budget
+            clothing_budget_minus_expenses = float(clothing_budget_total) - float(total_clothing_price)
+
+            print
+            print
+            print clothing_budget_minus_expenses
+            print
+            print
+
+        else:
+
+            clothing_budget_minus_expenses = "You haven't added a budget yet"
+
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
                                                 name=user.name,
@@ -233,6 +370,12 @@ def dashboard(id):
                                                 avg_travel_expenditures=avg_travel_expenditures,
                                                 avg_groceries_expenditures=avg_groceries_expenditures,
                                                 avg_food_expenditures=avg_food_expenditures,
+                                                clothing_budget_minus_expenses=clothing_budget_minus_expenses,
+                                                travel_budget_minus_expenses=travel_budget_minus_expenses,
+                                                groceries_budget_minus_expenses=groceries_budget_minus_expenses,
+                                                food_budget_minus_expenses=food_budget_minus_expenses,
+                                                online_budget_minus_expenses=online_budget_minus_expenses,
+                                                entertainment_budget_minus_expenses=entertainment_budget_minus_expenses,
                                                 total_spent=total_spent,
                                                 budget=budget)
 
@@ -257,17 +400,13 @@ def budget_form():
 def remove_budget(id):
     """ Remove a budget from the database """
 
-    # This is the expenditure object we are working with
-    # FIXME: expenditure_at_hand and expenditure_stuff are the same. Fix this!
+    # This is the budget object we are working with
     budget_at_hand = Budget.query.filter_by(id=id).first()
 
-    # This queries for the id of the user tied to the expenditure
+    # This queries for the id of the user tied to the budget
     budget_id = budget_at_hand.budget_userid
 
-    # This queries the expenditure details
-    # expenditure_stuff = Expenditure.query.filter_by(id=id).first()
-
-    # Deletes the expenditure item from the expenditure table
+    # Deletes the budget item from the budget table
     db.session.delete(budget_at_hand)
     db.session.commit()
 
@@ -363,14 +502,10 @@ def remove_expenditure(id):
     """ Remove an expenditure from the database """
 
     # This is the expenditure object we are working with
-    # FIXME: expenditure_at_hand and expenditure_stuff are the same. Fix this!
     expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
 
     # This queries for the id of the user tied to the expenditure
     expenditure_id = expenditure_at_hand.expenditure_userid
-
-    # This queries the expenditure details
-    # expenditure_stuff = Expenditure.query.filter_by(id=id).first()
 
     # Deletes the expenditure item from the expenditure table
     db.session.delete(expenditure_at_hand)
