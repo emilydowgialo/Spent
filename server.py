@@ -253,6 +253,28 @@ def budget_form():
     return render_template("budget.html")
 
 
+@app.route('/remove-budget/<int:id>', methods=["GET", "POST"])
+def remove_budget(id):
+    """ Remove a budget from the database """
+
+    # This is the expenditure object we are working with
+    # FIXME: expenditure_at_hand and expenditure_stuff are the same. Fix this!
+    budget_at_hand = Budget.query.filter_by(id=id).first()
+
+    # This queries for the id of the user tied to the expenditure
+    budget_id = budget_at_hand.budget_userid
+
+    # This queries the expenditure details
+    # expenditure_stuff = Expenditure.query.filter_by(id=id).first()
+
+    # Deletes the expenditure item from the expenditure table
+    db.session.delete(budget_at_hand)
+    db.session.commit()
+
+    # Redirect the user to their dashboard
+    return redirect(url_for('dashboard', id=budget_id))
+
+
 @app.route('/add-budget', methods=["GET", "POST"])
 def add_budget():
     """ Add a budget """
@@ -348,10 +370,10 @@ def remove_expenditure(id):
     expenditure_id = expenditure_at_hand.expenditure_userid
 
     # This queries the expenditure details
-    expenditure_stuff = Expenditure.query.filter_by(id=id).first()
+    # expenditure_stuff = Expenditure.query.filter_by(id=id).first()
 
     # Deletes the expenditure item from the expenditure table
-    db.session.delete(expenditure_stuff)
+    db.session.delete(expenditure_at_hand)
     db.session.commit()
 
     # Redirect the user to their dashboard
