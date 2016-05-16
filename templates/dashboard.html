@@ -41,8 +41,18 @@
 
     <p>
         Budget:<br>
-        Category: {{ budget_category }}<br>
-        Amount: {{ new_budget }}
+
+    {% for budget in budget %}
+
+    <li>
+
+        {{ budget.budget }}<br>
+        {{ budget.category }}<br>
+
+    </li>
+
+    {% endfor %}
+
     </p>
 
     <p>

@@ -34,18 +34,19 @@ def dashboard(id):
         user = User.query.filter_by(id=id).first()
 
         # This is the user's budget
-        budget = Budget.query.filter_by(id=id).first()
-        new_budget = budget.budget
-        budget_category = budget.category
+        budget = Budget.query.filter_by(budget_userid=id).all()
+        # new_budget = budget.budget
+        # budget_category = budget.category
 
-        print
-        print "this is budget"
-        print budget
-        print
-        print "category"
-        print budget_category
-        print
-        print
+        # print
+        # print "this is budget"
+        # print budget
+        # print "this is budget 1"
+        # print budget[0]
+        # # print "category"
+        # # print budget_category
+        # print
+        # print
 
         # This is the expenditure object, which contains information about
         # expenditures specific to the user from the expenditure table in the
@@ -233,8 +234,7 @@ def dashboard(id):
                                                 avg_groceries_expenditures=avg_groceries_expenditures,
                                                 avg_food_expenditures=avg_food_expenditures,
                                                 total_spent=total_spent,
-                                                new_budget=new_budget,
-                                                budget_category=budget_category)
+                                                budget=budget)
 
 
 @app.route('/expenditure-form', methods=["GET", "POST"])
@@ -273,15 +273,18 @@ def add_budget():
     user_budget_query = Budget.query.filter_by(budget_userid=id).all()
     # user_budget_query_cat = user_budget_query.category
 
-    print
-    print
-    print "user_budget_query"
-    print user_budget_query[0].budget_userid
-    print
-    print user_budget_query[0].category
-    print len(user_budget_query)
-    print
+    for query in user_budget_query:
+        print
+        print
+        print "user_budget_query"
+        print query.id
+        print
+        print query.category
+        print
+        print
 
+    # Check for budgets in the database under the user ID in particular categories;
+    # delete budgets that exist to override them
     for query in user_budget_query:
         if query.category == category:
             print "AHA!"
@@ -289,34 +292,18 @@ def add_budget():
             db.session.delete(query)
             db.session.commit()
 
-        # else:
-        #     print "OH IT'S NEW"
-        #     print query.category, query.id, query.budget_userid
-            # # Create a new expenditure object to insert into the expenditures table
-            # new_budget = Budget(budget=budget,
-            #                     category=category,
-            #                     budget_userid=id)
-
-            # # Insert the new expenditure into the expenditures table and commit the insert
-            # db.session.add(new_budget)
-            # db.session.commit()
-
-            print
-            print
-            print
-
+    # Add the budget to the database
     new_budget = Budget(budget=budget,
                         category=category,
                         budget_userid=id)
 
-    # Insert the new expenditure into the expenditures table and commit the insert
+    # Insert the new budget into the budget table and commit the insert
     db.session.add(new_budget)
     db.session.commit()
 
     # Redirect to the dashboard
     return redirect(url_for('dashboard',
                              id=id))
-                             # new_budget=new_budget))
 
 
 @app.route('/add-expenditure-to-db', methods=["GET", "POST"])
