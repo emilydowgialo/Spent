@@ -43,6 +43,10 @@
         Total spent: {{ total_spent }}
     </p>
 
+    <p>
+        <form action="/budget-form" method="POST">
+            <input type="submit" value="Add Budget">
+        </form>
     <ul>
 
       {% for expenditure in expenditures %}
@@ -63,12 +67,12 @@
 
     <p>
         <form action="/expenditure-form" method="POST">
-    <input type="submit" value="Add An Expenditure">
+            <input type="submit" value="Add An Expenditure">
         </form>
 
     <p>
         <form action="/logout" method="POST">
-    <input type="submit" value="Log Out">
+            <input type="submit" value="Log Out">
         </form>
 
 

@@ -15,6 +15,19 @@ class User(db.Model):
     password = db.Column(db.String(64))
 
 
+class Budget(db.Model):
+    """ This is the user's budget """
+
+    __tablename__ = "budget"
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    budget = db.Column(db.Integer)
+    category = db.Column(db.String(64), nullable=True)
+    budget_userid = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    user = db.relationship("User", backref=db.backref('budget'))
+
+
 class Expenditure(db.Model):
     """ This contains expenditures """
 

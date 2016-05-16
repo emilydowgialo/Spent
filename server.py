@@ -3,7 +3,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, request, render_template, session, url_for, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, connect_to_db, db, Expenditure
+from model import User, connect_to_db, db, Expenditure, Budget
 
 from sqlalchemy.sql import and_
 
@@ -33,6 +33,19 @@ def dashboard(id):
         # This is the user object
         user = User.query.filter_by(id=id).first()
 
+        # This is the user's budget
+        budget = Budget.query.filter_by(id=id).first()
+        budget_category = budget.category
+
+        print
+        print "this is budget"
+        print budget
+        print
+        print "category"
+        print budget_category
+        print
+        print
+
         # This is the expenditure object, which contains information about
         # expenditures specific to the user from the expenditure table in the
         # database
@@ -49,9 +62,12 @@ def dashboard(id):
         total_spent = 0
 
         # Loop through each item in the food category, add up the prices
+        i = 0
         total_food_price = 0
 
         for food_expenditure in expenditures_food:
+            food_expenditure = expenditures_food[i].price
+            i += 1
             total_food_price += food_expenditure
 
             # Add to the total amount spent
@@ -76,14 +92,16 @@ def dashboard(id):
         total_spent = 0
 
         # Loop through each item in the food category, add up the prices
+        i = 0
         total_groceries_price = 0
 
         for groceries_expenditure in expenditures_groceries:
-            total_groceries_price += groceries_expenditure.price
+            groceries_expenditure = expenditures_groceries[i].price
+            i += 1
+            total_groceries_price += groceries_expenditure
 
             # Add to the total amount spent
-            # total_spent += total_groceries_price
-            total_spent += groceries_expenditure.price
+            total_spent += total_groceries_price
 
         # This is the average amount spent on expenditures in the groceries category
         try:
@@ -98,13 +116,16 @@ def dashboard(id):
         expenditures_travel = Expenditure.query.filter_by(category="Travel", expenditure_userid=id).all()
 
         # Loop through each item in the travel category, add up the prices
+        i = 0
         total_travel_price = 0
 
         for travel_expenditure in expenditures_travel:
-            total_travel_price += travel_expenditure.price
+            travel_expenditure = expenditures_travel[i].price
+            i += 1
+            total_travel_price += travel_expenditure
 
             # Add to the total amount spent
-            total_spent += travel_expenditure.price
+            total_spent += total_travel_price
 
         # This is the average amount spent on expenditures in the travel category
         try:
@@ -119,13 +140,16 @@ def dashboard(id):
         expenditures_clothing = Expenditure.query.filter_by(category="Clothing", expenditure_userid=id).all()
 
         # Loop through each item in the clothing category, add up the prices
+        i = 0
         total_clothing_price = 0
 
         for clothing_expenditure in expenditures_clothing:
-            total_clothing_price += clothing_expenditure.price
+            clothing_expenditure = expenditures_clothing[i].price
+            i += 1
+            total_clothing_price += clothing_expenditure
 
             # Add to the total amount spent
-            total_spent += clothing_expenditure.price
+            total_spent += total_clothing_price
 
         # This is the average amount spent on expenditures in the clothing category
         try:
@@ -140,13 +164,16 @@ def dashboard(id):
         expenditures_entertainment = Expenditure.query.filter_by(category="Entertainment", expenditure_userid=id).all()
 
         # Loop through each item in the entertainment category, add up the prices
+        i = 0
         total_entertainment_price = 0
 
         for entertainment_expenditure in expenditures_entertainment:
-            total_entertainment_price += entertainment_expenditure.price
+            entertainment_expenditure = expenditures_entertainment[i].price
+            i += 1
+            total_entertainment_price += entertainment_expenditure
 
             # Add to the total amount spent
-            total_spent += entertainment_expenditure.price
+            total_spent += total_entertainment_price
 
         # This is the average amount spent on expenditures in the entertainment category
         try:
@@ -164,26 +191,10 @@ def dashboard(id):
         i = 0
         total_online_purchase_price = 0
 
-        print
-        print "total online purchase price"
-        print total_online_purchase_price
-        print
-        print
-
         for online_purchase_expenditure in expenditures_online_purchase:
             online_purchase_expenditure = expenditures_online_purchase[i].price
             i += 1
             total_online_purchase_price += online_purchase_expenditure
-
-            print
-            print
-            print "total online purchase price"
-            print total_online_purchase_price
-            print
-            print "online_purchase_expenditure"
-            print online_purchase_expenditure
-            print
-            print
 
             # Add to the total amount spent
             total_spent += total_online_purchase_price
@@ -194,7 +205,7 @@ def dashboard(id):
         except ZeroDivisionError:
             avg_online_expenditures = "0"
 
-        # Converting the total online price to a string for jinja
+        # Converting the total online price to a string
         total_online_purchase_price = str(total_online_purchase_price)
 
         ########################################################################
@@ -229,6 +240,38 @@ def expenditure_form():
 
     # This is the expenditure form
     return render_template("expenditures-form.html")
+
+
+@app.route('/budget-form', methods=["GET", "POST"])
+def budget_form():
+    """ Go to the budget form """
+
+    # This is the budget form
+    return render_template("budget.html")
+
+
+@app.route('/add-budget', methods=["GET", "POST"])
+def add_budget():
+    """ Add a budget """
+
+    # Set the value of the user id of the user in the session
+    id = session.get('id')
+
+    # Get values from the form
+    budget = request.form.get("budget")
+    category = request.form.get("category")
+
+    # Create a new expenditure object to insert into the expenditures table
+    new_budget = Budget(budget=budget,
+                        category=category,
+                        budget_userid=id)
+
+    # Insert the new expenditure into the expenditures table and commit the insert
+    db.session.add(new_budget)
+    db.session.commit()
+
+    # Redirect to the dashboard
+    return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/add-expenditure-to-db', methods=["GET", "POST"])
@@ -272,8 +315,11 @@ def remove_expenditure(id):
     # This queries for the id of the user tied to the expenditure
     expenditure_id = expenditure_at_hand.expenditure_userid
 
+    # This queries the expenditure details
+    expenditure_stuff = Expenditure.query.filter_by(id=id).first()
+
     # Deletes the expenditure item from the expenditure table
-    db.session.delete(expenditure_at_hand)
+    db.session.delete(expenditure_stuff)
     db.session.commit()
 
     # Redirect the user to their dashboard

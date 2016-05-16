@@ -1,7 +1,7 @@
 """ Utility file to seed spending database in seed_data/ """
 
 from sqlalchemy import func
-from model import User, Expenditure
+from model import User, Expenditure, Budget
 
 from model import connect_to_db, db
 from server import app
@@ -33,6 +33,36 @@ def load_users():
 
         # We need to add to the session or it won't ever be stored
         db.session.add(user)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
+
+def load_budget():
+    """ Load budget from budget.csv into database """
+
+    print "Budget"
+
+    # Delete all rows in table, so if we need to run this a second time,
+    # we won't be trying to add duplicate users
+    Budget.query.delete()
+
+    # Read users.csv file and insert data into the session
+    for row in open("seed_data/budget.csv"):
+        row = row.rstrip()
+        budget_data = row.split("|")
+        id = budget_data[0]
+        budget = budget_data[1]
+        category = budget_data[2]
+        budget_userid = budget_data[3]
+
+        budget = Budget(id=id,
+                        budget=budget,
+                        category=category,
+                        budget_userid=budget_userid)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(budget)
 
     # Once we're done, we should commit our work
     db.session.commit()
@@ -75,7 +105,7 @@ def load_expenditures():
 
 
 def set_val_user_id():
-    """ Set value for the next user_id after seeding database """
+    """ Set value for the next user id after seeding database """
 
     # Get the Max user id in the database
     result = db.session.query(func.max(User.id)).one()
@@ -91,7 +121,7 @@ def set_val_user_id():
 
 
 def set_val_expenditure_id():
-    """ Set value for the next user_id after seeding database """
+    """ Set value for the next expenditure id after seeding database """
 
     # Get the Max expenditure id in the database
     result = db.session.query(func.max(Expenditure.id)).one()
@@ -106,8 +136,25 @@ def set_val_expenditure_id():
     db.session.commit()
 
 
+def set_val_budget_id():
+    """ Set value for the next budget id after seeding database """
+
+    # Get the Max user id in the database
+    result = db.session.query(func.max(Budget.id)).one()
+
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    # Note to self: the 'users_id_seq' variable is based on the Users table
+    query = "SELECT setval('budget_id_seq', :new_id)"
+
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
+
 if __name__ == "__main__":
-    connect_to_db(app)
+    spent_database = 'postgres:///spending'
+    connect_to_db(app, spent_database)
 
     # In case tables haven't been created, create them
     db.create_all()
@@ -115,5 +162,7 @@ if __name__ == "__main__":
     # Import different types of data
     load_users()
     load_expenditures()
+    load_budget()
     set_val_user_id()
     set_val_expenditure_id()
+    set_val_budget_id()

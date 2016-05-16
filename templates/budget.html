@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+    <h2>Budget</h2>
+
+    <form action="/add-budget" method="POST">
+      Category: 
+      <select name="category">
+    <option value="Food">Food</option>
+    <option value="Travel">Travel</option>
+    <option value="Online purchase">Online Purchase</option>
+    <option value="Clothing">Clothing</option>
+    <option value="Groceries">Groceries</option>
+      </select>
+    <p>Budget: 
+      <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
+
+    <input type="submit" value="Submit">
+    </form>
+
+
+{% endblock %}
