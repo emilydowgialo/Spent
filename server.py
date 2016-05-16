@@ -35,6 +35,7 @@ def dashboard(id):
 
         # This is the user's budget
         budget = Budget.query.filter_by(id=id).first()
+        new_budget = budget.budget
         budget_category = budget.category
 
         print
@@ -231,7 +232,9 @@ def dashboard(id):
                                                 avg_travel_expenditures=avg_travel_expenditures,
                                                 avg_groceries_expenditures=avg_groceries_expenditures,
                                                 avg_food_expenditures=avg_food_expenditures,
-                                                total_spent=total_spent)
+                                                total_spent=total_spent,
+                                                new_budget=new_budget,
+                                                budget_category=budget_category)
 
 
 @app.route('/expenditure-form', methods=["GET", "POST"])
@@ -257,11 +260,51 @@ def add_budget():
     # Set the value of the user id of the user in the session
     id = session.get('id')
 
+    print
+    print
+    print "id"
+    print id
+    print
+
     # Get values from the form
     budget = request.form.get("budget")
     category = request.form.get("category")
 
-    # Create a new expenditure object to insert into the expenditures table
+    user_budget_query = Budget.query.filter_by(budget_userid=id).all()
+    # user_budget_query_cat = user_budget_query.category
+
+    print
+    print
+    print "user_budget_query"
+    print user_budget_query[0].budget_userid
+    print
+    print user_budget_query[0].category
+    print len(user_budget_query)
+    print
+
+    for query in user_budget_query:
+        if query.category == category:
+            print "AHA!"
+            print query.category, query.id, query.budget_userid
+            db.session.delete(query)
+            db.session.commit()
+
+        # else:
+        #     print "OH IT'S NEW"
+        #     print query.category, query.id, query.budget_userid
+            # # Create a new expenditure object to insert into the expenditures table
+            # new_budget = Budget(budget=budget,
+            #                     category=category,
+            #                     budget_userid=id)
+
+            # # Insert the new expenditure into the expenditures table and commit the insert
+            # db.session.add(new_budget)
+            # db.session.commit()
+
+            print
+            print
+            print
+
     new_budget = Budget(budget=budget,
                         category=category,
                         budget_userid=id)
@@ -271,7 +314,9 @@ def add_budget():
     db.session.commit()
 
     # Redirect to the dashboard
-    return redirect(url_for('dashboard', id=id))
+    return redirect(url_for('dashboard',
+                             id=id))
+                             # new_budget=new_budget))
 
 
 @app.route('/add-expenditure-to-db', methods=["GET", "POST"])
