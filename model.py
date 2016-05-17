@@ -77,8 +77,9 @@ def example_data():
     """Create example data for the test database."""
 
     fakeuser = User(name="Mu", email="mu@mu.com", password="mu")
+    fakebudget = Budget(budget=1000, category="Food", budget_userid=fakeuser.id)
 
-    db.session.add_all([fakeuser])
+    db.session.add_all([fakeuser, fakebudget])
     db.session.commit()
 
 

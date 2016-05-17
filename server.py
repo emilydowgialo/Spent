@@ -201,8 +201,7 @@ def add_budget():
     db.session.commit()
 
     # Redirect to the dashboard
-    return redirect(url_for('dashboard',
-                             id=id))
+    return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/add-expenditure-to-db', methods=["POST"])

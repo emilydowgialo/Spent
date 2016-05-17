@@ -105,11 +105,15 @@ class SpentDatabaseTests(unittest.TestCase):
 
     def test_add_budget_success(self):
         """ Test for successfully adding a budget """
-        # FIXME
+        # FIXME: create fake budget table and user table
+
+        self.client.post("/login-form", data=dict(
+            email="mu@mu.com",
+            password="mu"), follow_redirects=True)
 
         result = self.client.post("/add-budget", data=dict(
             budget="100",
-            category="Food", follow_redirects=True)
+            category="Food"), follow_redirects=True)
 
         self.assertIn("Dashboard", result.data)
 
