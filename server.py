@@ -35,321 +35,76 @@ def dashboard(id):
 
         # This is the user's budget
         budget = Budget.query.filter_by(budget_userid=id).all()
-        # new_budget = budget.budget
-        # budget_category = budget.category
-
-        # print
-        # print "this is budget"
-        # print budget
-        # print "this is budget 1"
-        # print budget[0]
-        # # print "category"
-        # # print budget_category
-        # print
-        # print
 
         # This is the expenditure object, which contains information about
         # expenditures specific to the user from the expenditure table in the
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
-        ########################################################################
-        # CALCULATE TOTALS FOR EACH EXPENDITURE CATEGORY
-        ########################################################################
 
-        # Food expenditure total
-        expenditures_food = Expenditure.query.filter_by(category="Food", expenditure_userid=id).all()
-
-        # This is total amount spent - it will be increased with every purchase
-        total_spent = 0
-
-        # Loop through each item in the food category, add up the prices
-        i = 0
-        total_food_price = 0
-
-        for food_expenditure in expenditures_food:
-            food_expenditure = expenditures_food[i].price
-            i += 1
-            total_food_price += food_expenditure
-
-            # Add to the total amount spent
-            total_spent += total_food_price
-
-        # This is the average amount spent on expenditures in the food category
-        try:
-            avg_food_expenditures = total_food_price/len(expenditures_food)
-        except ZeroDivisionError:
-            avg_food_expenditures = "0"
-
-        # Converting the total food price to a string for jinja
-        total_food_price = str(total_food_price)
-
-        # Groceries expenditure total
-        expenditures_groceries = Expenditure.query.filter_by(category="Groceries", expenditure_userid=id).all()
-
-        # This is total amount spent - it will be increased with every purchase
-        total_spent = 0
-
-        # Loop through each item in the food category, add up the prices
-        i = 0
-        total_groceries_price = 0
-
-        for groceries_expenditure in expenditures_groceries:
-            groceries_expenditure = expenditures_groceries[i].price
-            i += 1
-            total_groceries_price += groceries_expenditure
-
-            # Add to the total amount spent
-            total_spent += total_groceries_price
-
-        # This is the average amount spent on expenditures in the groceries category
-        try:
-            avg_groceries_expenditures = total_groceries_price/len(expenditures_groceries)
-        except ZeroDivisionError:
-            avg_groceries_expenditures = "0"
-
-        # Converting the total groceries price to a string for jinja
-        total_groceries_price = str(total_groceries_price)
-
-        # Travel expenditure total
-        expenditures_travel = Expenditure.query.filter_by(category="Travel", expenditure_userid=id).all()
-
-        # Loop through each item in the travel category, add up the prices
-        i = 0
-        total_travel_price = 0
-
-        for travel_expenditure in expenditures_travel:
-            travel_expenditure = expenditures_travel[i].price
-            i += 1
-            total_travel_price += travel_expenditure
-
-            # Add to the total amount spent
-            total_spent += total_travel_price
-
-        # This is the average amount spent on expenditures in the travel category
-        try:
-            avg_travel_expenditures = total_travel_price/len(expenditures_travel)
-        except ZeroDivisionError:
-            avg_travel_expenditures = "0"
-
-        # Converting the total travel price to a string for jinja
-        total_travel_price = str(total_travel_price)
-
-        # Clothing expenditure total
-        expenditures_clothing = Expenditure.query.filter_by(category="Clothing", expenditure_userid=id).all()
-
-        # Loop through each item in the clothing category, add up the prices
-        i = 0
-        total_clothing_price = 0
-
-        for clothing_expenditure in expenditures_clothing:
-            clothing_expenditure = expenditures_clothing[i].price
-            i += 1
-            total_clothing_price += clothing_expenditure
-
-            # Add to the total amount spent
-            total_spent += total_clothing_price
-
-        # This is the average amount spent on expenditures in the clothing category
-        try:
-            avg_clothing_expenditures = total_clothing_price/len(expenditures_clothing)
-        except ZeroDivisionError:
-            avg_clothing_expenditures = "0"
-
-        # Converting the total clothing price to a string for jinja
-        total_clothing_price = str(total_clothing_price)
-
-        # Entertainment expenditure total
-        expenditures_entertainment = Expenditure.query.filter_by(category="Entertainment", expenditure_userid=id).all()
-
-        # Loop through each item in the entertainment category, add up the prices
-        i = 0
-        total_entertainment_price = 0
-
-        for entertainment_expenditure in expenditures_entertainment:
-            entertainment_expenditure = expenditures_entertainment[i].price
-            i += 1
-            total_entertainment_price += entertainment_expenditure
-
-            # Add to the total amount spent
-            total_spent += total_entertainment_price
-
-        # This is the average amount spent on expenditures in the entertainment category
-        try:
-            avg_entertainment_expenditures = total_entertainment_price/len(expenditures_entertainment)
-        except ZeroDivisionError:
-            avg_entertainment_expenditures = "0"
-
-        # Converting the total clothing price to a string for jinja
-        total_entertainment_price = str(total_entertainment_price)
-
-        # Online purchase expenditure total
-        expenditures_online_purchase = Expenditure.query.filter_by(category="Online purchase", expenditure_userid=id).all()
-
-        # Loop through each item in the online purchase category, add up the prices
-        i = 0
-        total_online_purchase_price = 0
-
-        for online_purchase_expenditure in expenditures_online_purchase:
-            online_purchase_expenditure = expenditures_online_purchase[i].price
-            i += 1
-            total_online_purchase_price += online_purchase_expenditure
-
-            # Add to the total amount spent
-            total_spent += total_online_purchase_price
-
-        # This is the average amount spent on expenditures in the online category
-        try:
-            avg_online_expenditures = total_online_purchase_price/len(expenditures_online_purchase)
-        except ZeroDivisionError:
-            avg_online_expenditures = "0"
-
-        # Converting the total online price to a string
-        total_online_purchase_price = str(total_online_purchase_price)
-
-        ########################################################################
-        # END OF CATEGORY TOTAL PRICE CALCULATIONS
-        ########################################################################
-
-        # Calculate how much is left in the budget based on expenditures
-        food_budget = Budget.query.filter_by(category="Food", budget_userid=id).first()
-        food_budget_minus_expenses = 0
-
-        if food_budget is not None:
-
-            print
-            print
-            print food_budget.category
-            print
-            print
-
-            food_budget_total = food_budget.budget
-            food_budget_minus_expenses = float(food_budget_total) - float(total_food_price)
-
-            print
-            print
-            print food_budget_minus_expenses
-            print
-            print
-
-        else:
-            food_budget_minus_expenses = "You haven't added a budget yet"
-
-        online_budget = Budget.query.filter_by(category="Online Purchase", budget_userid=id).first()
-        online_budget_minus_expenses = 0
-
-        if online_budget is not None:
-
-            print
-            print
-            print online_budget.category
-            print
-            print
-
-            online_budget_total = online_budget.budget
-            online_budget_minus_expenses = float(online_budget_total) - float(total_online_purchase_price)
-
-            print
-            print
-            print online_budget_minus_expenses
-            print
-            print
-
-        else:
-            online_budget_minus_expenses = "You haven't added a budget yet"
-
-        travel_budget = Budget.query.filter_by(category="Travel", budget_userid=id).first()
-        travel_budget_minus_expenses = 0
-
-        if travel_budget is not None:
-
-            print
-            print
-            print travel_budget.category
-            print
-            print
-
-            travel_budget_total = travel_budget.budget
-            travel_budget_minus_expenses = float(travel_budget_total) - float(total_travel_price)
-
-            print
-            print
-            print travel_budget_minus_expenses
-            print
-            print
-
-        else:
-            travel_budget_minus_expenses = "You haven't added a budget yet"
-
-        entertainment_budget = Budget.query.filter_by(category="Entertainment", budget_userid=id).first()
-        entertainment_budget_minus_expenses = 0
-
-        if entertainment_budget is not None:
-
-            print
-            print
-            print entertainment_budget.category
-            print
-            print
-
-            entertainment_budget_total = travel_budget.budget
-            entertainment_budget_minus_expenses = float(entertainment_budget_total) - float(total_entertainment_price)
-
-            print
-            print
-            print entertainment_budget_minus_expenses
-            print
-            print
-
-        else:
-            entertainment_budget_minus_expenses = "You haven't added a budget yet"
-
-        groceries_budget = Budget.query.filter_by(category="Groceries", budget_userid=id).first()
-        groceries_budget_minus_expenses = 0
-
-        if groceries_budget is not None:
-
-            print
-            print
-            print groceries_budget.category
-            print
-            print
-
-            groceries_budget_total = groceries_budget.budget
-            groceries_budget_minus_expenses = float(groceries_budget_total) - float(total_groceries_price)
-
-            print
-            print
-            print groceries_budget_minus_expenses
-            print
-            print
-
-        else:
-            groceries_budget_minus_expenses = "You haven't added a budget yet"
-
-        clothing_budget = Budget.query.filter_by(category="Clothing", budget_userid=id).first()
-        clothing_budget_minus_expenses = 0
-
-        if clothing_budget is not None:
-
-            print
-            print
-            print clothing_budget.category
-            print
-            print
-
-            clothing_budget_total = clothing_budget.budget
-            clothing_budget_minus_expenses = float(clothing_budget_total) - float(total_clothing_price)
-
-            print
-            print
-            print clothing_budget_minus_expenses
-            print
-            print
-
-        else:
-
-            clothing_budget_minus_expenses = "You haven't added a budget yet"
+        # The following function gets the total amount and average amount spent
+        def expenditure_function(category, id):
+            """ Calculate the total amount and avg spent in one particular category """
+
+            # List of expenditure objects
+            expenditures = Expenditure.query.filter_by(category=category, expenditure_userid=id).all()
+
+            # Initialize the total price at 0
+            total_price = 0
+
+            # Increase the total price by the price of each expenditure
+            for expenditure in expenditures:
+                expenditure_price = expenditure.price
+                total_price += expenditure_price
+
+            # This gets the average price; if there is an error due to no
+            # expenditures, it returns the value of "0"
+            try:
+                avg_expenditures = total_price/len(expenditures)
+            except ZeroDivisionError:
+                avg_expenditures = "0"
+
+            return str(total_price), str(avg_expenditures)
+
+        # Unpacking the total price and average spent
+        total_food_price, avg_food_expenditures = expenditure_function("Food", id)
+        total_groceries_price, avg_groceries_expenditures = expenditure_function("Groceries", id)
+        total_clothing_price, avg_clothing_expenditures = expenditure_function("Clothing", id)
+        total_entertainment_price, avg_entertainment_expenditures = expenditure_function("Entertainment", id)
+        total_travel_price, avg_travel_expenditures = expenditure_function("Travel", id)
+        total_online_purchase_price, avg_online_expenditures = expenditure_function("Online Purchase", id)
+        total_price = (float(total_food_price) + float(total_groceries_price) + float(total_clothing_price) +
+                       float(total_entertainment_price) + float(total_travel_price) +
+                       float(total_online_purchase_price))
+
+        # The following functon gets the budget minus expenditures
+        def budget_totals(category, id, total_price):
+            """ Calculate budget minus expenditures made """
+
+            # This is the expenditure object
+            expenditure_budget = Budget.query.filter_by(category=category, budget_userid=id).first()
+
+            # Initializes the budget at 0
+            expenditure_budget_minus_expenses = 0
+
+            # If there is a budget, this subtracts the total expenses from it, or
+            # returns a statement about the user not inputting a budget yet
+            if expenditure_budget is not None:
+                budget_total = expenditure_budget.budget
+                expenditure_budget_minus_expenses = float(budget_total) - float(total_price)
+
+            else:
+                expenditure_budget_minus_expenses = "You haven't added a budget yet"
+
+            return expenditure_budget_minus_expenses
+
+        # Calling the function for each of the expenditure categories
+        food_budget_minus_expenses = budget_totals("Food", id, total_food_price)
+        online_budget_minus_expenses = budget_totals("Online Purchase", id, total_online_purchase_price)
+        groceries_budget_minus_expenses = budget_totals("Groceries", id, total_groceries_price)
+        clothing_budget_minus_expenses = budget_totals("Clothing", id, total_clothing_price)
+        travel_budget_minus_expenses = budget_totals("Travel", id, total_travel_price)
+        entertainment_budget_minus_expenses = budget_totals("Entertainment", id, total_entertainment_price)
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
@@ -376,11 +131,11 @@ def dashboard(id):
                                                 food_budget_minus_expenses=food_budget_minus_expenses,
                                                 online_budget_minus_expenses=online_budget_minus_expenses,
                                                 entertainment_budget_minus_expenses=entertainment_budget_minus_expenses,
-                                                total_spent=total_spent,
+                                                total_price=total_price,
                                                 budget=budget)
 
 
-@app.route('/expenditure-form', methods=["GET", "POST"])
+@app.route('/expenditure-form', methods=["POST"])
 def expenditure_form():
     """ Add more expenditures on this expenditure form """
 
@@ -388,7 +143,7 @@ def expenditure_form():
     return render_template("expenditures-form.html")
 
 
-@app.route('/budget-form', methods=["GET", "POST"])
+@app.route('/budget-form', methods=["POST"])
 def budget_form():
     """ Go to the budget form """
 
@@ -396,7 +151,7 @@ def budget_form():
     return render_template("budget.html")
 
 
-@app.route('/remove-budget/<int:id>', methods=["GET", "POST"])
+@app.route('/remove-budget/<int:id>', methods=["POST"])
 def remove_budget(id):
     """ Remove a budget from the database """
 
@@ -414,46 +169,29 @@ def remove_budget(id):
     return redirect(url_for('dashboard', id=budget_id))
 
 
-@app.route('/add-budget', methods=["GET", "POST"])
+@app.route('/add-budget', methods=["POST"])
 def add_budget():
     """ Add a budget """
 
     # Set the value of the user id of the user in the session
     id = session.get('id')
 
-    print
-    print
-    print "id"
-    print id
-    print
-
     # Get values from the form
     budget = request.form.get("budget")
     category = request.form.get("category")
 
     user_budget_query = Budget.query.filter_by(budget_userid=id).all()
-    # user_budget_query_cat = user_budget_query.category
-
-    for query in user_budget_query:
-        print
-        print
-        print "user_budget_query"
-        print query.id
-        print
-        print query.category
-        print
-        print
 
     # Check for budgets in the database under the user ID in particular categories;
     # delete budgets that exist to override them
+    # Check to see if you can modify it instead
     for query in user_budget_query:
         if query.category == category:
-            print "AHA!"
-            print query.category, query.id, query.budget_userid
             db.session.delete(query)
             db.session.commit()
 
-    # Add the budget to the database
+    # Add the budget to the database. It will be the only budget for that
+    # category in the database for the user
     new_budget = Budget(budget=budget,
                         category=category,
                         budget_userid=id)
@@ -467,7 +205,7 @@ def add_budget():
                              id=id))
 
 
-@app.route('/add-expenditure-to-db', methods=["GET", "POST"])
+@app.route('/add-expenditure-to-db', methods=["POST"])
 def add_expenditure():
     """ Add new expenditure to the database """
 
@@ -497,7 +235,7 @@ def add_expenditure():
     return redirect(url_for('dashboard', id=id))
 
 
-@app.route('/remove-expenditure/<int:id>', methods=["GET", "POST"])
+@app.route('/remove-expenditure/<int:id>', methods=["POST"])
 def remove_expenditure(id):
     """ Remove an expenditure from the database """
 
@@ -515,7 +253,7 @@ def remove_expenditure(id):
     return redirect(url_for('dashboard', id=expenditure_id))
 
 
-@app.route('/sign-up-form', methods=["GET", "POST"])
+@app.route('/sign-up-form', methods=["POST"])
 def sign_up_form():
     """ Sign up form """
 
@@ -523,7 +261,7 @@ def sign_up_form():
     return render_template("signup.html")
 
 
-@app.route('/sign-up', methods=["GET", "POST"])
+@app.route('/sign-up', methods=["POST"])
 def sign_up():
     """ Sign up form consumption """
 
@@ -574,7 +312,7 @@ def sign_up():
             return redirect(url_for("index"))
 
 
-@app.route('/login', methods=["GET", "POST"])
+@app.route('/login', methods=["POST"])
 def login():
     """ Directs the user to the login form """
 
@@ -582,7 +320,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/login-form', methods=["GET", "POST"])
+@app.route('/login-form', methods=["POST"])
 def login_form():
     """ Login form """
 
@@ -633,7 +371,7 @@ def login_form():
         return redirect(url_for('dashboard', id=session['id']))
 
 
-@app.route('/logout', methods=["GET", "POST"])
+@app.route('/logout', methods=["POST"])
 def logout():
 
     # Remove the user id from the session if it exists

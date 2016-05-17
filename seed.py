@@ -5,7 +5,7 @@ from model import User, Expenditure, Budget
 
 from model import connect_to_db, db
 from server import app
-# import datetime
+import datetime
 
 
 def load_users():

@@ -21,7 +21,8 @@ class Budget(db.Model):
     __tablename__ = "budget"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    budget = db.Column(db.Integer)
+    # the data type of the budget should match the data type of the price
+    budget = db.Column(db.Numeric(15, 2))
     category = db.Column(db.String(64), nullable=True)
     budget_userid = db.Column(db.Integer, db.ForeignKey('users.id'))
 

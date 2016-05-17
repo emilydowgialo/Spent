@@ -103,6 +103,16 @@ class SpentDatabaseTests(unittest.TestCase):
 
         self.assertIn("Dashboard", result.data)
 
+    def test_add_budget_success(self):
+        """ Test for successfully adding a budget """
+        # FIXME
+
+        result = self.client.post("/add-budget", data=dict(
+            budget="100",
+            category="Food", follow_redirects=True)
+
+        self.assertIn("Dashboard", result.data)
+
 
 if __name__ == "__main__":
     unittest.main()
