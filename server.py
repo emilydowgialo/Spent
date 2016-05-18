@@ -349,7 +349,8 @@ def add_budget():
     db.session.commit()
 
     # Redirect to the dashboard
-    return redirect(url_for('dashboard', id=id))
+    return "Budget added"
+    # redirect(url_for('dashboard', id=id))
 
 
 @app.route('/add-expenditure-to-db', methods=["POST"])
@@ -379,7 +380,8 @@ def add_expenditure():
     db.session.commit()
 
     # Redirect to the dashboard
-    return redirect(url_for('dashboard', id=id))
+    return "congrats"
+    # redirect(url_for('dashboard', id=id))
 
 
 @app.route('/remove-expenditure/<int:id>', methods=["POST"])

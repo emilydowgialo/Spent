@@ -1,4 +1,4 @@
-{% extends 'base2.html' %}
+{% extends 'base.html' %}
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
@@ -43,6 +43,31 @@
         <form action="/chart-test" method="POST">
     <input type="submit" value="Charts">
         </form>
+    </p>
+
+    <p>
+
+    <h2>Input Expenditures</h2>
+
+    <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
+    Category: 
+      <select name="category" class="form-control" id="category-field">
+    <option value="Food">Food</option>
+    <option value="Travel">Travel</option>
+    <option value="Online Purchase">Online Purchase</option>
+    <option value="Clothing">Clothing</option>
+    <option value="Groceries">Groceries</option>
+      </select>
+    <p><input type="text" id="price" placeholder="Price" name="price" class="form-control"><br>
+    <br><input type="date" id="date" placeholder="Date of purchase" name="date" class="form-control"><br>
+    <br><input type="text" id="wherebought" placeholder="Where was this purchased?" name="wherebought" class="form-control"><br>
+    <br><input type="text" id="description" placeholder="Describe your purchase" name="description" class="form-control"><p>
+
+    <input type="submit" value="Submit">
+    </form>
+
+    <script src="/static/js/submit-expenditure.js"></script>
+
     </p>
 
     <p>
@@ -113,6 +138,25 @@
     <p>
         Total spent: {{ total_price }}
     </p>
+
+        <h2>Budget</h2>
+
+    <form action="/add-budget" method="POST" id="budget-form">
+      Category: 
+      <select name="category" id="category-field">
+    <option value="Food">Food</option>
+    <option value="Travel">Travel</option>
+    <option value="Online Purchase">Online Purchase</option>
+    <option value="Clothing">Clothing</option>
+    <option value="Groceries">Groceries</option>
+      </select>
+    <p>Budget: 
+      <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
+
+    <input type="submit" value="Submit">
+    </form>
+
+    <script src="/static/js/submit-budget.js"></script>
 
     <p>
         <form action="/budget-form" method="POST">
