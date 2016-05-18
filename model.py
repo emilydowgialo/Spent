@@ -78,8 +78,9 @@ def example_data():
 
     fakeuser = User(name="Mu", email="mu@mu.com", password="mu")
     fakebudget = Budget(budget=1000, category="Food", budget_userid=fakeuser.id)
+    fakeexpenditure = Expenditure(category="Travel", price=500, date_of_expenditure="2016-05-07", expenditure_userid=fakeuser.id, where_bought="train station", description="Amtrak ticket")
 
-    db.session.add_all([fakeuser, fakebudget])
+    db.session.add_all([fakeuser, fakebudget, fakeexpenditure])
     db.session.commit()
 
 

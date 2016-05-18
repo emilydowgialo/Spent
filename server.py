@@ -1,6 +1,6 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, request, render_template, session, url_for, flash, redirect
+from flask import Flask, request, render_template, session, url_for, flash, redirect, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
@@ -22,6 +22,155 @@ def index():
     return render_template("homepage.html", user_session_info=session)
 
 
+@app.route('/chart-test', methods=["POST"])
+def chart_test():
+    """ Testing the charts """
+
+    # This is the test chart page
+    return render_template("charttest.html")
+
+
+@app.route('/total-spent.json')
+def budget_types_data():
+    """ Bar chart """
+
+    id = session.get('id')
+
+    # If the user id is in the session, this will render the dashboard
+    # template, which will display their information and expenditure information
+    if 'id' in session:
+
+        # The following function gets the total amount and average amount spent
+        def expenditure_function(category, id):
+            """ Calculate the total amount and avg spent in one particular category """
+
+            # List of expenditure objects
+            expenditures = Expenditure.query.filter_by(category=category, expenditure_userid=id).all()
+
+            # Initialize the total price at 0
+            total_price = 0
+
+            # Increase the total price by the price of each expenditure
+            for expenditure in expenditures:
+                expenditure_price = expenditure.price
+                total_price += expenditure_price
+
+            # This gets the average price; if there is an error due to no
+            # expenditures, it returns the value of "0"
+            try:
+                avg_expenditures = total_price/len(expenditures)
+            except ZeroDivisionError:
+                avg_expenditures = "0"
+
+            return float(total_price), float(avg_expenditures)
+
+        # Unpacking the total price and average spent
+        total_food_price, avg_food_expenditures = expenditure_function("Food", id)
+        total_groceries_price, avg_groceries_expenditures = expenditure_function("Groceries", id)
+        total_clothing_price, avg_clothing_expenditures = expenditure_function("Clothing", id)
+        total_entertainment_price, avg_entertainment_expenditures = expenditure_function("Entertainment", id)
+        total_travel_price, avg_travel_expenditures = expenditure_function("Travel", id)
+        total_online_purchase_price, avg_online_expenditures = expenditure_function("Online Purchase", id)
+
+    data_dict = {
+        "labels": ["Food", "Groceries", "Clothing", "Entertainment", "Travel", "Online Purchase"],
+        "datasets": [
+            {
+                "label": "Total Spent",
+                "fillColor": "rgba(220,220,220,0.2)",
+                "strokeColor": "rgba(220,220,220,1)",
+                "pointColor": "rgba(220,220,220,1)",
+                "pointStrokeColor": "#fff",
+                "pointHighlightFill": "#fff",
+                "pointHighlightStroke": "rgba(220,220,220,1)",
+                "data": [total_food_price, total_groceries_price, total_clothing_price, total_entertainment_price, total_travel_price, total_online_purchase_price]
+            },
+            {
+                "label": "Average",
+                "fillColor": "rgba(151,187,205,0.2)",
+                "strokeColor": "rgba(151,187,205,1)",
+                "pointColor": "rgba(151,187,205,1)",
+                "pointStrokeColor": "#fff",
+                "pointHighlightFill": "#fff",
+                "pointHighlightStroke": "rgba(151,187,205,1)",
+                "data": [avg_food_expenditures, avg_groceries_expenditures, avg_clothing_expenditures, avg_entertainment_expenditures, avg_travel_expenditures, avg_online_expenditures]
+            }
+        ]
+    }
+
+    # This returns the data jsonified
+    return jsonify(data_dict)
+
+
+@app.route('/expenditure-types.json')
+def expenditure_types_data():
+    """ Return data about expenditures """
+
+    id = session.get('id')
+
+    def get_expenditures(category, id):
+
+        expenditures = Expenditure.query.filter_by(category=category, expenditure_userid=id).all()
+
+        expenditure_list = []
+        for expenditure in expenditures:
+            expenditure = expenditure.price
+            expenditure_list.append(expenditure)
+
+        expenditure_total = int(sum(expenditure_list))
+        return expenditure_total
+
+    travel_expenditures = get_expenditures("Travel", id)
+    entertainment_expenditures = get_expenditures("Entertainment", id)
+    groceries_expenditures = get_expenditures("Groceries", id)
+    clothing_expenditures = get_expenditures("Clothing", id)
+    food_expenditures = get_expenditures("Food", id)
+    online_purchase_expenditures = get_expenditures("Online Purchase", id)
+
+    data_list_of_dicts = {
+        'expenditures': [
+            {
+                "value": travel_expenditures,
+                "color": "#F7464A",
+                "highlight": "#FF5A5E",
+                "label": "Travel"
+            },
+            {
+                "value": entertainment_expenditures,
+                "color": "#46BFBD",
+                "highlight": "#5AD3D1",
+                "label": "Entertainment"
+            },
+            {
+                "value": groceries_expenditures,
+                "color": "#4dff4d",
+                "highlight": "#5AD3D1",
+                "label": "Groceries"
+            },
+            {
+                "value": clothing_expenditures,
+                "color": "#bf80ff",
+                "highlight": "#5AD3D1",
+                "label": "Clothing"
+            },
+            {
+                "value": food_expenditures,
+                "color": "#ffcc80",
+                "highlight": "#5AD3D1",
+                "label": "Food"
+            },
+            {
+                "value": online_purchase_expenditures,
+                "color": "blue",
+                "highlight": "#FFC870",
+                "label": "Online Purchase"
+            }
+        ]
+    }
+
+    return jsonify(data_list_of_dicts)
+
+
 @app.route('/dashboard/<int:id>')
 def dashboard(id):
     """ This is the user dashboard """
@@ -40,7 +189,6 @@ def dashboard(id):
         # expenditures specific to the user from the expenditure table in the
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
-
 
         # The following function gets the total amount and average amount spent
         def expenditure_function(category, id):

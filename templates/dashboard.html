@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
@@ -38,6 +38,47 @@
         Average travel: {{ avg_travel_expenditures }}<br>
         Average groceries: {{ avg_groceries_expenditures }}<br>
         Average food: {{ avg_food_expenditures }}<br>
+
+    <p>
+        <form action="/chart-test" method="POST">
+    <input type="submit" value="Charts">
+        </form>
+    </p>
+
+    <p>
+
+    <div class="expenditure-chart">
+        <canvas id="donutChart"></canvas>
+        <div id="donutLegend" class="chart-legend"></div>
+    </div>
+
+    <div class="expenditure-chart">
+        <canvas id="barChart"></canvas>
+        <div id="barLegend" class="chart-legend"></div>
+    </div>
+
+    <script>
+    var options = {
+      responsive: true
+    };
+
+    // Make Donut Chart of percent of different types of Melons
+    var ctx_donut = $("#donutChart").get(0).getContext("2d");
+
+    $.get("/expenditure-types.json", function (data) {
+      var myDonutChart = new Chart(ctx_donut).Doughnut(data.expenditures, options);
+      $('#donutLegend').html(myDonutChart.generateLegend());
+    });
+
+    // Make Line Chart of Melon Sales over time
+    var ctx_line = $("#barChart").get(0).getContext("2d");
+
+    $.get("/total-spent.json", function (data) {
+      var myBarChart = new Chart(ctx_line).Bar(data, options);
+      $("#BarLegend").html(myBarChart.generateLegend());
+    });
+
+    </script>
 
     <p>
         Budget:<br>
