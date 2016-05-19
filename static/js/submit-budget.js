@@ -1,21 +1,19 @@
 "use strict";
 
-function showBudgetResults(result) {
-    alert(result);
+function replaceBudget(results) {
+    var budget = results;
+    $('#budget-show').html(String(budget.budget) + budget.category);
+    console.log(results)
+    console.log("Finished replaceBudget");
 }
 
-function submitBudget(evt) {
+function updateBudget(evt) {
     evt.preventDefault();
 
-    var formInputs = {
-        "category": $("#category-field").val(),
-        "budget": $("#budget").val()
-    };
+    var budget = $('#budget-form').serialize();
 
-    $.post("/add-budget", 
-           formInputs,
-           showBudgetResults
-           );
+    $.post('/add-budget', budget, replaceBudget);
+    console.log("Finished sending AJAX");
 }
 
-$("#budget-form").on("submit", submitBudget);
+$('#budget-submit').click(updateBudget);

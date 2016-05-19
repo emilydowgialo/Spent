@@ -40,6 +40,11 @@
         Average food: {{ avg_food_expenditures }}<br>
 
     <p>
+        <form action="/budget-testing" method="POST">
+            <input type="submit">
+        </form>
+
+    <p>
         <form action="/chart-test" method="POST">
     <input type="submit" value="Charts">
         </form>
@@ -106,7 +111,10 @@
     </script>
 
     <p>
-        Budget:<br>
+        Budget:<br><p>
+
+        BUDGET AJAX: <span id="budget-show">{{ budget[1].budget}}</span>
+        <p>
 
     {% for budget in budget %}
     <form action="/remove-budget/{{ budget.id }}" method="POST">
@@ -121,8 +129,6 @@
     </li>
 
     {% endfor %}
-
-    <p>
 
     Budget left:<p>
 
@@ -139,6 +145,19 @@
         Total spent: {{ total_price }}
     </p>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         <h2>Budget</h2>
 
     <form action="/add-budget" method="POST" id="budget-form">
@@ -153,15 +172,31 @@
     <p>Budget: 
       <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" id="budget-submit">
     </form>
-
-    <script src="/static/js/submit-budget.js"></script>
 
     <p>
         <form action="/budget-form" method="POST">
             <input type="submit" value="Add Budget">
         </form>
+
+    <script src="/static/js/submit-budget.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <ul>
 
       {% for expenditure in expenditures %}
