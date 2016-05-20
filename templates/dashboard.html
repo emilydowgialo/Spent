@@ -22,6 +22,13 @@
         <br>
         Your password: {{password}}
     </p>
+
+    <p>
+        <form action="/edit-profile" method="POST">
+            <input type="submit" value="Edit Profile Info">
+        </form>
+    </p>
+
     <p>
         Total spent on food: {{ total_food_price }}<br>
         Travel total: {{ total_travel_price }}<br>
@@ -110,25 +117,7 @@
 
     </script>
 
-    <p>
-        Budget:<br><p>
-
-        BUDGET AJAX: <span id="budget-show">{{ budget[1].budget}}</span>
-        <p>
-
-    {% for budget in budget %}
-    <form action="/remove-budget/{{ budget.id }}" method="POST">
-
-    <li>
-
-        {{ budget.budget }}<br>
-        {{ budget.category }}<br>
-
-        <input type="Submit" value="Remove">
-    </form>
-    </li>
-
-    {% endfor %}
+</div>
 
     Budget left:<p>
 

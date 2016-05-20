@@ -22,6 +22,45 @@ def index():
     return render_template("homepage.html", user_session_info=session)
 
 
+@app.route('/edit-profile', methods=["POST"])
+def edit_profile():
+    """ Go to the profile edit page """
+
+    # Set the value of the user id of the user in the session
+    id = session.get('id')
+
+    # This is the user object
+    user = User.query.filter_by(id=id).first()
+
+    return render_template("edit-profile.html", user=user)
+
+
+@app.route('/profile-edit', methods=["POST"])
+def profile_edit():
+    """ Edit profile information """
+
+    # Set the value of the user id of the user in the session
+    id = session.get('id')
+
+    # Query the database for the user
+    user_info = User.query.filter_by(id=id).first()
+
+    # Get information from the forms
+    name = request.form.get("name")
+    password = request.form.get("password")
+
+    # Replace info in the database with new info
+    if name:
+        user_info.name = name
+        db.session.commit()
+
+    else:
+        user_info.password = password
+        db.session.commit()
+
+    return redirect(url_for('dashboard', id=id))
+
+
 @app.route('/chart-test', methods=["POST"])
 def chart_test():
     """ Testing the charts """
