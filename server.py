@@ -430,37 +430,6 @@ def add_budget_test():
 def add_budget():
     """ Add a budget """
 
-    # # Set the value of the user id of the user in the session
-    # id = session.get('id')
-
-    # # Get values from the form
-    # budget = request.form.get("budget")
-    # category = request.form.get("category")
-
-    # user_budget_query = Budget.query.filter_by(budget_userid=id).all()
-
-    # # Check for budgets in the database under the user ID in particular categories;
-    # # delete budgets that exist to override them
-    # # Check to see if you can modify it instead
-    # for query in user_budget_query:
-    #     if query.category == category:
-    #         db.session.delete(query)
-    #         db.session.commit()
-
-    # # Add the budget to the database. It will be the only budget for that
-    # # category in the database for the user
-    # new_budget = Budget(budget=budget,
-    #                     category=category,
-    #                     budget_userid=id)
-
-    # # Insert the new budget into the budget table and commit the insert
-    # db.session.add(new_budget)
-    # db.session.commit()
-
-    # # Redirect to the dashboard
-    # return "Budget added"
-    # # redirect(url_for('dashboard', id=id))
-
     # Set the value of the user id of the user in the session
     id = session.get('id')
 
@@ -496,24 +465,10 @@ def add_budget():
     db.session.add(new_budget)
     db.session.commit()
 
-    print
-    print
-    print "new_budget"
-    print new_budget
-    print
-    print
-
     budget_info = {
         'category': category,
         'budget': budget
     }
-
-    print
-    print
-    print "budget_info"
-    print budget_info
-    print
-    print
 
     # Redirect to the dashboard
     return jsonify(budget_info)
