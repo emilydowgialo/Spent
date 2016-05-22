@@ -135,6 +135,24 @@
         Total spent: {{ total_price }}
     </p>
 
+    <p>
+        Budget:<br><p>
+        <p>
+<div id="budget-div">
+    {% for budget in budget %}
+    <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
+
+    <li>
+
+        {{ budget.budget }}<br>
+        {{ budget.category.category }}<br>
+    </li>
+        <input type="Submit" value="Remove">
+    </form>
+
+
+
+    {% endfor %}
 
 
 
@@ -206,10 +224,6 @@
       {% endfor %}
     </ul>
 
-    <p>
-        <form action="/expenditure-form" method="POST">
-            <input type="submit" value="Add An Expenditure">
-        </form>
 
     <p>
         <form action="/logout" method="POST">

@@ -1,5 +1,12 @@
 "use strict";
 
+function replaceBudget(results) {
+    var budget = results;
+    $('#budget-test-show').html(String(budget.budget) + budget.category);
+    console.log(results)
+    console.log("Finished replaceBudget");
+}
+
 function updateBudget(evt) {
     evt.preventDefault();
 

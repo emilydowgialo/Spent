@@ -440,12 +440,12 @@ def add_budget():
 
     # Get values from the form
     budget = request.form.get("budget")
-    category_id = request.form.get("category")
+    category_id = int(request.form.get("category"))
 
     print
     print
     print "cat id"
-    print category_id
+    print category_id, type(category_id)
     print
     print
 
@@ -504,7 +504,7 @@ def add_expenditure():
     id = session.get('id')
 
     # Get values from the form
-    category_id = request.form.get("category")
+    category_id = int(request.form.get("category"))
     price = request.form.get("price")
     date_of_expenditure = request.form.get("date")
     where_bought = request.form.get("wherebought")
