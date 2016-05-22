@@ -487,6 +487,7 @@ def add_budget():
     print
 
     budget_info = {
+        'id': new_budget.id,
         'category': new_budget.category.category,
         'category_id': category_id,
         'budget': budget

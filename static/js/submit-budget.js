@@ -1,10 +1,32 @@
+/* global $*/
 "use strict";
 
 function replaceBudget(results) {
     var budget = results;
-    $('#budget-test-show').html(String(budget.budget) + budget.category);
-    console.log(results)
-    console.log("Finished replaceBudget");
+    var stringToAppend = '<form action="/remove-budget/' + String(budget.id) +
+      '" method="POST" id="category-' + String(budget.category_id) + '">' +
+      '<li>' +
+      String(budget.budget) +
+      '<br>' +
+      String(budget.category) +
+      '<br>' +
+      '</li>' +
+      '<input type="Submit" value="Remove">' +
+      '</form>';
+
+    console.log(stringToAppend);
+
+    var categoryElement = $('#category-' + String(budget.category_id));
+
+    console.log(categoryElement);
+
+    if (categoryElement.length > 0) {
+      categoryElement.replaceWith(stringToAppend);
+    } else {
+      $('#budget-div').append(stringToAppend);
+      console.log(results);
+      console.log("Finished replaceBudget");
+    }
 }
 
 function updateBudget(evt) {
@@ -17,6 +39,25 @@ function updateBudget(evt) {
 }
 
 $('#budget-submit').click(updateBudget);
+
+
+
+
+// <div id="budget-div">
+//     {% for budget in budget %}
+//     <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
+
+//     <li>
+//         {{ budget.budget }}<br>
+//         {{ budget.category.category }}<br>
+//     </li>
+//         <input type="Submit" value="Remove">
+//     </form>
+
+//     {% endfor %}
+// </div>
+
+
 
 /***
 
