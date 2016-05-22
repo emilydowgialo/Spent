@@ -210,7 +210,7 @@ def dashboard(id):
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
         # Unpacking the total price and average spent
-        total_food_price, avg_food_expenditures = expenditure_function(2, id)
+        total_food_price, avg_food_expenditures = expenditure_function(3, id)
         total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id)
         total_clothing_price, avg_clothing_expenditures = expenditure_function(5, id)
         total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id)
@@ -419,11 +419,15 @@ def add_budget():
     print
     print
 
+    total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id)
+    cat_budget_minus_expenses = budget_totals(category_id, id, total_cat_price)
+
     budget_info = {
         'id': new_budget.id,
         'category': new_budget.category.category,
         'category_id': category_id,
-        'budget': budget
+        'budget': budget,
+        'cat_budget_minus_expenses': cat_budget_minus_expenses
     }
 
     # Redirect to the dashboard

@@ -2,6 +2,9 @@
 "use strict";
 
 function replaceBudget(results) {
+
+    updateBudgetMinusExpenses(results);
+
     var budget = results;
     var stringToAppend = '<form action="/remove-budget/' + String(budget.id) +
       '" method="POST" id="category-' + String(budget.category_id) + '">' +
@@ -27,6 +30,18 @@ function replaceBudget(results) {
       console.log(results);
       console.log("Finished replaceBudget");
     }
+}
+
+function updateBudgetMinusExpenses(results) {
+
+  var budget = results;
+  var stringToAppend = String(budget.cat_budget_minus_expenses);
+
+  var budgetElement = $('#budget-left-' + String(budget.category_id));
+
+  budgetElement.html(stringToAppend);
+  console.log("finished updateBudgetMinusExpenses");
+
 }
 
 function updateBudget(evt) {
