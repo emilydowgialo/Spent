@@ -44,10 +44,10 @@ def load_categories():
     print "Categories"
 
     # Delete all rows in table, so if we need to run this a second time,
-    # we won't be trying to add duplicate users
+    # we won't be trying to add duplicate categories
     Category.query.delete()
 
-    # Read users.csv file and insert data into the session
+    # Read categories.csv file and insert data into the session
     for row in open("seed_data/categories.csv"):
         row = row.rstrip()
         categories_data = row.split("|")
@@ -60,7 +60,6 @@ def load_categories():
         # We need to add to the session or it won't ever be stored
         db.session.add(category_model)
 
-    # Once we're done, we should commit our work
     db.session.commit()
 
 

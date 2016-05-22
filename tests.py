@@ -112,7 +112,7 @@ class SpentDatabaseTests(unittest.TestCase):
 
         result = self.client.post("/add-budget", data=dict(
             budget="100",
-            category="Food"), follow_redirects=True)
+            category=3), follow_redirects=True)
 
         self.assertIn("100", result.data)
 
@@ -124,7 +124,7 @@ class SpentDatabaseTests(unittest.TestCase):
             password="mu"), follow_redirects=True)
 
         result = self.client.post("/add-expenditure-to-db", data=dict(
-            category="Food",
+            category=3,
             price=40,
             date_of_expenditure=2016-05-12,
             where_bought="Whole Foods",

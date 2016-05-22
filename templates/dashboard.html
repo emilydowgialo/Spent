@@ -62,13 +62,14 @@
     <h2>Input Expenditures</h2>
 
     <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
-    Category: 
+    Category:
       <select name="category" class="form-control" id="category-field">
-    <option value="Food">Food</option>
-    <option value="Travel">Travel</option>
-    <option value="Online Purchase">Online Purchase</option>
-    <option value="Clothing">Clothing</option>
-    <option value="Groceries">Groceries</option>
+    <option value="3">Food</option>
+    <option value="2">Travel</option>
+    <option value="1">Online Purchase</option>
+    <option value="5">Clothing</option>
+    <option value="4">Groceries</option>
+    <option value="6">Entertainment</option>
       </select>
     <p><input type="text" id="price" placeholder="Price" name="price" class="form-control"><br>
     <br><input type="date" id="date" placeholder="Date of purchase" name="date" class="form-control"><br>
@@ -150,15 +151,16 @@
         <h2>Budget</h2>
 
     <form action="/add-budget" method="POST" id="budget-form">
-      Category: 
+      Category:
       <select name="category" id="category-field">
-    <option value="Food">Food</option>
-    <option value="Travel">Travel</option>
-    <option value="Online Purchase">Online Purchase</option>
-    <option value="Clothing">Clothing</option>
-    <option value="Groceries">Groceries</option>
+    <option value="3">Food</option>
+    <option value="2">Travel</option>
+    <option value="1">Online Purchase</option>
+    <option value="5">Clothing</option>
+    <option value="4">Groceries</option>
+    <option value="6">Entertainment</option>
       </select>
-    <p>Budget: 
+    <p>Budget:
       <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
 
     <input type="submit" value="Submit" id="budget-submit">
@@ -192,7 +194,7 @@
       <form action="/remove-expenditure/{{ expenditure.id }}" method="POST">
       <li>
         {{ expenditure.date_of_expenditure }}: <br>
-        {{ expenditure.category }}<br>
+        {{ expenditure.category.category }}<br>
         {{ expenditure.price }}<br>
         {{ expenditure.where_bought }}<br>
         {{ expenditure.description }}<br>

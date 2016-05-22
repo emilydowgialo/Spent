@@ -82,8 +82,6 @@ def init_app():
 def connect_to_db(app, spent_database):
     """ Connect the database to our Flask app. """
 
-    # spent_database = 'postgres:///spending'
-
     # Configure to use the database
     app.config['SQLALCHEMY_DATABASE_URI'] = spent_database
     app.config['SQLALCHEMY_ECHO'] = True
@@ -96,10 +94,16 @@ def example_data():
     """Create example data for the test database."""
 
     fakeuser = User(name="Mu", email="mu@mu.com", password="mu")
-    fakebudget = Budget(budget=1000, category="Food")
-    fakeexpenditure = Expenditure(category="Travel", price=500, date_of_expenditure="2016-05-07", expenditure_userid=fakeuser.id, where_bought="train station", description="Amtrak ticket")
+    fakebudget = Budget(budget=1000, category_id=3)
+    fakecat = Category(category="Food", id=3)
+    fakecat2 = Category(category="Travel", id=2)
+    fakeexpenditure = Expenditure(category_id=2, price=500,
+                                  date_of_expenditure="2016-05-07",
+                                  expenditure_userid=fakeuser.id,
+                                  where_bought="train station",
+                                  description="Amtrak ticket")
 
-    db.session.add_all([fakeuser, fakebudget, fakeexpenditure])
+    db.session.add_all([fakeuser, fakebudget, fakeexpenditure, fakecat, fakecat2])
     db.session.commit()
 
     # Add the budget_userid to the database, otherwise budget_userid is None

@@ -80,11 +80,11 @@ def budget_types_data():
     if 'id' in session:
 
         # The following function gets the total amount and average amount spent
-        def expenditure_function(category, id):
+        def expenditure_function(category_id, id):
             """ Calculate the total amount and avg spent in one particular category """
 
             # List of expenditure objects
-            expenditures = Expenditure.query.filter_by(category=category, expenditure_userid=id).all()
+            expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
 
             # Initialize the total price at 0
             total_price = 0
@@ -104,12 +104,12 @@ def budget_types_data():
             return float(total_price), float(avg_expenditures)
 
         # Unpacking the total price and average spent
-        total_food_price, avg_food_expenditures = expenditure_function("Food", id)
-        total_groceries_price, avg_groceries_expenditures = expenditure_function("Groceries", id)
-        total_clothing_price, avg_clothing_expenditures = expenditure_function("Clothing", id)
-        total_entertainment_price, avg_entertainment_expenditures = expenditure_function("Entertainment", id)
-        total_travel_price, avg_travel_expenditures = expenditure_function("Travel", id)
-        total_online_purchase_price, avg_online_expenditures = expenditure_function("Online Purchase", id)
+        total_food_price, avg_food_expenditures = expenditure_function(3, id)
+        total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id)
+        total_clothing_price, avg_clothing_expenditures = expenditure_function(5, id)
+        total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id)
+        total_travel_price, avg_travel_expenditures = expenditure_function(2, id)
+        total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id)
 
     data_dict = {
         "labels": ["Food", "Groceries", "Clothing", "Entertainment", "Travel", "Online Purchase"],
@@ -147,9 +147,9 @@ def expenditure_types_data():
 
     id = session.get('id')
 
-    def get_expenditures(category, id):
+    def get_expenditures(category_id, id):
 
-        expenditures = Expenditure.query.filter_by(category=category, expenditure_userid=id).all()
+        expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
 
         expenditure_list = []
         for expenditure in expenditures:
@@ -159,12 +159,12 @@ def expenditure_types_data():
         expenditure_total = int(sum(expenditure_list))
         return expenditure_total
 
-    travel_expenditures = get_expenditures("Travel", id)
-    entertainment_expenditures = get_expenditures("Entertainment", id)
-    groceries_expenditures = get_expenditures("Groceries", id)
-    clothing_expenditures = get_expenditures("Clothing", id)
-    food_expenditures = get_expenditures("Food", id)
-    online_purchase_expenditures = get_expenditures("Online Purchase", id)
+    travel_expenditures = get_expenditures(2, id)
+    entertainment_expenditures = get_expenditures(6, id)
+    groceries_expenditures = get_expenditures(4, id)
+    clothing_expenditures = get_expenditures(5, id)
+    food_expenditures = get_expenditures(3, id)
+    online_purchase_expenditures = get_expenditures(1, id)
 
     data_list_of_dicts = {
         'expenditures': [
@@ -232,11 +232,11 @@ def dashboard(id):
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
         # The following function gets the total amount and average amount spent
-        def expenditure_function(category, id):
+        def expenditure_function(category_id, id):
             """ Calculate the total amount and avg spent in one particular category """
 
             # List of expenditure objects
-            expenditures = Expenditure.query.filter_by(category=category, expenditure_userid=id).all()
+            expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
 
             # Initialize the total price at 0
             total_price = 0
@@ -256,22 +256,22 @@ def dashboard(id):
             return str(total_price), str(avg_expenditures)
 
         # Unpacking the total price and average spent
-        total_food_price, avg_food_expenditures = expenditure_function("Food", id)
-        total_groceries_price, avg_groceries_expenditures = expenditure_function("Groceries", id)
-        total_clothing_price, avg_clothing_expenditures = expenditure_function("Clothing", id)
-        total_entertainment_price, avg_entertainment_expenditures = expenditure_function("Entertainment", id)
-        total_travel_price, avg_travel_expenditures = expenditure_function("Travel", id)
-        total_online_purchase_price, avg_online_expenditures = expenditure_function("Online Purchase", id)
+        total_food_price, avg_food_expenditures = expenditure_function(2, id)
+        total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id)
+        total_clothing_price, avg_clothing_expenditures = expenditure_function(5, id)
+        total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id)
+        total_travel_price, avg_travel_expenditures = expenditure_function(2, id)
+        total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id)
         total_price = (float(total_food_price) + float(total_groceries_price) + float(total_clothing_price) +
                        float(total_entertainment_price) + float(total_travel_price) +
                        float(total_online_purchase_price))
 
         # The following functon gets the budget minus expenditures
-        def budget_totals(category, id, total_price):
+        def budget_totals(category_id, id, total_price):
             """ Calculate budget minus expenditures made """
 
             # This is the expenditure object
-            expenditure_budget = Budget.query.filter_by(category=category, budget_userid=id).first()
+            expenditure_budget = Budget.query.filter_by(category_id=category_id, budget_userid=id).first()
 
             # Initializes the budget at 0
             expenditure_budget_minus_expenses = 0
@@ -288,12 +288,12 @@ def dashboard(id):
             return expenditure_budget_minus_expenses
 
         # Calling the function for each of the expenditure categories
-        food_budget_minus_expenses = budget_totals("Food", id, total_food_price)
-        online_budget_minus_expenses = budget_totals("Online Purchase", id, total_online_purchase_price)
-        groceries_budget_minus_expenses = budget_totals("Groceries", id, total_groceries_price)
-        clothing_budget_minus_expenses = budget_totals("Clothing", id, total_clothing_price)
-        travel_budget_minus_expenses = budget_totals("Travel", id, total_travel_price)
-        entertainment_budget_minus_expenses = budget_totals("Entertainment", id, total_entertainment_price)
+        food_budget_minus_expenses = budget_totals(3, id, total_food_price)
+        online_budget_minus_expenses = budget_totals(1, id, total_online_purchase_price)
+        groceries_budget_minus_expenses = budget_totals(4, id, total_groceries_price)
+        clothing_budget_minus_expenses = budget_totals(5, id, total_clothing_price)
+        travel_budget_minus_expenses = budget_totals(2, id, total_travel_price)
+        entertainment_budget_minus_expenses = budget_totals(6, id, total_entertainment_price)
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
@@ -440,7 +440,14 @@ def add_budget():
 
     # Get values from the form
     budget = request.form.get("budget")
-    category = request.form.get("category")
+    category_id = request.form.get("category")
+
+    print
+    print
+    print "cat id"
+    print category_id
+    print
+    print
 
     user_budget_query = Budget.query.filter_by(budget_userid=id).all()
 
@@ -448,22 +455,40 @@ def add_budget():
     # delete budgets that exist to override them
     # Check to see if you can modify it instead
     for query in user_budget_query:
-        if query.category == category:
+        if query.category_id == category_id:
             db.session.delete(query)
             db.session.commit()
 
     # Add the budget to the database. It will be the only budget for that
     # category in the database for the user
     new_budget = Budget(budget=budget,
-                        category=category,
+                        category_id=category_id,
                         budget_userid=id)
 
     # Insert the new budget into the budget table and commit the insert
     db.session.add(new_budget)
     db.session.commit()
 
+    print
+    print
+    print
+    print
+    print
+    print "new budget"
+    print new_budget
+    print
+    print "new budget.category"
+    print new_budget.category
+    print
+    print "new budget.cat.cat"
+    print new_budget.category.category
+    print
+    print
+    print
+
     budget_info = {
-        'category': category,
+        'category': new_budget.category.category,
+        'category_id': category_id,
         'budget': budget
     }
 
@@ -479,14 +504,14 @@ def add_expenditure():
     id = session.get('id')
 
     # Get values from the form
-    category = request.form.get("category")
+    category_id = request.form.get("category")
     price = request.form.get("price")
     date_of_expenditure = request.form.get("date")
     where_bought = request.form.get("wherebought")
     description = request.form.get("description")
 
     # Create a new expenditure object to insert into the expenditures table
-    new_expenditure = Expenditure(category=category,
+    new_expenditure = Expenditure(category_id=category_id,
                                   price=price,
                                   date_of_expenditure=date_of_expenditure,
                                   where_bought=where_bought,
