@@ -1,11 +1,11 @@
 """ Utility file to seed spending database in seed_data/ """
 
 from sqlalchemy import func
-from model import User, Expenditure, Budget
+from model import User, Expenditure, Budget, Category
 
 from model import connect_to_db, db
 from server import app
-import datetime
+# import datetime
 
 
 def load_users():
@@ -38,6 +38,32 @@ def load_users():
     db.session.commit()
 
 
+def load_categories():
+    """ Load categories from categories.csv into database """
+
+    print "Categories"
+
+    # Delete all rows in table, so if we need to run this a second time,
+    # we won't be trying to add duplicate users
+    Category.query.delete()
+
+    # Read users.csv file and insert data into the session
+    for row in open("seed_data/categories.csv"):
+        row = row.rstrip()
+        categories_data = row.split("|")
+        id = categories_data[0]
+        category = categories_data[1]
+
+        category_model = Category(id=id,
+                                  category=category)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(category_model)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
+
 def load_budget():
     """ Load budget from budget.csv into database """
 
@@ -53,12 +79,12 @@ def load_budget():
         budget_data = row.split("|")
         id = budget_data[0]
         budget = budget_data[1]
-        category = budget_data[2]
+        category_id = budget_data[2]
         budget_userid = budget_data[3]
 
         budget = Budget(id=id,
                         budget=budget,
-                        category=category,
+                        category_id=category_id,
                         budget_userid=budget_userid)
 
         # We need to add to the session or it won't ever be stored
@@ -78,7 +104,7 @@ def load_expenditures():
         row = row.rstrip()
         expenditure_data = row.split("|")
         id = expenditure_data[0]
-        category = expenditure_data[1]
+        category_id = expenditure_data[1]
         price = expenditure_data[2]
         date_of_expenditure = expenditure_data[3]
         expenditure_userid = expenditure_data[4]
@@ -92,7 +118,7 @@ def load_expenditures():
         #     date_of_expenditure = None
 
         expenditure = Expenditure(id=id,
-                                  category=category,
+                                  category_id=category_id,
                                   price=price,
                                   date_of_expenditure=date_of_expenditure,
                                   expenditure_userid=expenditure_userid,
@@ -129,7 +155,6 @@ def set_val_expenditure_id():
     max_id = int(result[0])
 
     # Set the value for the next expenditure id to be max_id + 1
-    # Note to self: the 'expenditure_id_seq' variable is based on the Expenditure table
     query = "SELECT setval('expenditures_id_seq', :new_id)"
 
     db.session.execute(query, {'new_id': max_id + 1})
@@ -145,8 +170,22 @@ def set_val_budget_id():
     max_id = int(result[0])
 
     # Set the value for the next user_id to be max_id + 1
-    # Note to self: the 'users_id_seq' variable is based on the Users table
     query = "SELECT setval('budget_id_seq', :new_id)"
+
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
+
+
+def set_val_category_id():
+    """ Set value for the next category id after seeding database """
+
+    # Get the Max user id in the database
+    result = db.session.query(func.max(Category.id)).one()
+
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('categories_id_seq', :new_id)"
 
     db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
@@ -157,12 +196,26 @@ if __name__ == "__main__":
     connect_to_db(app, spent_database)
 
     # In case tables haven't been created, create them
+    print
+    print
+    print "create all"
+    print
+    print
+
     db.create_all()
+
+    print
+    print
+    print "after create all"
+    print
+    print
 
     # Import different types of data
     load_users()
+    load_categories()
     load_expenditures()
     load_budget()
     set_val_user_id()
+    set_val_category_id()
     set_val_expenditure_id()
     set_val_budget_id()

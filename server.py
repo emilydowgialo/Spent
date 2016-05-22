@@ -442,14 +442,6 @@ def add_budget():
     budget = request.form.get("budget")
     category = request.form.get("category")
 
-    print
-    print request.form
-    print "form stuff"
-    print budget
-    print category
-    print
-    print
-
     user_budget_query = Budget.query.filter_by(budget_userid=id).all()
 
     # Check for budgets in the database under the user ID in particular categories;
@@ -477,7 +469,6 @@ def add_budget():
 
     # Redirect to the dashboard
     return jsonify(budget_info)
-    # redirect(url_for('dashboard', id=id))
 
 
 @app.route('/add-expenditure-to-db', methods=["POST"])
@@ -508,7 +499,6 @@ def add_expenditure():
 
     # Redirect to the dashboard
     return "congrats"
-    # redirect(url_for('dashboard', id=id))
 
 
 @app.route('/remove-expenditure/<int:id>', methods=["POST"])

@@ -15,6 +15,15 @@ class User(db.Model):
     password = db.Column(db.String(64))
 
 
+class Category(db.Model):
+    """ This is the category table """
+
+    __tablename__ = "categories"
+
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    category = db.Column(db.String(64))
+
+
 class Budget(db.Model):
     """ This is the user's budget """
 
@@ -23,10 +32,12 @@ class Budget(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     # the data type of the budget should match the data type of the price
     budget = db.Column(db.Numeric(15, 2))
-    category = db.Column(db.String(64), nullable=True)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     budget_userid = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     user = db.relationship("User", backref=db.backref('budget'))
+
+    category = db.relationship("Category", backref=db.backref('budget'))
 
     def __repr__(self):
         """ Provide useful info """
@@ -41,7 +52,7 @@ class Expenditure(db.Model):
     __tablename__ = "expenditures"
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    category = db.Column(db.String(64))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     price = db.Column(db.Numeric(15, 2))
     # Tell users to enter in 2014-03-12. On backend, datetime.datetime.strptime('2014-03-12', '%Y-%m-%d')
     # bootstrap datepicker
@@ -53,6 +64,8 @@ class Expenditure(db.Model):
     # tracking_num = db.Column(db.Integer, nullable=True)
 
     user = db.relationship("User", backref=db.backref('expenditures'))
+
+    category = db.relationship("Category", backref=db.backref('expenditures'))
 
 
 def init_app():
