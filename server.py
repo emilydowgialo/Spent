@@ -273,14 +273,6 @@ def budget_form():
     return render_template("budget.html")
 
 
-@app.route('/budget-testing', methods=["POST"])
-def budget_form_testing():
-    """ Go to the budget form """
-
-    # This is the budget form
-    return render_template("form-test.html")
-
-
 @app.route('/remove-budget/<int:id>', methods=["POST"])
 def remove_budget(id):
     """ Remove a budget from the database """
@@ -302,68 +294,6 @@ def remove_budget(id):
     return redirect(url_for('dashboard', id=user_id))
 
 
-@app.route('/add-budget-test', methods=["POST"])
-def add_budget_test():
-
-    # Set the value of the user id of the user in the session
-    id = session.get('id')
-
-    # Get values from the form
-    budget = request.form.get("budget-test")
-    category = request.form.get("category-test")
-
-    print
-    print request.form
-    print "form stuff"
-    print budget
-    print category
-    print
-    print
-
-    user_budget_query = Budget.query.filter_by(budget_userid=id).all()
-
-    # Check for budgets in the database under the user ID in particular categories;
-    # delete budgets that exist to override them
-    # Check to see if you can modify it instead
-    for query in user_budget_query:
-        if query.category == category:
-            db.session.delete(query)
-            db.session.commit()
-
-    # Add the budget to the database. It will be the only budget for that
-    # category in the database for the user
-    new_budget = Budget(budget=budget,
-                        category=category,
-                        budget_userid=id)
-
-    # Insert the new budget into the budget table and commit the insert
-    db.session.add(new_budget)
-    db.session.commit()
-
-    print
-    print
-    print "new_budget"
-    print new_budget
-    print
-    print
-
-    budget_info = {
-        'category': category,
-        'budget': budget
-    }
-
-    print
-    print
-    print "budget_info"
-    print budget_info
-    print
-    print
-
-    # Redirect to the dashboard
-    return jsonify(budget_info)
-    # redirect(url_for('dashboard', id=id))
-
-
 @app.route('/add-budget', methods=["POST"])
 def add_budget():
     """ Add a budget """
@@ -374,13 +304,6 @@ def add_budget():
     # Get values from the form
     budget = request.form.get("budget")
     category_id = int(request.form.get("category"))
-
-    print
-    print
-    print "cat id"
-    print category_id, type(category_id)
-    print
-    print
 
     user_budget_query = Budget.query.filter_by(budget_userid=id).all()
 
@@ -401,23 +324,6 @@ def add_budget():
     # Insert the new budget into the budget table and commit the insert
     db.session.add(new_budget)
     db.session.commit()
-
-    print
-    print
-    print
-    print
-    print
-    print "new budget"
-    print new_budget
-    print
-    print "new budget.category"
-    print new_budget.category
-    print
-    print "new budget.cat.cat"
-    print new_budget.category.category
-    print
-    print
-    print
 
     total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id)
     cat_budget_minus_expenses = budget_totals(category_id, id, total_cat_price)
