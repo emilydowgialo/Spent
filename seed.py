@@ -195,19 +195,7 @@ if __name__ == "__main__":
     connect_to_db(app, spent_database)
 
     # In case tables haven't been created, create them
-    print
-    print
-    print "create all"
-    print
-    print
-
     db.create_all()
-
-    print
-    print
-    print "after create all"
-    print
-    print
 
     # Import different types of data
     load_users()

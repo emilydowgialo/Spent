@@ -5,6 +5,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
+from tools import expenditure_function, budget_totals
+
 from sqlalchemy.sql import and_
 
 app = Flask(__name__)
@@ -78,30 +80,6 @@ def budget_types_data():
     # If the user id is in the session, this will render the dashboard
     # template, which will display their information and expenditure information
     if 'id' in session:
-
-        # The following function gets the total amount and average amount spent
-        def expenditure_function(category_id, id):
-            """ Calculate the total amount and avg spent in one particular category """
-
-            # List of expenditure objects
-            expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
-
-            # Initialize the total price at 0
-            total_price = 0
-
-            # Increase the total price by the price of each expenditure
-            for expenditure in expenditures:
-                expenditure_price = expenditure.price
-                total_price += expenditure_price
-
-            # This gets the average price; if there is an error due to no
-            # expenditures, it returns the value of "0"
-            try:
-                avg_expenditures = total_price/len(expenditures)
-            except ZeroDivisionError:
-                avg_expenditures = "0"
-
-            return float(total_price), float(avg_expenditures)
 
         # Unpacking the total price and average spent
         total_food_price, avg_food_expenditures = expenditure_function(3, id)
@@ -231,30 +209,6 @@ def dashboard(id):
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
-        # The following function gets the total amount and average amount spent
-        def expenditure_function(category_id, id):
-            """ Calculate the total amount and avg spent in one particular category """
-
-            # List of expenditure objects
-            expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
-
-            # Initialize the total price at 0
-            total_price = 0
-
-            # Increase the total price by the price of each expenditure
-            for expenditure in expenditures:
-                expenditure_price = expenditure.price
-                total_price += expenditure_price
-
-            # This gets the average price; if there is an error due to no
-            # expenditures, it returns the value of "0"
-            try:
-                avg_expenditures = total_price/len(expenditures)
-            except ZeroDivisionError:
-                avg_expenditures = "0"
-
-            return str(total_price), str(avg_expenditures)
-
         # Unpacking the total price and average spent
         total_food_price, avg_food_expenditures = expenditure_function(2, id)
         total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id)
@@ -262,30 +216,9 @@ def dashboard(id):
         total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id)
         total_travel_price, avg_travel_expenditures = expenditure_function(2, id)
         total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id)
-        total_price = (float(total_food_price) + float(total_groceries_price) + float(total_clothing_price) +
-                       float(total_entertainment_price) + float(total_travel_price) +
-                       float(total_online_purchase_price))
-
-        # The following functon gets the budget minus expenditures
-        def budget_totals(category_id, id, total_price):
-            """ Calculate budget minus expenditures made """
-
-            # This is the expenditure object
-            expenditure_budget = Budget.query.filter_by(category_id=category_id, budget_userid=id).first()
-
-            # Initializes the budget at 0
-            expenditure_budget_minus_expenses = 0
-
-            # If there is a budget, this subtracts the total expenses from it, or
-            # returns a statement about the user not inputting a budget yet
-            if expenditure_budget is not None:
-                budget_total = expenditure_budget.budget
-                expenditure_budget_minus_expenses = float(budget_total) - float(total_price)
-
-            else:
-                expenditure_budget_minus_expenses = "You haven't added a budget yet"
-
-            return expenditure_budget_minus_expenses
+        total_price = (total_food_price + total_groceries_price + total_clothing_price +
+                       total_entertainment_price + total_travel_price +
+                       total_online_purchase_price)
 
         # Calling the function for each of the expenditure categories
         food_budget_minus_expenses = budget_totals(3, id, total_food_price)
