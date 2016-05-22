@@ -1,7 +1,7 @@
 import unittest
 
 from server import app
-from model import db, connect_to_db, User, example_data
+from model import db, connect_to_db, User, example_data, Budget
 
 
 class SpentDatabaseTests(unittest.TestCase):
@@ -133,12 +133,36 @@ class SpentDatabaseTests(unittest.TestCase):
         self.assertIn("congrats", result.data)
 
     def test_dashboard(self):
+        """ Test if the dashboard routes correctly """
 
         self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
 
         result = self.client.get("/dashboard/1", follow_redirects=True)
+
+        self.assertIn("Dashboard", result.data)
+
+    def test_remove_budget(self):
+
+        self.client.post("/login-form", data=dict(
+            email="mu@mu.com",
+            password="mu"), follow_redirects=True)
+
+        # Query the database for the budget
+        budget_test = Budget.query.filter_by(budget=1000).first()
+
+        # Query for the budget id
+        budget_test_id = budget_test.id
+
+        # Test the route
+        result = self.client.post("/remove-budget/" + str(budget_test_id), follow_redirects=True)
+
+        # Query for the removed budget
+        budget_test_after_removal = Budget.query.filter_by(budget=1000).count()
+
+        # See if the budget was removed by checking if count is 0
+        self.assertTrue(budget_test_after_removal == 0)
 
         self.assertIn("Dashboard", result.data)
 

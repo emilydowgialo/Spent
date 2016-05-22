@@ -214,6 +214,8 @@ def expenditure_types_data():
 def dashboard(id):
     """ This is the user dashboard """
 
+    # TO FIX: make it so you can't view other dashboards
+
     # If the user id is in the session, this will render the dashboard
     # template, which will display their information and expenditure information
     if 'id' in session:
@@ -353,15 +355,18 @@ def remove_budget(id):
     # This is the budget object we are working with
     budget_at_hand = Budget.query.filter_by(id=id).first()
 
-    # This queries for the id of the user tied to the budget
-    budget_id = budget_at_hand.budget_userid
+    # This is the user id of the user in the session
+    user_id = session.get('id')
 
-    # Deletes the budget item from the budget table
-    db.session.delete(budget_at_hand)
-    db.session.commit()
+    # Check to make sure the budget is associated with the logged in user
+    if user_id == budget_at_hand.budget_userid:
+
+        # Deletes the budget item from the budget table
+        db.session.delete(budget_at_hand)
+        db.session.commit()
 
     # Redirect the user to their dashboard
-    return redirect(url_for('dashboard', id=budget_id))
+    return redirect(url_for('dashboard', id=user_id))
 
 
 @app.route('/add-budget-test', methods=["POST"])

@@ -28,6 +28,12 @@ class Budget(db.Model):
 
     user = db.relationship("User", backref=db.backref('budget'))
 
+    def __repr__(self):
+        """ Provide useful info """
+
+        return "<Budget id=%s budget=%s budget_userid=%s category=%s>" % (
+            self.id, self.budget, self.budget_userid, self.category)
+
 
 class Expenditure(db.Model):
     """ This contains expenditures """
@@ -77,10 +83,16 @@ def example_data():
     """Create example data for the test database."""
 
     fakeuser = User(name="Mu", email="mu@mu.com", password="mu")
-    fakebudget = Budget(budget=1000, category="Food", budget_userid=fakeuser.id)
+    fakebudget = Budget(budget=1000, category="Food")
     fakeexpenditure = Expenditure(category="Travel", price=500, date_of_expenditure="2016-05-07", expenditure_userid=fakeuser.id, where_bought="train station", description="Amtrak ticket")
 
     db.session.add_all([fakeuser, fakebudget, fakeexpenditure])
+    db.session.commit()
+
+    # Add the budget_userid to the database, otherwise budget_userid is None
+    # because the budget is not associated with a user
+    fakebudget.budget_userid = fakeuser.id
+    db.session.add(fakebudget)
     db.session.commit()
 
 
