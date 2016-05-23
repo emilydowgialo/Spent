@@ -130,21 +130,25 @@ class SpentDatabaseTests(unittest.TestCase):
             where_bought="Whole Foods",
             description="groceries and stuff"), follow_redirects=True)
 
-        self.assertIn("congrats", result.data)
+        self.assertIn("groceries and stuff", result.data)
 
     def test_dashboard(self):
         """ Test if the dashboard routes correctly """
 
+        # Log in a test client
         self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
 
+        # Test the route
         result = self.client.get("/dashboard/1", follow_redirects=True)
 
+        # Test if 'Dashboard' shows
         self.assertIn("Dashboard", result.data)
 
     def test_remove_budget(self):
 
+        # Log in a test client
         self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="mu"), follow_redirects=True)

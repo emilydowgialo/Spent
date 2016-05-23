@@ -29,6 +29,16 @@
         </form>
     </p>
 
+    Tracking Info:<br>
+    <p>
+        <form action="/tracking" method="POST">
+            <input type="text" id="tracking-number" name="tracking-number">
+            <input type="text" id="carrier" name="carrier">
+            <input type="submit" value="Submit Tracking Info">
+        </form>
+    </p>
+
+
     <p>
         Total spent on food: <span id="total-spent-3">{{ total_food_price }}</span><br>
         Travel total: <span id="total-spent-2">{{ total_travel_price }}</span><br>
@@ -89,7 +99,6 @@
       responsive: true
     };
 
-    // Make Donut Chart of percent of different types of Melons
     var ctx_donut = $("#donutChart").get(0).getContext("2d");
 
     $.get("/expenditure-types.json", function (data) {
@@ -97,7 +106,6 @@
       $('#donutLegend').html(myDonutChart.generateLegend());
     });
 
-    // Make Line Chart of Melon Sales over time
     var ctx_line = $("#barChart").get(0).getContext("2d");
 
     $.get("/total-spent.json", function (data) {

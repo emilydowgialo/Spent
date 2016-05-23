@@ -1,6 +1,8 @@
 from jinja2 import StrictUndefined
 
-from flask import Flask, request, render_template, session, url_for, flash, redirect, jsonify
+import requests
+
+from flask import Flask, request, render_template, session, url_for, flash, redirect, jsonify, json
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
@@ -61,6 +63,51 @@ def profile_edit():
         db.session.commit()
 
     return redirect(url_for('dashboard', id=id))
+
+
+@app.route('/tracking', methods=["POST"])
+def tracking():
+
+    tracking_num = request.form.get("tracking-number")
+    carrier = request.form.get("carrier")
+
+    print
+    print
+    print
+    print "tracking_num"
+    print tracking_num
+    print
+    print "carrier"
+    print carrier
+    print
+    print
+
+    def shippo_url(track_num, carrier_info):
+
+        url = "https://api.goshippo.com/v1/tracks/" + str(carrier_info) + "/" + str(track_num) + "/"
+        return url
+
+    shippo_tracking = shippo_url(tracking_num, carrier)
+
+    print
+    print
+    print "shippo_tracking"
+    print shippo_tracking
+    print
+    print
+
+    result = requests.get(shippo_tracking)
+
+    data = json.loads(result.content)
+
+    print
+    print
+    print "data"
+    print data
+    print
+    print
+
+    return data
 
 
 @app.route('/total-spent.json')
@@ -342,14 +389,8 @@ def add_expenditure():
     db.session.add(new_expenditure)
     db.session.commit()
 
+    # Unpacking the function call
     total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id)
-
-    print
-    print
-    print "total_cat_price"
-    print total_cat_price
-    print
-    print
 
     expenditure_info = {
         'total_cat_price': total_cat_price,
