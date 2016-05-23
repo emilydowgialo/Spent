@@ -1,8 +1,8 @@
 "use strict";
 
 function showExpenditureResults(result) {
-    alert(result);
     updateTotalSpent(result);
+    updateAverageSpent(result);
 }
 
 function submitExpenditure(evt) {
@@ -32,6 +32,19 @@ function updateTotalSpent(result) {
 
   expenditureElement.html(stringToAppend);
   console.log("finished updateTotalSpent");
+
+}
+
+function updateAverageSpent(result) {
+
+  var average = result;
+  console.log(average.avg_cat_expenditures);
+  var stringToAppend = String(average.avg_cat_expenditures);
+
+  var avgElement = $('#avg-' + String(average.category_id));
+
+  avgElement.html(stringToAppend);
+  console.log("finished updateAverageSpent");
 
 }
 
