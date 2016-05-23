@@ -68,36 +68,27 @@ def profile_edit():
 @app.route('/tracking', methods=["POST"])
 def tracking():
 
+    # TO DO: This successfully retrieves data about a shipment - need to parse
+    # this data
+
+    # MORE TO DO: Need to figure out what to do with this data
+
+    # Set the value of the user id of the user in the session
+    id = session.get('id')
+
+    # Tracking number and carrier
     tracking_num = request.form.get("tracking-number")
     carrier = request.form.get("carrier")
 
-    print
-    print
-    print
-    print "tracking_num"
-    print tracking_num
-    print
-    print "carrier"
-    print carrier
-    print
-    print
-
     def shippo_url(track_num, carrier_info):
+        """ Creates api call using tracking information """
 
         url = "https://api.goshippo.com/v1/tracks/" + str(carrier_info) + "/" + str(track_num) + "/"
         return url
 
+    # Returns the data we need
     shippo_tracking = shippo_url(tracking_num, carrier)
-
-    print
-    print
-    print "shippo_tracking"
-    print shippo_tracking
-    print
-    print
-
     result = requests.get(shippo_tracking)
-
     data = json.loads(result.content)
 
     print
@@ -107,7 +98,16 @@ def tracking():
     print
     print
 
-    return data
+    print
+    print "tracking status"
+    print data['tracking_status']['status']
+    print
+    print
+
+    # package_status = data['tracking_status']['status']
+
+    # Redirect the user to their dashboard
+    return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/total-spent.json')

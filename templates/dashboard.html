@@ -30,14 +30,34 @@
         </form>
     </p>
 
-    Tracking Info:<br>
+<div id="tracking-div">
+    <b>Tracking Info:</b><br>
     <p>
         <form action="/tracking" method="POST">
-            <input type="text" id="tracking-number" name="tracking-number">
-            <input type="text" id="carrier" name="carrier">
-            <input type="submit" value="Submit Tracking Info">
-        </form>
+            Tracking Number: <input type="text" id="tracking-number" name="tracking-number"><br>
+            Carrier: <input type="text" id="carrier" name="carrier"><br>
+            <input type="submit" value="Submit Tracking Info" id="tracking-submit">
+        </form><br>
+        <span id="tracking-span"></span><br>
     </p>
+</div>
+
+<!-- Map -->
+
+<div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap"
+    async defer></script>
+
+</div>
 
 <!-- Various metrics -->
 
