@@ -141,9 +141,6 @@
     {% endfor %}
 </div>
 
-
-
-
         <h2>Budget</h2>
 
     <form action="/add-budget" method="POST" id="budget-form">
@@ -169,12 +166,15 @@
 
     <script src="/static/js/submit-budget.js"></script>
 
-    <ul>
+    <p>Expenditures:
+    </p>
+
+    <div id="expenditures-div">
 
       {% for expenditure in expenditures %}
-      <form action="/remove-expenditure/{{ expenditure.id }}" method="POST">
-      <li>
-        {{ expenditure.date_of_expenditure }}: <br>
+      <form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
+
+        {{ expenditure.date_of_expenditure }}<br>
         {{ expenditure.category.category }}<br>
         {{ expenditure.price }}<br>
         {{ expenditure.where_bought }}<br>
@@ -182,10 +182,8 @@
 
             <input type="Submit" value="Remove">
         </form>
-
-      </li>
       {% endfor %}
-    </ul>
+    </div>
 
 
     <p>

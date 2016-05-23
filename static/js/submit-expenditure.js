@@ -3,6 +3,7 @@
 function showExpenditureResults(result) {
     updateTotalSpent(result);
     updateAverageSpent(result);
+    appendExpenditure(result);
 }
 
 function submitExpenditure(evt) {
@@ -20,6 +21,31 @@ function submitExpenditure(evt) {
            formInputs,
            showExpenditureResults
            );
+}
+
+function appendExpenditure(result) {
+
+  var expenditure = result;
+
+  var stringToAppend = '<form action="/remove-expenditure/' + String(expenditure.expenditure_id) +
+  '" method="POST" id="expenditure-' + String(expenditure.expenditure_id) + '">' +
+  String(expenditure.date_of_expenditure) +
+  '<br>' +
+  String(expenditure.category) +
+  '<br>' +
+  String(expenditure.price) +
+  '<br>' +
+  String(expenditure.where_bought) +
+  '<br>' +
+  String(expenditure.description) +
+  '<br>' +
+  '<input type="Submit" value="Remove">' +
+  '</form>';
+
+  console.log(stringToAppend);
+  $('#expenditures-div').append(stringToAppend);
+  console.log("finished with appendExpenditure");
+
 }
 
 function updateTotalSpent(result) {

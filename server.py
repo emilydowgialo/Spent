@@ -354,7 +354,13 @@ def add_expenditure():
     expenditure_info = {
         'total_cat_price': total_cat_price,
         'avg_cat_expenditures': avg_cat_expenditures,
-        'category_id': category_id
+        'category_id': category_id,
+        'expenditure_id': new_expenditure.id,
+        'date_of_expenditure': new_expenditure.date_of_expenditure,
+        'where_bought': new_expenditure.where_bought,
+        'description': new_expenditure.description,
+        'price': str(new_expenditure.price),
+        'category': new_expenditure.category.category,
     }
 
     # Return jsonified info to submit-expenditure.js
