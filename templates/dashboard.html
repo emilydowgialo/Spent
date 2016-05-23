@@ -30,32 +30,21 @@
     </p>
 
     <p>
-        Total spent on food: {{ total_food_price }}<br>
-        Travel total: {{ total_travel_price }}<br>
-        Total clothing: {{ total_clothing_price }}<br>
-        Total entertainment: {{ total_entertainment_price }}<br>
-        Total online purchase: {{ total_online_purchase_price }}<br>
-        Total groceries: {{ total_groceries_price }}<br>
+        Total spent on food: <span id="total-spent-3">{{ total_food_price }}</span><br>
+        Travel total: <span id="total-spent-2">{{ total_travel_price }}</span><br>
+        Total clothing: <span id="total-spent-5">{{ total_clothing_price }}</span><br>
+        Total entertainment: <span id="total-spent-6">{{ total_entertainment_price }}</span><br>
+        Total online purchase: <span id="total-spent-1">{{ total_online_purchase_price }}</span><br>
+        Total groceries: <span id="total-spent-4">{{ total_groceries_price }}</span><br>
     </p>
 
     <p>
-        Average online purchase price: {{ avg_online_expenditures }}<br>
-        Average entertainment purchase price: {{ avg_entertainment_expenditures }}<br>
-        Average clothing price: {{ avg_clothing_expenditures }}<br>
-        Average travel: {{ avg_travel_expenditures }}<br>
-        Average groceries: {{ avg_groceries_expenditures }}<br>
-        Average food: {{ avg_food_expenditures }}<br>
-
-    <p>
-        <form action="/budget-testing" method="POST">
-            <input type="submit">
-        </form>
-
-    <p>
-        <form action="/chart-test" method="POST">
-    <input type="submit" value="Charts">
-        </form>
-    </p>
+        Average online purchase price: <span id="avg-1">{{ avg_online_expenditures }}</span><br>
+        Average entertainment purchase price: <span id="avg-6">{{ avg_entertainment_expenditures }}</span><br>
+        Average clothing price: <span id="avg-5">{{ avg_clothing_expenditures }}</span><br>
+        Average travel: <span id="avg-2">{{ avg_travel_expenditures }}</span><br>
+        Average groceries: <span id="avg-4">{{ avg_groceries_expenditures }}</span><br>
+        Average food: <span id="avg-3">{{ avg_food_expenditures }}</span><br>
 
     <p>
 

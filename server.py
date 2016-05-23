@@ -63,14 +63,6 @@ def profile_edit():
     return redirect(url_for('dashboard', id=id))
 
 
-@app.route('/chart-test', methods=["POST"])
-def chart_test():
-    """ Testing the charts """
-
-    # This is the test chart page
-    return render_template("charttest.html")
-
-
 @app.route('/total-spent.json')
 def budget_types_data():
     """ Bar chart """
@@ -257,22 +249,6 @@ def dashboard(id):
                                                 budget=budget)
 
 
-@app.route('/expenditure-form', methods=["POST"])
-def expenditure_form():
-    """ Add more expenditures on this expenditure form """
-
-    # This is the expenditure form
-    return render_template("expenditures-form.html")
-
-
-@app.route('/budget-form', methods=["POST"])
-def budget_form():
-    """ Go to the budget form """
-
-    # This is the budget form
-    return render_template("budget.html")
-
-
 @app.route('/remove-budget/<int:id>', methods=["POST"])
 def remove_budget(id):
     """ Remove a budget from the database """
@@ -336,7 +312,7 @@ def add_budget():
         'cat_budget_minus_expenses': cat_budget_minus_expenses
     }
 
-    # Redirect to the dashboard
+    # Return jsonified budget info to submit-budget.js
     return jsonify(budget_info)
 
 
@@ -366,8 +342,23 @@ def add_expenditure():
     db.session.add(new_expenditure)
     db.session.commit()
 
-    # Redirect to the dashboard
-    return "congrats"
+    total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id)
+
+    print
+    print
+    print "total_cat_price"
+    print total_cat_price
+    print
+    print
+
+    expenditure_info = {
+        'total_cat_price': total_cat_price,
+        'avg_cat_expenditures': avg_cat_expenditures,
+        'category_id': category_id
+    }
+
+    # Return jsonified info to submit-expenditure.js
+    return jsonify(expenditure_info)
 
 
 @app.route('/remove-expenditure/<int:id>', methods=["POST"])
