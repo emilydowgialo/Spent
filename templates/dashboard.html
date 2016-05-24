@@ -46,15 +46,41 @@
 
 <div id="map"></div>
     <script>
-      var map;
+      // var map;
       function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
           zoom: 8
         });
+
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('tracking-submit').addEventListener('click', function() {geocodeAddress(geocoder, map);
+        });
       }
+
+// test 9374889676090040179500
+
+// This function gets information about the address to display
+      function geocodeAddress(geocoder, resultsMap) {
+
+        var address = document.getElementById('address').value;
+
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap"
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap"
     async defer></script>
 
 </div>

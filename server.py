@@ -1,5 +1,7 @@
 from jinja2 import StrictUndefined
 
+from pprint import pprint
+
 import requests
 
 from flask import Flask, request, render_template, session, url_for, flash, redirect, jsonify, json
@@ -94,19 +96,28 @@ def tracking():
     print
     print
     print "data"
-    print data
+    pprint(data)
     print
     print
+
+    # NOTE TO SELF: This is the final destination of the package
 
     print
     print "tracking status"
-    print data['tracking_status']['status']
+    final_dest = data['tracking_status']['location']
+    print "final_dest"
+    print final_dest
+    print
+    print final_dest['city']
+    print final_dest['state']
+    print final_dest['zip']
+    print final_dest['country']
+    print
     print
     print
 
-    # package_status = data['tracking_status']['status']
-
-    # Redirect the user to their dashboard
+    # Redirect the user to their dashboard for now
+    # FIX ME: get the address data to Google Maps
     return redirect(url_for('dashboard', id=id))
 
 
