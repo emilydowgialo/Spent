@@ -1,7 +1,7 @@
 import unittest
 
 from server import app
-from model import db, connect_to_db, User, example_data, Budget
+from model import db, connect_to_db, User, example_data, Budget, Expenditure
 
 
 class SpentDatabaseTests(unittest.TestCase):
@@ -61,19 +61,23 @@ class SpentDatabaseTests(unittest.TestCase):
     def test_signin_fail_wrong_password(self):
         """ Test for an error in logging in with the incorrect password """
 
+        # Try signing in using the incorrect password
         result = self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="m"), follow_redirects=True)
 
+        # Check if the error phrase comes up
         self.assertIn("Error in logging in", result.data)
 
     def test_signin_fail_wrong_email(self):
         """ Test for an error in logging in with the incorrect email """
 
+        # Log in a fake user using the wrong email
         result = self.client.post("/login-form", data=dict(
             email="mu@m.com",
             password="mu"), follow_redirects=True)
 
+        # Check if the error messages pops up
         self.assertIn("Error in logging in", result.data)
 
     def test_signin_fail_wrong_email_and_password(self):
@@ -167,6 +171,30 @@ class SpentDatabaseTests(unittest.TestCase):
 
         # See if the budget was removed by checking if count is 0
         self.assertTrue(budget_test_after_removal == 0)
+
+        self.assertIn("Dashboard", result.data)
+
+    def test_remove_expenditure(self):
+
+        # Log in a test client
+        self.client.post("/login-form", data=dict(
+            email="mu@mu.com",
+            password="mu"), follow_redirects=True)
+
+        # Query the database for the expenditure
+        expenditure_test = Expenditure.query.filter_by(price=500).first()
+
+        # Query for the expenditure id
+        expenditure_test_id = expenditure_test.id
+
+        # Test the route
+        result = self.client.post("/remove-expenditure/" + str(expenditure_test_id), follow_redirects=True)
+
+        # Query for the removed expenditure
+        expenditure_test_after_removal = Expenditure.query.filter_by(price=500).count()
+
+        # See if the expenditure was removed by checking if count is 0
+        self.assertTrue(expenditure_test_after_removal == 0)
 
         self.assertIn("Dashboard", result.data)
 

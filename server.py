@@ -1,6 +1,6 @@
 from jinja2 import StrictUndefined
 
-from pprint import pprint
+# from pprint import pprint
 
 import requests
 
@@ -70,20 +70,12 @@ def profile_edit():
 @app.route('/tracking', methods=["POST"])
 def tracking():
 
-    # TO DO: This successfully retrieves data about a shipment - need to parse
-    # this data
-
-    # MORE TO DO: Need to figure out what to do with this data
-
-    # Set the value of the user id of the user in the session
-    id = session.get('id')
-
     # Tracking number and carrier
     tracking_num = request.form.get("tracking-number")
     carrier = request.form.get("carrier")
 
     def shippo_url(track_num, carrier_info):
-        """ Creates api call using tracking information """
+        """ Creates api call using tracking information the user input via the form """
 
         url = "https://api.goshippo.com/v1/tracks/" + str(carrier_info) + "/" + str(track_num) + "/"
         return url
@@ -93,35 +85,12 @@ def tracking():
     result = requests.get(shippo_tracking)
     data = json.loads(result.content)
 
-    print
-    print
-    print "data"
-    pprint(data)
-    print
-    print
-
-    # NOTE TO SELF: This is the final destination of the package
-
-    print
-    print "tracking status"
     final_dest = data['tracking_status']['location']
-    print "final_dest"
-    print final_dest
-    print
+
     city = final_dest['city']
     state = final_dest['state']
     zipcode = final_dest['zip']
     country = final_dest['country']
-    print
-    print
-    print
-
-    # address = str(city) + " " + str(state) + " " + str(zipcode) + " " + str(country)
-    # print
-    # print
-    # print "address"
-    # print address
-    # print
 
     address_info = {
         'city': city,
@@ -130,12 +99,8 @@ def tracking():
         'country': country
     }
 
-    # Return jsonified budget info to submit-budget.js
+    # Return jsonified budget info to the map
     return jsonify(address_info)
-
-    # Redirect the user to their dashboard for now
-    # FIX ME: get the address data to Google Maps
-    # return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/total-spent.json')
@@ -190,9 +155,11 @@ def budget_types_data():
 def expenditure_types_data():
     """ Return data about expenditures """
 
+    # Get the id of the user in the session
     id = session.get('id')
 
     def get_expenditures(category_id, id):
+        """ Gets a list of expenditure prices """
 
         expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
 
@@ -204,6 +171,7 @@ def expenditure_types_data():
         expenditure_total = int(sum(expenditure_list))
         return expenditure_total
 
+    # Get the total amount spent per category by calling the get_expenditures function
     travel_expenditures = get_expenditures(2, id)
     entertainment_expenditures = get_expenditures(6, id)
     groceries_expenditures = get_expenditures(4, id)
@@ -211,6 +179,7 @@ def expenditure_types_data():
     food_expenditures = get_expenditures(3, id)
     online_purchase_expenditures = get_expenditures(1, id)
 
+    # Jsonified info
     data_list_of_dicts = {
         'expenditures': [
             {
@@ -252,6 +221,7 @@ def expenditure_types_data():
         ]
     }
 
+    # Return jsonified info
     return jsonify(data_list_of_dicts)
 
 
@@ -443,15 +413,14 @@ def remove_expenditure(id):
     # This is the expenditure object we are working with
     expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
 
-    # This queries for the id of the user tied to the expenditure
-    expenditure_id = expenditure_at_hand.expenditure_userid
+    user_id = session.get('id')
 
     # Deletes the expenditure item from the expenditure table
     db.session.delete(expenditure_at_hand)
     db.session.commit()
 
     # Redirect the user to their dashboard
-    return redirect(url_for('dashboard', id=expenditure_id))
+    return redirect(url_for('dashboard', id=user_id))
 
 
 @app.route('/sign-up-form', methods=["POST"])
