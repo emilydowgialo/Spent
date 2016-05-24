@@ -108,17 +108,34 @@ def tracking():
     print "final_dest"
     print final_dest
     print
-    print final_dest['city']
-    print final_dest['state']
-    print final_dest['zip']
-    print final_dest['country']
+    city = final_dest['city']
+    state = final_dest['state']
+    zipcode = final_dest['zip']
+    country = final_dest['country']
     print
     print
     print
 
+    # address = str(city) + " " + str(state) + " " + str(zipcode) + " " + str(country)
+    # print
+    # print
+    # print "address"
+    # print address
+    # print
+
+    address_info = {
+        'city': city,
+        'state': state,
+        'zipcode': zipcode,
+        'country': country
+    }
+
+    # Return jsonified budget info to submit-budget.js
+    return jsonify(address_info)
+
     # Redirect the user to their dashboard for now
     # FIX ME: get the address data to Google Maps
-    return redirect(url_for('dashboard', id=id))
+    # return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/total-spent.json')

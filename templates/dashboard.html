@@ -33,7 +33,7 @@
 <div id="tracking-div">
     <b>Tracking Info:</b><br>
     <p>
-        <form action="/tracking" method="POST">
+        <form action="/tracking" method="POST" id="tracking-form">
             Tracking Number: <input type="text" id="tracking-number" name="tracking-number"><br>
             Carrier: <input type="text" id="carrier" name="carrier"><br>
             <input type="submit" value="Submit Tracking Info" id="tracking-submit">
@@ -42,42 +42,76 @@
     </p>
 </div>
 
+<!-- test 9374889676090040179500 usps -->
+
 <!-- Map -->
 
 <div id="map"></div>
     <script>
       // var map;
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
-        });
+        function initMap(thing) {
 
-        var geocoder = new google.maps.Geocoder();
+            var address = thing;
 
-        document.getElementById('tracking-submit').addEventListener('click', function() {geocodeAddress(geocoder, map);
-        });
-      }
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: -34.397, lng: 150.644},
+              zoom: 8
+            });
+
+            var geocoder = new google.maps.Geocoder();
+
+            // document.getElementById('tracking-form').addEventListener('click', function() {geocodeAddress(geocoder, map);
+            // });
+
+            geocodeAddress(geocoder, map, address);
+          }
 
 // test 9374889676090040179500
-
 // This function gets information about the address to display
-      function geocodeAddress(geocoder, resultsMap) {
 
-        var address = document.getElementById('address').value;
+        // var myAddress = {};
 
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
+        function geocodeAddress(geocoder, resultsMap, address) {
+        // var address = document.getElementById('address').value;
+            // var address = myAddress.address;
+
+            var address = address;
+
+            console.log(address);
+
+            geocoder.geocode({'address': address}, function(results, status) {
+              if (status === google.maps.GeocoderStatus.OK) {
+                resultsMap.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                  map: resultsMap,
+                  position: results[0].geometry.location
+                });
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
             });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
           }
-        });
-      }
+
+        function trackingInfo(results) {
+
+            var address = results;
+            console.log("this is address");
+            console.log(address);
+
+            initMap(address);
+
+        }
+
+        function updateAddress(evt) {
+            evt.preventDefault();
+
+            var tracking = $('#tracking-form').serialize();
+
+            $.post('/tracking', tracking, trackingInfo);
+            console.log("Finished sending AJAX");
+            }
+
+        $('#tracking-submit').click(updateAddress);
 
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap"
