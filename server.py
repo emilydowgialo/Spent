@@ -423,14 +423,6 @@ def remove_expenditure(id):
     return redirect(url_for('dashboard', id=user_id))
 
 
-@app.route('/sign-up-form', methods=["POST"])
-def sign_up_form():
-    """ Sign up form """
-
-    # Takes the user to the signup page
-    return render_template("signup.html")
-
-
 @app.route('/sign-up', methods=["POST"])
 def sign_up():
     """ Sign up form consumption """
@@ -480,14 +472,6 @@ def sign_up():
 
             # Take the user back to the homepage
             return redirect(url_for("index"))
-
-
-@app.route('/login', methods=["POST"])
-def login():
-    """ Directs the user to the login form """
-
-    # Take the user to the login page
-    return render_template("login.html")
 
 
 @app.route('/login-form', methods=["POST"])
