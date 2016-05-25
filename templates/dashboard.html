@@ -2,52 +2,266 @@
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endwith %}
+
+<div class="container">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Spent</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
 <h2>Dashboard</h2>
 
-<!-- User info -->
-    <p>
-      Welcome {{name}}<br>
-    </p>
+<div class="row"><!-- div for columns -->
+    <div class="col-md-4">
 
-    <p>
-        Your email: {{email}}
-        <br>
-        Your password: {{password}}
-    </p>
+        <div id="map"></div>
 
-    <p>
-        <form action="/edit-profile" method="POST">
-            <input type="submit" value="Edit Profile Info">
+            <!-- Charts -->
+            <p>
+
+                <div class="expenditure-chart">
+                    <canvas id="donutChart"></canvas>
+                    <div id="donutLegend" class="chart-legend"></div>
+                </div>
+
+                <div class="expenditure-chart">
+                    <canvas id="barChart"></canvas>
+                    <div id="barLegend" class="chart-legend"></div>
+                </div>
+            </p>
+    </div><!-- end column div -->
+
+    <div class="col-md-4"><!-- the second bootstrap column -->
+        <p>
+            Welcome {{name}}<br>
+        </p>
+
+        <p>
+            Your email: {{email}}<br>
+            Your password: {{password}}
+        </p>
+
+        <p>
+            <form action="/edit-profile" method="POST">
+                <input type="submit" value="Edit Profile Info">
+            </form>
+        </p>
+
+        <div id="tracking-div">
+            <b>Tracking Info:</b><br>
+            <p>
+                <form action="/tracking" method="POST" id="tracking-form">
+                    Tracking Number: <input type="text" id="tracking-number" name="tracking-number"><br>
+                    Carrier: <input type="text" id="carrier" name="carrier"><br>
+                        <input type="submit" value="Submit Tracking Info" id="tracking-submit">
+                </form><br>
+
+                <span id="tracking-span"></span><br>
+            </p>
+        </div><!--End tracking div -->
+
+        <!-- test 9374889676090040179500 usps -->
+
+        <!-- Various metrics -->
+
+        <p>
+            Total spent on food: <span id="total-spent-3">{{ total_food_price }}</span><br>
+            Travel total: <span id="total-spent-2">{{ total_travel_price }}</span><br>
+            Total clothing: <span id="total-spent-5">{{ total_clothing_price }}</span><br>
+            Total entertainment: <span id="total-spent-6">{{ total_entertainment_price }}</span><br>
+            Total online purchase: <span id="total-spent-1">{{ total_online_purchase_price }}</span><br>
+            Total groceries: <span id="total-spent-4">{{ total_groceries_price }}</span><br>
+        </p>
+
+        <p>
+            Average online purchase price: <span id="avg-1">{{ avg_online_expenditures }}</span><br>
+            Average entertainment purchase price: <span id="avg-6">{{ avg_entertainment_expenditures }}</span><br>
+            Average clothing price: <span id="avg-5">{{ avg_clothing_expenditures }}</span><br>
+            Average travel: <span id="avg-2">{{ avg_travel_expenditures }}</span><br>
+            Average groceries: <span id="avg-4">{{ avg_groceries_expenditures }}</span><br>
+            Average food: <span id="avg-3">{{ avg_food_expenditures }}</span><br>
+        <p>
+
+        <!-- Expenditure input form -->
+
+        <h2>Input Expenditures</h2>
+
+        <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
+            Category:
+                <select name="category" class="form-control" id="category-field">
+                    <option value="3">Food</option>
+                    <option value="2">Travel</option>
+                    <option value="1">Online Purchase</option>
+                    <option value="5">Clothing</option>
+                    <option value="4">Groceries</option>
+                    <option value="6">Entertainment</option>
+                </select>
+            <p><p>
+                <input type="text" id="price" placeholder="Price" name="price" class="form-control"><br>
+                <input type="date" id="date" placeholder="Date of purchase" name="date" class="form-control"><br>
+                <input type="text" id="wherebought" placeholder="Where was this purchased?" name="wherebought" class="form-control"><br>
+                <input type="text" id="description" placeholder="Describe your purchase" name="description" class="form-control"><p>
+
+                <input type="submit" value="Submit">
         </form>
+
+        <script src="/static/js/submit-expenditure.js"></script>
+
+            </p>
+
+    </div><!-- end the second column div -->
+
+    <!-- Budget section -->
+
+    <div class="col-md-4"><!-- open third column div -->
+
+        Budget left:
+
+            <p>
+
+                Food: <span id="budget-left-3">{{ food_budget_minus_expenses }}</span><br>
+                Travel: <span id="budget-left-2">{{ travel_budget_minus_expenses }}</span><br>
+                Clothing: <span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span><br>
+                Entertainment: <span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span><br>
+                Online purchases: <span id="budget-left-1">{{ online_budget_minus_expenses }}</span><br>
+                Groceries: <span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span><br>
+
+            </p>
+
+            <p>
+                Total spent: {{ total_price }}
+            </p>
+
+        <p>
+            <h2>Budget:</h2>
+        </p>
+
+        <p>
+
+        <div id="budget-div">
+            {% for budget in budget %}
+                <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
+
+                    <li>
+                        {{ budget.budget }}<br>
+                        {{ budget.category.category }}<br>
+                    </li>
+                        <input type="Submit" value="Remove">
+                </form>
+
+            {% endfor %}
+        </div>
+
+        <h2>Budget</h2>
+
+        <form action="/add-budget" method="POST" id="budget-form">
+            Category:
+                <select name="category" id="category-field">
+                    <option value="3">Food</option>
+                    <option value="2">Travel</option>
+                    <option value="1">Online Purchase</option>
+                    <option value="5">Clothing</option>
+                    <option value="4">Groceries</option>
+                    <option value="6">Entertainment</option>
+                </select>
+        <p>
+            Budget: <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
+        </p>
+            <input type="submit" value="Submit" id="budget-submit">
+        </form>
+
+        <script src="/static/js/submit-budget.js"></script>
+
+    <!-- Expenditures div -->
+    <p>Expenditures:
     </p>
 
-<div id="tracking-div">
-    <b>Tracking Info:</b><br>
+    <div id="expenditures-div">
+
+      {% for expenditure in expenditures %}
+      <form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
+
+        {{ expenditure.date_of_expenditure }}<br>
+        {{ expenditure.category.category }}<br>
+        {{ expenditure.price }}<br>
+        {{ expenditure.where_bought }}<br>
+        {{ expenditure.description }}<br>
+
+            <input type="Submit" value="Remove">
+        </form>
+      {% endfor %}
+    </div>
+
     <p>
-        <form action="/tracking" method="POST" id="tracking-form">
-            Tracking Number: <input type="text" id="tracking-number" name="tracking-number"><br>
-            Carrier: <input type="text" id="carrier" name="carrier"><br>
-            <input type="submit" value="Submit Tracking Info" id="tracking-submit">
-        </form><br>
-        <span id="tracking-span"></span><br>
-    </p>
+        <form action="/logout" method="POST">
+            <input type="submit" value="Log Out">
+        </form>
+
+    <!-- end the third div -->
+    </div>
+
+<!-- ends the container div -->
 </div>
 
-<!-- test 9374889676090040179500 usps -->
-
-<!-- Map -->
-
-<div id="map"></div>
-    <script>
+<script>
       var map;
         function initMap(thing) {
 
@@ -113,177 +327,26 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap"
     async defer></script>
 
-</div>
+                    <script>
+                    var options = {
+                      responsive: true
+                    };
 
-<!-- Various metrics -->
+                    var ctx_donut = $("#donutChart").get(0).getContext("2d");
 
-    <p>
-        Total spent on food: <span id="total-spent-3">{{ total_food_price }}</span><br>
-        Travel total: <span id="total-spent-2">{{ total_travel_price }}</span><br>
-        Total clothing: <span id="total-spent-5">{{ total_clothing_price }}</span><br>
-        Total entertainment: <span id="total-spent-6">{{ total_entertainment_price }}</span><br>
-        Total online purchase: <span id="total-spent-1">{{ total_online_purchase_price }}</span><br>
-        Total groceries: <span id="total-spent-4">{{ total_groceries_price }}</span><br>
-    </p>
+                    $.get("/expenditure-types.json", function (data) {
+                      var myDonutChart = new Chart(ctx_donut).Doughnut(data.expenditures, options);
+                      $('#donutLegend').html(myDonutChart.generateLegend());
+                    });
 
-    <p>
-        Average online purchase price: <span id="avg-1">{{ avg_online_expenditures }}</span><br>
-        Average entertainment purchase price: <span id="avg-6">{{ avg_entertainment_expenditures }}</span><br>
-        Average clothing price: <span id="avg-5">{{ avg_clothing_expenditures }}</span><br>
-        Average travel: <span id="avg-2">{{ avg_travel_expenditures }}</span><br>
-        Average groceries: <span id="avg-4">{{ avg_groceries_expenditures }}</span><br>
-        Average food: <span id="avg-3">{{ avg_food_expenditures }}</span><br>
+                    var ctx_line = $("#barChart").get(0).getContext("2d");
 
-    <p>
+                    $.get("/total-spent.json", function (data) {
+                      var myBarChart = new Chart(ctx_line).Bar(data, options);
+                      $("#BarLegend").html(myBarChart.generateLegend());
+                    });
 
-<!-- Expenditure input form -->
-
-    <h2>Input Expenditures</h2>
-
-    <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
-    Category:
-      <select name="category" class="form-control" id="category-field">
-    <option value="3">Food</option>
-    <option value="2">Travel</option>
-    <option value="1">Online Purchase</option>
-    <option value="5">Clothing</option>
-    <option value="4">Groceries</option>
-    <option value="6">Entertainment</option>
-
-      </select>
-    <p><input type="text" id="price" placeholder="Price" name="price" class="form-control"><br>
-    <br><input type="date" id="date" placeholder="Date of purchase" name="date" class="form-control"><br>
-    <br><input type="text" id="wherebought" placeholder="Where was this purchased?" name="wherebought" class="form-control"><br>
-    <br><input type="text" id="description" placeholder="Describe your purchase" name="description" class="form-control"><p>
-
-    <input type="submit" value="Submit">
-    </form>
-
-    <script src="/static/js/submit-expenditure.js"></script>
-
-    </p>
-
-    <!-- Charts -->
-
-    <p>
-
-    <div class="expenditure-chart">
-        <canvas id="donutChart"></canvas>
-        <div id="donutLegend" class="chart-legend"></div>
-    </div>
-
-    <div class="expenditure-chart">
-        <canvas id="barChart"></canvas>
-        <div id="barLegend" class="chart-legend"></div>
-    </div>
-
-    <script>
-    var options = {
-      responsive: true
-    };
-
-    var ctx_donut = $("#donutChart").get(0).getContext("2d");
-
-    $.get("/expenditure-types.json", function (data) {
-      var myDonutChart = new Chart(ctx_donut).Doughnut(data.expenditures, options);
-      $('#donutLegend').html(myDonutChart.generateLegend());
-    });
-
-    var ctx_line = $("#barChart").get(0).getContext("2d");
-
-    $.get("/total-spent.json", function (data) {
-      var myBarChart = new Chart(ctx_line).Bar(data, options);
-      $("#BarLegend").html(myBarChart.generateLegend());
-    });
-
-    </script>
-
-</div>
-
-<!-- Budget section -->
-
-    Budget left:<p>
-
-    Food: <span id="budget-left-3">{{ food_budget_minus_expenses }}</span><br>
-    Travel: <span id="budget-left-2">{{ travel_budget_minus_expenses }}</span><br>
-    Clothing: <span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span><br>
-    Entertainment: <span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span><br>
-    Online purchases: <span id="budget-left-1">{{ online_budget_minus_expenses }}</span><br>
-    Groceries: <span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span><br>
-
-    </p>
-
-    <p>
-        Total spent: {{ total_price }}
-    </p>
-
-    <p>
-        Budget:<br><p>
-        <p>
-<div id="budget-div">
-    {% for budget in budget %}
-    <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
-
-    <li>
-        {{ budget.budget }}<br>
-        {{ budget.category.category }}<br>
-    </li>
-        <input type="Submit" value="Remove">
-    </form>
-
-    {% endfor %}
-</div>
-
-        <h2>Budget</h2>
-
-    <form action="/add-budget" method="POST" id="budget-form">
-      Category:
-      <select name="category" id="category-field">
-    <option value="3">Food</option>
-    <option value="2">Travel</option>
-    <option value="1">Online Purchase</option>
-    <option value="5">Clothing</option>
-    <option value="4">Groceries</option>
-    <option value="6">Entertainment</option>
-      </select>
-    <p>Budget:
-      <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
-
-    <input type="submit" value="Submit" id="budget-submit">
-    </form>
-
-    <p>
-        <form action="/budget-form" method="POST">
-            <input type="submit" value="Add Budget">
-        </form>
-
-    <script src="/static/js/submit-budget.js"></script>
-
-    <!-- Expenditures div -->
-    <p>Expenditures:
-    </p>
-
-    <div id="expenditures-div">
-
-      {% for expenditure in expenditures %}
-      <form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
-
-        {{ expenditure.date_of_expenditure }}<br>
-        {{ expenditure.category.category }}<br>
-        {{ expenditure.price }}<br>
-        {{ expenditure.where_bought }}<br>
-        {{ expenditure.description }}<br>
-
-            <input type="Submit" value="Remove">
-        </form>
-      {% endfor %}
-    </div>
-
-
-    <p>
-        <form action="/logout" method="POST">
-            <input type="submit" value="Log Out">
-        </form>
+                    </script>
 
 
 {% endblock %}

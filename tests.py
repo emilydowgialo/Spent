@@ -83,6 +83,7 @@ class SpentDatabaseTests(unittest.TestCase):
     def test_signin_fail_wrong_email_and_password(self):
         """ Test for an error in logging in with the incorrect email and password """
 
+        # Log in as a test client
         result = self.client.post("/login-form", data=dict(
             email="ashdgu@m.com",
             password="maskj"), follow_redirects=True)
@@ -92,6 +93,7 @@ class SpentDatabaseTests(unittest.TestCase):
     def test_signin_success(self):
         """ Test for successfully logging in """
 
+        # Log in as a test client
         result = self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
@@ -101,6 +103,7 @@ class SpentDatabaseTests(unittest.TestCase):
     def test_login_redirect(self):
         """ Test for successfully being redirected to the login form """
 
+        # Log in as a test client
         result = self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
@@ -110,10 +113,12 @@ class SpentDatabaseTests(unittest.TestCase):
     def test_add_budget_success(self):
         """ Test for successfully adding a budget """
 
+        # Log in a test client
         self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
 
+        # Add a budget
         result = self.client.post("/add-budget", data=dict(
             budget="100",
             category=3), follow_redirects=True)
@@ -123,10 +128,12 @@ class SpentDatabaseTests(unittest.TestCase):
     def test_add_expenditure_success(self):
         """ Test for successfully adding an expenditure to the database """
 
+        # Log in a test client
         self.client.post("/login-form", data=dict(
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
 
+        # Add an expenditure to the db
         result = self.client.post("/add-expenditure-to-db", data=dict(
             category=3,
             price=40,
@@ -150,7 +157,29 @@ class SpentDatabaseTests(unittest.TestCase):
         # Test if 'Dashboard' shows
         self.assertIn("Dashboard", result.data)
 
+    def test_profile_edit(self):
+        """ Test if editing profile info works """
+
+        # Log in a test client
+        self.client.post("/login-form", data=dict(
+            email="mu@mu.com",
+            password="mu"), follow_redirects=True)
+
+        # Test the route
+        result = self.client.post("/profile-edit", data=dict(
+            name="kitty"), follow_redirects=True)
+
+        # Checking if the redirect works
+        self.assertIn("Dashboard", result.data)
+
+        # Query the database for the user
+        profile_test_user = User.query.filter_by(email="mu@mu.com").first()
+
+        # Verify that the new name is in the database
+        self.assertTrue(profile_test_user.name == "kitty")
+
     def test_remove_budget(self):
+        """ Test if a budget can be removed """
 
         # Log in a test client
         self.client.post("/login-form", data=dict(
@@ -175,6 +204,7 @@ class SpentDatabaseTests(unittest.TestCase):
         self.assertIn("Dashboard", result.data)
 
     def test_remove_expenditure(self):
+        """ Test if expenditures can be removed """
 
         # Log in a test client
         self.client.post("/login-form", data=dict(
