@@ -29,8 +29,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
+        <!-- <li class="active"><a href="#">Account<span class="sr-only">(current)</span></a></li> -->
+        <!-- <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -42,17 +42,18 @@
             <li role="separator" class="divider"></li>
             <li><a href="#">One more separated link</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+        <!--   <input type="text" class="form-control" placeholder="Search"> -->
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+      <!--   <button type="submit" class="btn btn-default">Submit</button> -->
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Sign Out</a></li>
+        <!-- <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
@@ -61,200 +62,219 @@
             <li role="separator" class="divider"></li>
             <li><a href="#">Separated link</a></li>
           </ul>
-        </li>
+        </li> -->
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-<h2>Dashboard</h2>
+<div class="row-fluid"><!-- div for columns -->
+    <div class="col-md-4"><!-- first column div -->
 
-<div class="row"><!-- div for columns -->
-    <div class="col-md-4">
+        <div class="panel panel-default"><!-- testing panels -->
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel 1</h3>
+            </div>
+            <div class="panel-body">
 
-        <div id="map"></div>
+                <div id="map"></div>
 
-            <!-- Charts -->
-            <p>
+                    <!-- Charts -->
+                    <p>
 
-                <div class="expenditure-chart">
-                    <canvas id="donutChart"></canvas>
-                    <div id="donutLegend" class="chart-legend"></div>
-                </div>
+                        <div class="expenditure-chart">
+                            <canvas id="donutChart"></canvas>
+                            <div id="donutLegend" class="chart-legend"></div>
+                        </div>
 
-                <div class="expenditure-chart">
-                    <canvas id="barChart"></canvas>
-                    <div id="barLegend" class="chart-legend"></div>
-                </div>
-            </p>
-    </div><!-- end column div -->
+                        <div class="expenditure-chart">
+                            <canvas id="barChart"></canvas>
+                            <div id="barLegend" class="chart-legend"></div>
+                        </div>
+                    </p>
+            </div><!-- end test panels -->
+        </div>
+    </div><!-- end first column div -->
 
     <div class="col-md-4"><!-- the second bootstrap column -->
-        <p>
-            Welcome {{name}}<br>
-        </p>
+        <div class="panel panel-default"><!-- SECOND BOOTSTRAP PANEL -->
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel 2</h3>
+            </div>
+            <div class="panel-body"><!--BOOTSTRAP PANEL BODY 2 -->
+                <p>
+                    Welcome {{name}}<br>
+                </p>
 
-        <p>
-            Your email: {{email}}<br>
-            Your password: {{password}}
-        </p>
+                <p>
+                    Your email: {{email}}<br>
+                    Your password: {{password}}
+                </p>
 
-        <p>
-            <form action="/edit-profile" method="POST">
-                <input type="submit" value="Edit Profile Info">
-            </form>
-        </p>
+                <p>
+                    <form action="/edit-profile" method="POST">
+                        <input type="submit" value="Edit Profile Info">
+                    </form>
+                </p>
 
-        <div id="tracking-div">
-            <b>Tracking Info:</b><br>
-            <p>
-                <form action="/tracking" method="POST" id="tracking-form">
-                    Tracking Number: <input type="text" id="tracking-number" name="tracking-number"><br>
-                    Carrier: <input type="text" id="carrier" name="carrier"><br>
-                        <input type="submit" value="Submit Tracking Info" id="tracking-submit">
-                </form><br>
+                <div id="tracking-div">
+                    <b>Tracking Info:</b><br>
+                    <p>
+                        <form action="/tracking" method="POST" id="tracking-form">
+                            Tracking Number: <input type="text" id="tracking-number" name="tracking-number"><br>
+                            Carrier: <input type="text" id="carrier" name="carrier"><br>
+                                <input type="submit" value="Submit Tracking Info" id="tracking-submit">
+                        </form><br>
 
-                <span id="tracking-span"></span><br>
-            </p>
-        </div><!--End tracking div -->
+                        <span id="tracking-span"></span><br>
+                    </p>
+                </div><!--End tracking div -->
 
-        <!-- test 9374889676090040179500 usps -->
+                <!-- test 9374889676090040179500 usps -->
 
-        <!-- Various metrics -->
+                <!-- Various metrics -->
 
-        <p>
-            Total spent on food: <span id="total-spent-3">{{ total_food_price }}</span><br>
-            Travel total: <span id="total-spent-2">{{ total_travel_price }}</span><br>
-            Total clothing: <span id="total-spent-5">{{ total_clothing_price }}</span><br>
-            Total entertainment: <span id="total-spent-6">{{ total_entertainment_price }}</span><br>
-            Total online purchase: <span id="total-spent-1">{{ total_online_purchase_price }}</span><br>
-            Total groceries: <span id="total-spent-4">{{ total_groceries_price }}</span><br>
-        </p>
+                <p>
+                    Total spent on food: <span id="total-spent-3">{{ total_food_price }}</span><br>
+                    Travel total: <span id="total-spent-2">{{ total_travel_price }}</span><br>
+                    Total clothing: <span id="total-spent-5">{{ total_clothing_price }}</span><br>
+                    Total entertainment: <span id="total-spent-6">{{ total_entertainment_price }}</span><br>
+                    Total online purchase: <span id="total-spent-1">{{ total_online_purchase_price }}</span><br>
+                    Total groceries: <span id="total-spent-4">{{ total_groceries_price }}</span><br>
+                </p>
 
-        <p>
-            Average online purchase price: <span id="avg-1">{{ avg_online_expenditures }}</span><br>
-            Average entertainment purchase price: <span id="avg-6">{{ avg_entertainment_expenditures }}</span><br>
-            Average clothing price: <span id="avg-5">{{ avg_clothing_expenditures }}</span><br>
-            Average travel: <span id="avg-2">{{ avg_travel_expenditures }}</span><br>
-            Average groceries: <span id="avg-4">{{ avg_groceries_expenditures }}</span><br>
-            Average food: <span id="avg-3">{{ avg_food_expenditures }}</span><br>
-        <p>
+                <p>
+                    Average online purchase price: <span id="avg-1">{{ avg_online_expenditures }}</span><br>
+                    Average entertainment purchase price: <span id="avg-6">{{ avg_entertainment_expenditures }}</span><br>
+                    Average clothing price: <span id="avg-5">{{ avg_clothing_expenditures }}</span><br>
+                    Average travel: <span id="avg-2">{{ avg_travel_expenditures }}</span><br>
+                    Average groceries: <span id="avg-4">{{ avg_groceries_expenditures }}</span><br>
+                    Average food: <span id="avg-3">{{ avg_food_expenditures }}</span><br>
+                <p>
 
-        <!-- Expenditure input form -->
+                <!-- Expenditure input form -->
 
-        <h2>Input Expenditures</h2>
+                <h2>Input Expenditures</h2>
 
-        <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
-            Category:
-                <select name="category" class="form-control" id="category-field">
-                    <option value="3">Food</option>
-                    <option value="2">Travel</option>
-                    <option value="1">Online Purchase</option>
-                    <option value="5">Clothing</option>
-                    <option value="4">Groceries</option>
-                    <option value="6">Entertainment</option>
-                </select>
-            <p><p>
-                <input type="text" id="price" placeholder="Price" name="price" class="form-control"><br>
-                <input type="date" id="date" placeholder="Date of purchase" name="date" class="form-control"><br>
-                <input type="text" id="wherebought" placeholder="Where was this purchased?" name="wherebought" class="form-control"><br>
-                <input type="text" id="description" placeholder="Describe your purchase" name="description" class="form-control"><p>
+                <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
+                    Category:
+                        <select name="category" class="form-control" id="category-field">
+                            <option value="3">Food</option>
+                            <option value="2">Travel</option>
+                            <option value="1">Online Purchase</option>
+                            <option value="5">Clothing</option>
+                            <option value="4">Groceries</option>
+                            <option value="6">Entertainment</option>
+                        </select>
+                    <p><p>
+                        <input type="text" id="price" placeholder="Price" name="price" class="form-control"><br>
+                        <input type="date" id="date" placeholder="Date of purchase" name="date" class="form-control"><br>
+                        <input type="text" id="wherebought" placeholder="Where was this purchased?" name="wherebought" class="form-control"><br>
+                        <input type="text" id="description" placeholder="Describe your purchase" name="description" class="form-control"><p>
 
-                <input type="submit" value="Submit">
-        </form>
+                        <input type="submit" value="Submit">
+                </form>
 
-        <script src="/static/js/submit-expenditure.js"></script>
+                <script src="/static/js/submit-expenditure.js"></script>
 
-            </p>
-
+                    </p>
+            </div><!-- END THE SECOND PANEL DIV -->
+        </div>
     </div><!-- end the second column div -->
+
 
     <!-- Budget section -->
 
     <div class="col-md-4"><!-- open third column div -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Panel 3</h3>
+            </div>
+            <div class="panel-body">
 
-        Budget left:
+                Budget left:
 
-            <p>
+                    <p>
 
-                Food: <span id="budget-left-3">{{ food_budget_minus_expenses }}</span><br>
-                Travel: <span id="budget-left-2">{{ travel_budget_minus_expenses }}</span><br>
-                Clothing: <span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span><br>
-                Entertainment: <span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span><br>
-                Online purchases: <span id="budget-left-1">{{ online_budget_minus_expenses }}</span><br>
-                Groceries: <span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span><br>
+                        Food: <span id="budget-left-3">{{ food_budget_minus_expenses }}</span><br>
+                        Travel: <span id="budget-left-2">{{ travel_budget_minus_expenses }}</span><br>
+                        Clothing: <span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span><br>
+                        Entertainment: <span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span><br>
+                        Online purchases: <span id="budget-left-1">{{ online_budget_minus_expenses }}</span><br>
+                        Groceries: <span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span><br>
 
-            </p>
+                    </p>
 
-            <p>
-                Total spent: {{ total_price }}
-            </p>
+                    <p>
+                        Total spent: {{ total_price }}
+                    </p>
 
-        <p>
-            <h2>Budget:</h2>
-        </p>
+                <p>
+                    <h2>Budget:</h2>
+                </p>
 
-        <p>
+                <p>
 
-        <div id="budget-div">
-            {% for budget in budget %}
-                <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
+                <div id="budget-div">
+                    {% for budget in budget %}
+                        <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
 
-                    <li>
-                        {{ budget.budget }}<br>
-                        {{ budget.category.category }}<br>
-                    </li>
-                        <input type="Submit" value="Remove">
+                            <li>
+                                {{ budget.budget }}<br>
+                                {{ budget.category.category }}<br>
+                            </li>
+                                <input type="Submit" value="Remove">
+                        </form>
+
+                    {% endfor %}
+                </div>
+
+                <h2>Budget</h2>
+
+                <form action="/add-budget" method="POST" id="budget-form">
+                    Category:
+                        <select name="category" id="category-field">
+                            <option value="3">Food</option>
+                            <option value="2">Travel</option>
+                            <option value="1">Online Purchase</option>
+                            <option value="5">Clothing</option>
+                            <option value="4">Groceries</option>
+                            <option value="6">Entertainment</option>
+                        </select>
+                <p>
+                    Budget: <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
+                </p>
+                    <input type="submit" value="Submit" id="budget-submit">
                 </form>
 
-            {% endfor %}
+                <script src="/static/js/submit-budget.js"></script>
+
+            <!-- Expenditures div -->
+            <p>Expenditures:
+            </p>
+
+            <div id="expenditures-div">
+
+              {% for expenditure in expenditures %}
+              <form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
+
+                {{ expenditure.date_of_expenditure }}<br>
+                {{ expenditure.category.category }}<br>
+                {{ expenditure.price }}<br>
+                {{ expenditure.where_bought }}<br>
+                {{ expenditure.description }}<br>
+
+                    <input type="Submit" value="Remove">
+                </form>
+              {% endfor %}
+            </div>
+
+            <p>
+                <form action="/logout" method="POST">
+                    <input type="submit" value="Log Out">
+                </form>
+            </div><!-- END THE THIRD PANEL DIV -->
         </div>
-
-        <h2>Budget</h2>
-
-        <form action="/add-budget" method="POST" id="budget-form">
-            Category:
-                <select name="category" id="category-field">
-                    <option value="3">Food</option>
-                    <option value="2">Travel</option>
-                    <option value="1">Online Purchase</option>
-                    <option value="5">Clothing</option>
-                    <option value="4">Groceries</option>
-                    <option value="6">Entertainment</option>
-                </select>
-        <p>
-            Budget: <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
-        </p>
-            <input type="submit" value="Submit" id="budget-submit">
-        </form>
-
-        <script src="/static/js/submit-budget.js"></script>
-
-    <!-- Expenditures div -->
-    <p>Expenditures:
-    </p>
-
-    <div id="expenditures-div">
-
-      {% for expenditure in expenditures %}
-      <form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
-
-        {{ expenditure.date_of_expenditure }}<br>
-        {{ expenditure.category.category }}<br>
-        {{ expenditure.price }}<br>
-        {{ expenditure.where_bought }}<br>
-        {{ expenditure.description }}<br>
-
-            <input type="Submit" value="Remove">
-        </form>
-      {% endfor %}
-    </div>
-
-    <p>
-        <form action="/logout" method="POST">
-            <input type="submit" value="Log Out">
-        </form>
-
     <!-- end the third div -->
     </div>
 
@@ -271,7 +291,7 @@
 
             var map = new google.maps.Map(document.getElementById('map'), {
               center: {lat: 37.7749, lng: -122.4194},
-              zoom: 12
+              zoom: 9
             });
 
             var geocoder = new google.maps.Geocoder();

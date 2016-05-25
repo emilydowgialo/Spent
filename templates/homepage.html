@@ -2,26 +2,83 @@
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 {% endwith %}
 
-Hello world<p>
+<div class="container"><!-- BOOTSTRAP CONTAINER DIV FOR ALL CONTENT -->
 
-<form action="/sign-up-form" method="POST">
-    <input type="submit" value="Sign Up">
-</form>
+    <div class=login-div><!-- THIS DIV CONTAINS THE LOGIN FORM -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+            <h3 class="panel-title">Login</h3>
+        </div>
+        <div class="panel-body">
 
-<p>
-</p>
+            <form action="/login-form" method="POST">
+                <fieldset class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                </fieldset>
+                <fieldset class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
 
-<form action="/login" method="POST">
-    <input type="submit" value="Log In">
-</form>
+            <p>
+
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                Sign up
+                </button>
+
+            </p>
+
+        </div><!--CLOSE THE PANEL DIVS -->
+        </div>
+    </div><!-- CLOSE THE LOGIN DIV -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+      </div>
+      <div class="modal-body">
+
+        <form action="/sign-up" method="POST">
+                <fieldset class="form-group">
+                <label for="InputName">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                </fieldset>
+                <fieldset class="form-group">
+                <label for="InputEmail1">Email address</label>
+                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                </fieldset>
+                <fieldset class="form-group">
+                <label for="InputPassword1">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                </fieldset>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form><!-- CLOSE THE SUBMIT FORM -->
+      </div>
+    </div>
+  </div>
+</div><!-- CLOSE MODAL -->
+
+</div><!-- END BOOTSTRAP CONTAINER DIV -->
 
 {% endblock %}

@@ -37,10 +37,10 @@ function replaceBudget(results) {
     }
 }
 
-function updateBudgetMinusExpenses(results) {
+function updateBudgetMinusExpenses(resp) {
 
   // The results budget
-  var budget = results;
+  var budget = resp;
 
   // This is the category at hand
   var stringToAppend = String(budget.cat_budget_minus_expenses);
