@@ -14,7 +14,9 @@ function submitExpenditure(evt) {
         "price": $("#price").val(),
         "date": $("#date").val(),
         "wherebought": $("#wherebought").val(),
-        "description": $("#description").val()
+        "description": $("#description").val(),
+        "tracking-num": $("#tracking-num").val(),
+        "tracking-num-carrier": $("#tracking-num-carrier").val()
     };
 
     $.post("/add-expenditure-to-db",
@@ -39,7 +41,14 @@ function appendExpenditure(result) {
   '<br>' +
   String(expenditure.description) +
   '<br>' +
+  String(expenditure.tracking_num)+
+  '<br>' +
   '<input type="Submit" value="Remove">' +
+  '</form>' +
+  '<br>' +
+  '<form action="/tracking/' + String(expenditure.tracking_num) + '" method="POST" id="tracking-form">' +
+  '<input type="submit" value="Track Your Package">' +
+  '<br>' +
   '</form>';
 
   console.log(stringToAppend);

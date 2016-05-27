@@ -25,24 +25,9 @@
       </button>
       <a class="navbar-brand" href="#">Spent</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <!-- <li class="active"><a href="#">Account<span class="sr-only">(current)</span></a></li> -->
-        <!-- <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li> -->
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
@@ -51,22 +36,27 @@
       <!--   <button type="submit" class="btn btn-default">Submit</button> -->
       </form>
       <ul class="nav navbar-nav navbar-right">
+
+
+
         <li><a href="#">Account</a></li>
-        <li><a href="#">Sign Out</a></li>
-        <!-- <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li> -->
+        <li><a href="#" id="sign-out">Sign Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<script>
+
+// FIX ME
+
+    function signOut() {
+        $.get('/logout');
+    }
+
+    $('#sign-out').click(signOut);
+
+</script>
 
 <div class="row-fluid"><!-- div for columns -->
     <div class="col-md-4"><!-- first column div -->
@@ -91,6 +81,7 @@
                             <canvas id="barChart"></canvas>
                             <div id="barLegend" class="chart-legend"></div>
                         </div>
+
                     </p>
             </div><!-- end test panels -->
         </div>
@@ -152,32 +143,6 @@
                     Average food: <span id="avg-3">{{ avg_food_expenditures }}</span><br>
                 <p>
 
-                <!-- Expenditure input form -->
-
-                <h2>Input Expenditures</h2>
-
-                <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
-                    Category:
-                        <select name="category" class="form-control" id="category-field">
-                            <option value="3">Food</option>
-                            <option value="2">Travel</option>
-                            <option value="1">Online Purchase</option>
-                            <option value="5">Clothing</option>
-                            <option value="4">Groceries</option>
-                            <option value="6">Entertainment</option>
-                        </select>
-                    <p><p>
-                        <input type="text" id="price" placeholder="Price" name="price" class="form-control"><br>
-                        <input type="date" id="date" placeholder="Date of purchase" name="date" class="form-control"><br>
-                        <input type="text" id="wherebought" placeholder="Where was this purchased?" name="wherebought" class="form-control"><br>
-                        <input type="text" id="description" placeholder="Describe your purchase" name="description" class="form-control"><p>
-
-                        <input type="submit" value="Submit">
-                </form>
-
-                <script src="/static/js/submit-expenditure.js"></script>
-
-                    </p>
             </div><!-- END THE SECOND PANEL DIV -->
         </div>
     </div><!-- end the second column div -->
@@ -188,11 +153,77 @@
     <div class="col-md-4"><!-- open third column div -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Panel 3</h3>
+                <h3 class="panel-title">Expenditures</h3>
             </div>
             <div class="panel-body">
 
-                Budget left:
+                <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Add Expenditure
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Expenditure</h4>
+      </div>
+      <div class="modal-body">
+
+
+        <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
+            <fieldset class="form-group">
+            <label for="category">Category</label>
+                 <select name="catrgory" class="form-control" id="category-field">
+                    <option value="3">Food</option>
+                    <option value="2">Travel</option>
+                    <option value="1">Online Purchase</option>
+                    <option value="5">Clothing</option>
+                    <option value="4">Groceries</option>
+                    <option value="6">Entertainment</option>
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="price">Price</label>
+                <input type="text" class="form-control" id="price" placeholder="Enter price" name="price">
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="where-bought">Where was this purchase?</label>
+                <input type="text" class="form-control" id="wherebought" name="wherebought">
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="date">Date</label>
+                <input type="date" class="form-control" id="date" name="date">
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="tracking-num">Tracking Number (Optional)</label>
+                <input type="text" class="form-control" id="tracking-num" name="tracking-num">
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="tracking-num-carrier">Carrier (Optional)</label>
+                <input type="text" class="form-control" id="tracking-num-carrier" name="carrier">
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="where-bought">Description:</label>
+                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            <script src="/static/js/submit-expenditure.js"></script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div><!-- END OF MODAL -->
+
+                <h2>Budget left:</h2>
 
                     <p>
 
@@ -250,7 +281,7 @@
                 <script src="/static/js/submit-budget.js"></script>
 
             <!-- Expenditures div -->
-            <p>Expenditures:
+            <p><h2>Expenditures:</h2>
             </p>
 
             <div id="expenditures-div">
@@ -263,16 +294,24 @@
                 {{ expenditure.price }}<br>
                 {{ expenditure.where_bought }}<br>
                 {{ expenditure.description }}<br>
+                {{ expenditure.tracking_num }}
 
                     <input type="Submit" value="Remove">
                 </form>
+                {% if expenditure.tracking_num %}
+                <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" id="tracking-form">
+                    <input type="submit" value="Track Your Package">
+                    <br>
+                </form>
+                {% endif %}
+
               {% endfor %}
             </div>
 
-            <p>
                 <form action="/logout" method="POST">
                     <input type="submit" value="Log Out">
                 </form>
+
             </div><!-- END THE THIRD PANEL DIV -->
         </div>
     <!-- end the third div -->

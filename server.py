@@ -103,6 +103,64 @@ def tracking():
     return jsonify(address_info)
 
 
+# @app.route('/tracking/<int:id>', methods=["POST"])
+# def tracking_with_id(id):
+
+#     # Tracking number and carrier
+#     # tracking_num = request.form.get("tracking-number")
+#     # carrier = request.form.get("carrier")
+
+#     expenditure_object = Expenditure.query.filter_by(id=id).first()
+
+#     print
+#     print
+#     print "expenditure_object"
+#     print expenditure_object
+#     print
+#     print
+
+#     # user_id = session.get('id')
+
+#     tracking_num = expenditure_object.tracking_num
+#     carrier = expenditure_object.tracking_num_carrier
+
+#     print
+#     print
+#     print "tracking num and carrier"
+#     print tracking_num
+#     print carrier
+#     print
+#     print
+
+#     def shippo_url(track_num, carrier_info):
+#         """ Creates api call using tracking information the user input via the form """
+
+#         url = "https://api.goshippo.com/v1/tracks/" + str(carrier_info) + "/" + str(track_num) + "/"
+#         return url
+
+#     # Returns the data we need
+#     shippo_tracking = shippo_url(tracking_num, carrier)
+#     result = requests.get(shippo_tracking)
+#     data = json.loads(result.content)
+
+#     final_dest = data['tracking_status']['location']
+
+#     city = final_dest['city']
+#     state = final_dest['state']
+#     zipcode = final_dest['zip']
+#     country = final_dest['country']
+
+#     address_info = {
+#         'city': city,
+#         'state': state,
+#         'zipcode': zipcode,
+#         'country': country
+#     }
+
+#     # Return jsonified budget info to the map
+#     return jsonify(address_info)
+
+
 @app.route('/total-spent.json')
 def budget_types_data():
     """ Bar chart """
@@ -374,6 +432,8 @@ def add_expenditure():
     date_of_expenditure = request.form.get("date")
     where_bought = request.form.get("wherebought")
     description = request.form.get("description")
+    tracking_num = request.form.get("tracking-num")
+    tracking_num_carrier = request.form.get("tracking-num-carrier")
 
     # Create a new expenditure object to insert into the expenditures table
     new_expenditure = Expenditure(category_id=category_id,
@@ -381,7 +441,9 @@ def add_expenditure():
                                   date_of_expenditure=date_of_expenditure,
                                   where_bought=where_bought,
                                   description=description,
-                                  expenditure_userid=id)
+                                  expenditure_userid=id,
+                                  tracking_num=tracking_num,
+                                  tracking_num_carrier=tracking_num_carrier)
 
     # Insert the new expenditure into the expenditures table and commit the insert
     db.session.add(new_expenditure)
@@ -400,6 +462,8 @@ def add_expenditure():
         'description': new_expenditure.description,
         'price': str(new_expenditure.price),
         'category': new_expenditure.category.category,
+        'tracking_num': new_expenditure.tracking_num,
+        'tracking_num_carrier': new_expenditure.tracking_num_carrier
     }
 
     # Return jsonified info to submit-expenditure.js

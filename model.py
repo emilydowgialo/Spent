@@ -11,7 +11,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     name = db.Column(db.String(64))
-    email = db.Column(db.String(64), nullable=True)
+    email = db.Column(db.String(64))
     password = db.Column(db.String(64))
 
 
@@ -59,9 +59,10 @@ class Expenditure(db.Model):
     date_of_expenditure = db.Column(db.DateTime)
     # Will know the user id based on who is logged in to the session
     expenditure_userid = db.Column(db.Integer, db.ForeignKey('users.id'))
-    where_bought = db.Column(db.String(100), nullable=True)
-    description = db.Column(db.UnicodeText, nullable=True)
-    # tracking_num = db.Column(db.Integer, nullable=True)
+    where_bought = db.Column(db.String(100))
+    description = db.Column(db.UnicodeText)
+    tracking_num = db.Column(db.String, nullable=True)
+    tracking_num_carrier = db.Column(db.String(100), nullable=True)
 
     user = db.relationship("User", backref=db.backref('expenditures'))
 

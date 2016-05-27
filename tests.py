@@ -98,7 +98,7 @@ class SpentDatabaseTests(unittest.TestCase):
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
 
-        self.assertIn("Dashboard", result.data)
+        self.assertIn("Spent", result.data)
 
     def test_login_redirect(self):
         """ Test for successfully being redirected to the login form """
@@ -108,7 +108,7 @@ class SpentDatabaseTests(unittest.TestCase):
             email="mu@mu.com",
             password="mu"), follow_redirects=True)
 
-        self.assertIn("Dashboard", result.data)
+        self.assertIn("Spent", result.data)
 
     def test_add_budget_success(self):
         """ Test for successfully adding a budget """
@@ -155,7 +155,7 @@ class SpentDatabaseTests(unittest.TestCase):
         result = self.client.get("/dashboard/1", follow_redirects=True)
 
         # Test if 'Dashboard' shows
-        self.assertIn("Dashboard", result.data)
+        self.assertIn("Spent", result.data)
 
     def test_profile_edit(self):
         """ Test if editing profile info works """
@@ -170,7 +170,7 @@ class SpentDatabaseTests(unittest.TestCase):
             name="kitty"), follow_redirects=True)
 
         # Checking if the redirect works
-        self.assertIn("Dashboard", result.data)
+        self.assertIn("Spent", result.data)
 
         # Query the database for the user
         profile_test_user = User.query.filter_by(email="mu@mu.com").first()
@@ -201,7 +201,7 @@ class SpentDatabaseTests(unittest.TestCase):
         # See if the budget was removed by checking if count is 0
         self.assertTrue(budget_test_after_removal == 0)
 
-        self.assertIn("Dashboard", result.data)
+        self.assertIn("Spent", result.data)
 
     def test_remove_expenditure(self):
         """ Test if expenditures can be removed """
@@ -226,7 +226,7 @@ class SpentDatabaseTests(unittest.TestCase):
         # See if the expenditure was removed by checking if count is 0
         self.assertTrue(expenditure_test_after_removal == 0)
 
-        self.assertIn("Dashboard", result.data)
+        self.assertIn("Spent", result.data)
 
 
 if __name__ == "__main__":
