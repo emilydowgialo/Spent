@@ -299,8 +299,11 @@
                     <input type="Submit" value="Remove">
                 </form>
                 {% if expenditure.tracking_num %}
-                <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" id="tracking-form">
-                    <input type="submit" value="Track Your Package">
+                <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form">
+                    <!-- Data attributes are something you can assign to any HTML
+                    element and you can access the attributes within Javascript
+                    using JQuery's data function -->
+                    <input type="submit" value="Track Your Package" class="submit-tracking" data-trackingnum="{{expenditure.tracking_num}}" data-cats="kitties">
                     <br>
                 </form>
                 {% endif %}
@@ -374,13 +377,20 @@
         function updateAddress(evt) {
             evt.preventDefault();
 
-            var tracking = $('#tracking-form').serialize();
+            // When you have an event handler, the value of this is assigned by
+            // JQuery to be whatever triggered the event
+            console.log($(this));
+            console.log($(this).data('trackingnum'));
 
-            $.post('/tracking', tracking, trackingInfo);
+            // this is the button
+            // data is the data embedded in the button assigned in the HTML
+            var trackingNum = $(this).data('trackingnum')
+
+            $.post('/tracking/' + trackingNum, trackingInfo);
             console.log("Finished sending AJAX");
             }
 
-        $('#tracking-submit').click(updateAddress);
+        $('.submit-tracking').click(updateAddress);
 
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap"

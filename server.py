@@ -103,62 +103,62 @@ def tracking():
     return jsonify(address_info)
 
 
-# @app.route('/tracking/<int:id>', methods=["POST"])
-# def tracking_with_id(id):
+@app.route('/tracking/<tracking_num>', methods=["POST"])
+def tracking_with_id(tracking_num):
 
-#     # Tracking number and carrier
-#     # tracking_num = request.form.get("tracking-number")
-#     # carrier = request.form.get("carrier")
+    # Tracking number and carrier
+    # tracking_num = request.form.get("tracking-number")
+    # carrier = request.form.get("carrier")
 
-#     expenditure_object = Expenditure.query.filter_by(id=id).first()
+    expenditure_object = Expenditure.query.filter_by(tracking_num=tracking_num).first()
 
-#     print
-#     print
-#     print "expenditure_object"
-#     print expenditure_object
-#     print
-#     print
+    print
+    print
+    print "expenditure_object"
+    print expenditure_object
+    print
+    print
 
-#     # user_id = session.get('id')
+    # user_id = session.get('id')
 
-#     tracking_num = expenditure_object.tracking_num
-#     carrier = expenditure_object.tracking_num_carrier
+    # tracking_num = expenditure_object.tracking_num
+    carrier = expenditure_object.tracking_num_carrier
 
-#     print
-#     print
-#     print "tracking num and carrier"
-#     print tracking_num
-#     print carrier
-#     print
-#     print
+    print
+    print
+    print "tracking num and carrier"
+    print tracking_num
+    print carrier
+    print
+    print
 
-#     def shippo_url(track_num, carrier_info):
-#         """ Creates api call using tracking information the user input via the form """
+    def shippo_url(track_num, carrier_info):
+        """ Creates api call using tracking information the user input via the form """
 
-#         url = "https://api.goshippo.com/v1/tracks/" + str(carrier_info) + "/" + str(track_num) + "/"
-#         return url
+        url = "https://api.goshippo.com/v1/tracks/" + str(carrier_info) + "/" + str(track_num) + "/"
+        return url
 
-#     # Returns the data we need
-#     shippo_tracking = shippo_url(tracking_num, carrier)
-#     result = requests.get(shippo_tracking)
-#     data = json.loads(result.content)
+    # Returns the data we need
+    shippo_tracking = shippo_url(tracking_num, carrier)
+    result = requests.get(shippo_tracking)
+    data = json.loads(result.content)
 
-#     final_dest = data['tracking_status']['location']
+    final_dest = data['tracking_status']['location']
 
-#     city = final_dest['city']
-#     state = final_dest['state']
-#     zipcode = final_dest['zip']
-#     country = final_dest['country']
+    city = final_dest['city']
+    state = final_dest['state']
+    zipcode = final_dest['zip']
+    country = final_dest['country']
 
-#     address_info = {
-#         'city': city,
-#         'state': state,
-#         'zipcode': zipcode,
-#         'country': country
-#     }
+    address_info = {
+        'city': city,
+        'state': state,
+        'zipcode': zipcode,
+        'country': country
+    }
 
-#     # Return jsonified budget info to the map
-#     return jsonify(address_info)
+    # Return jsonified budget info to the map
+    return jsonify(address_info)
 
 
 @app.route('/total-spent.json')
