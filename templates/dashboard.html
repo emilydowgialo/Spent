@@ -323,99 +323,10 @@
 <!-- ends the container div -->
 </div>
 
-<script>
-      var map;
-        function initMap(thing) {
-
-            var address = thing;
-            console.log("this is initMap address");
-            console.log(address);
-
-            var map = new google.maps.Map(document.getElementById('map'), {
-              center: {lat: 37.7749, lng: -122.4194},
-              zoom: 9
-            });
-
-            var geocoder = new google.maps.Geocoder();
-
-            // document.getElementById('tracking-form').addEventListener('click', function() {geocodeAddress(geocoder, map);
-            // });
-
-            geocodeAddress(geocoder, map, address);
-          }
-
-// test 9374889676090040179500
-// This function gets information about the address to display
-
-        function geocodeAddress(geocoder, resultsMap, address) {
-
-            var address = String(address.city) + String(address.state)
-
-            geocoder.geocode({'address': address}, function(results, status) {
-              if (status === google.maps.GeocoderStatus.OK) {
-                resultsMap.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                  map: resultsMap,
-                  position: results[0].geometry.location
-                });
-              } else {
-                alert('Geocode was not successful for the following reason: ' + status);
-              }
-            });
-          }
-
-        function trackingInfo(results) {
-
-            var address = results;
-            console.log("this is address");
-            console.log(address);
-
-            initMap(address);
-
-        }
-
-        function updateAddress(evt) {
-            evt.preventDefault();
-
-            // When you have an event handler, the value of this is assigned by
-            // JQuery to be whatever triggered the event
-            console.log($(this));
-            console.log($(this).data('trackingnum'));
-
-            // this is the button
-            // data is the data embedded in the button assigned in the HTML
-            var trackingNum = $(this).data('trackingnum')
-
-            $.post('/tracking/' + trackingNum, trackingInfo);
-            console.log("Finished sending AJAX");
-            }
-
-        $('.submit-tracking').click(updateAddress);
-
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap"
-    async defer></script>
-
-                    <script>
-                    var options = {
-                      responsive: true
-                    };
-
-                    var ctx_donut = $("#donutChart").get(0).getContext("2d");
-
-                    $.get("/expenditure-types.json", function (data) {
-                      var myDonutChart = new Chart(ctx_donut).Doughnut(data.expenditures, options);
-                      $('#donutLegend').html(myDonutChart.generateLegend());
-                    });
-
-                    var ctx_line = $("#barChart").get(0).getContext("2d");
-
-                    $.get("/total-spent.json", function (data) {
-                      var myBarChart = new Chart(ctx_line).Bar(data, options);
-                      $("#BarLegend").html(myBarChart.generateLegend());
-                    });
-
-                    </script>
+<!-- JS stuff -->
+<script src="/static/js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap" async defer></script>
+<script src="/static/js/charts.js"></script>
 
 
 {% endblock %}
