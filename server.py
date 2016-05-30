@@ -255,6 +255,38 @@ def dashboard(id):
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
+        # Query for certain time period
+        april = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-04-01', '2016-05-01')).all()
+        # may = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-05-01', '2016-06-01')).all()
+        # june = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-06-01', '2016-07-01')).all()
+
+        print
+        print
+        print 'april'
+        print april
+        # print qry[0].category_id
+        # print
+        # print type(qry)
+        print type(april)
+        print
+
+        # Filter the queries by user id, so only those can be displayed
+        # TO DO: get the total prices for these queries
+        if april:
+            for query in april:
+                if query.expenditure_userid == id:
+                    print type(query)
+                    print query.category_id
+                    print query.description
+                    print query.price
+
+        print
+        print
+        print
+        print
+        print
+        print
+
         # Unpacking the total price and average spent
         total_food_price, avg_food_expenditures = expenditure_function(3, id)
         total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id)
@@ -540,8 +572,9 @@ def login_form():
         return redirect(url_for('dashboard', id=session['id']))
 
 
-@app.route('/logout', methods=["POST"])
+@app.route('/logout', methods=["GET"])
 def logout():
+    """ Logs the user out """
 
     # Remove the user id from the session if it exists
     session.pop('id', None)

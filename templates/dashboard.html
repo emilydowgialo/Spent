@@ -40,23 +40,13 @@
 
 
         <li><a href="#">Account</a></li>
-        <li><a href="#" id="sign-out">Sign Out</a></li>
+        <li><a href="/logout" id="sign-out">Sign Out</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-<script>
 
-// FIX ME
-
-    function signOut() {
-        $.get('/logout');
-    }
-
-    $('#sign-out').click(signOut);
-
-</script>
 
 <div class="row-fluid"><!-- div for columns -->
     <div class="col-md-4"><!-- first column div -->
@@ -158,9 +148,11 @@
             <div class="panel-body">
 
                 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
   Add Expenditure
-</button>
+</button> -->
+
+<a href="#" data-toggle="modal" data-target="#myModal">Add Expenditure</a>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -311,9 +303,6 @@
               {% endfor %}
             </div>
 
-                <form action="/logout" method="POST">
-                    <input type="submit" value="Log Out">
-                </form>
 
             </div><!-- END THE THIRD PANEL DIV -->
         </div>

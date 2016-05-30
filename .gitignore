@@ -2,3 +2,5 @@ env/
 *.pyc
 .DS_Store
 spent.sublime-*
+htmlcov/*
+.coverage
