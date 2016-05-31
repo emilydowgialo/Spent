@@ -45,3 +45,17 @@ def budget_totals(category_id, id, total_price):
         expenditure_budget_minus_expenses = "You haven't added a budget yet"
 
     return expenditure_budget_minus_expenses
+
+
+def get_total_for_category(cat, lst):
+
+    # april = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-04-01', '2016-05-01')).all()
+
+    total = 0
+    queries = lst
+
+    for query in queries:
+                if query.category_id == cat:
+                    total += query.price
+                    print total
+                    return total

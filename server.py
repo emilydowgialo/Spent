@@ -9,7 +9,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
-from tools import expenditure_function, budget_totals
+from tools import expenditure_function, budget_totals, get_total_for_category
 
 from sqlalchemy.sql import and_
 
@@ -261,27 +261,19 @@ def dashboard(id):
         # may = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-05-01', '2016-06-01')).all()
         # june = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-06-01', '2016-07-01')).all()
 
-        # Filter the queries by user id, so only those can be displayed
-        # TO DO: get the total prices for monthly expenditures per category
-        # as well as total spent overall
+        print
+        print
+        print 'april'
+        print april
 
-        print
-        print
-        print
-        print
-        print
+        # this is a class
+        print type(april)
         print
 
+        # April category totals
         if april:
 
-            # total = 0
             queries = []
-            total_cat_2 = 0
-            total_cat_1 = 0
-            total_cat_3 = 0
-            total_cat_4 = 0
-            total_cat_5 = 0
-            total_cat_6 = 0
 
             for query in april:
                 if query.expenditure_userid == id:
@@ -289,42 +281,12 @@ def dashboard(id):
                     print query.category_id
                     print queries
 
-            # Category 2
-            for query in queries:
-                if query.category_id == 2:
-                    total_cat_2 += query.price
-                    print total_cat_2
-                    return total_cat_2
-
-            for query in queries:
-                if query.category_id == 1:
-                    total_cat_1 += query.price
-                    print total_cat_1
-                    return total_cat_1
-
-            for query in queries:
-                if query.category_id == 3:
-                    total_cat_3 += query.price
-                    print total_cat_3
-                    return total_cat_3
-
-            for query in queries:
-                if query.category_id == 4:
-                    total_cat_4 += query.price
-                    print total_cat_4
-                    return total_cat_4
-
-            for query in queries:
-                if query.category_id == 5:
-                    total_cat_5 += query.price
-                    print total_cat_5
-                    return total_cat_5
-
-            for query in queries:
-                if query.category_id == 6:
-                    total_cat_6 += query.price
-                    print total_cat_6
-                    return total_cat_6
+            print get_total_for_category(2, queries)
+            print get_total_for_category(1, queries)
+            print get_total_for_category(3, queries)
+            print get_total_for_category(4, queries)
+            print get_total_for_category(5, queries)
+            print get_total_for_category(6, queries)
 
         print
         print
