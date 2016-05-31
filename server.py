@@ -239,6 +239,7 @@ def dashboard(id):
     """ This is the user dashboard """
 
     # TO FIX: make it so you can't view other dashboards
+    # TO FIX: hash passwords
 
     # If the user id is in the session, this will render the dashboard
     # template, which will display their information and expenditure information
@@ -255,30 +256,75 @@ def dashboard(id):
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
-        # Query for certain time period
+        # Query for certain time period - this is a list of objects
         april = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-04-01', '2016-05-01')).all()
         # may = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-05-01', '2016-06-01')).all()
         # june = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-06-01', '2016-07-01')).all()
 
+        # Filter the queries by user id, so only those can be displayed
+        # TO DO: get the total prices for monthly expenditures per category
+        # as well as total spent overall
+
         print
         print
-        print 'april'
-        print april
-        # print qry[0].category_id
-        # print
-        # print type(qry)
-        print type(april)
+        print
+        print
+        print
         print
 
-        # Filter the queries by user id, so only those can be displayed
-        # TO DO: get the total prices for these queries
         if april:
+
+            # total = 0
+            queries = []
+            total_cat_2 = 0
+            total_cat_1 = 0
+            total_cat_3 = 0
+            total_cat_4 = 0
+            total_cat_5 = 0
+            total_cat_6 = 0
+
             for query in april:
                 if query.expenditure_userid == id:
-                    print type(query)
+                    queries.append(query)
                     print query.category_id
-                    print query.description
-                    print query.price
+                    print queries
+
+            # Category 2
+            for query in queries:
+                if query.category_id == 2:
+                    total_cat_2 += query.price
+                    print total_cat_2
+                    return total_cat_2
+
+            for query in queries:
+                if query.category_id == 1:
+                    total_cat_1 += query.price
+                    print total_cat_1
+                    return total_cat_1
+
+            for query in queries:
+                if query.category_id == 3:
+                    total_cat_3 += query.price
+                    print total_cat_3
+                    return total_cat_3
+
+            for query in queries:
+                if query.category_id == 4:
+                    total_cat_4 += query.price
+                    print total_cat_4
+                    return total_cat_4
+
+            for query in queries:
+                if query.category_id == 5:
+                    total_cat_5 += query.price
+                    print total_cat_5
+                    return total_cat_5
+
+            for query in queries:
+                if query.category_id == 6:
+                    total_cat_6 += query.price
+                    print total_cat_6
+                    return total_cat_6
 
         print
         print
