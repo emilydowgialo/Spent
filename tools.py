@@ -48,14 +48,24 @@ def budget_totals(category_id, id, total_price):
 
 
 def get_total_for_category(cat, lst):
+    """ Gets the total amount per category """
 
-    # april = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-04-01', '2016-05-01')).all()
-
+    # Set total to 0
     total = 0
     queries = lst
 
+    # Extract expenditures by id and add the price to the total
     for query in queries:
-                if query.category_id == cat:
-                    total += query.price
-                    print total
-                    return total
+        if query.category_id == cat:
+            total += query.price
+            print total
+
+    return total
+
+
+def date_query(past, today):
+    """ Get a list of expenditure objects for the past 30 days """
+
+    query = Expenditure.query.filter(Expenditure.date_of_expenditure.between(past, today)).all()
+
+    return query

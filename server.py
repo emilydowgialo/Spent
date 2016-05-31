@@ -2,6 +2,8 @@ from jinja2 import StrictUndefined
 
 # from pprint import pprint
 
+from datetime import datetime, timedelta
+
 import requests
 
 from flask import Flask, request, render_template, session, url_for, flash, redirect, jsonify, json
@@ -9,7 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
-from tools import expenditure_function, budget_totals, get_total_for_category
+from tools import expenditure_function, budget_totals, get_total_for_category, date_query
 
 from sqlalchemy.sql import and_
 
@@ -263,11 +265,50 @@ def dashboard(id):
 
         print
         print
-        print 'april'
-        print april
+        # print 'april'
+        # print april
 
         # this is a class
-        print type(april)
+        # print type(april)
+        print
+        todays_date = datetime.now()
+        print
+        print
+        print
+        todays_date_month = '{:02d}'.format(todays_date.month)
+        todays_date_day = '{:02d}'.format(todays_date.day)
+        todays_date_year = '{:02d}'.format(todays_date.year)
+        print todays_date_month
+        print todays_date_day
+        print todays_date_year
+        print
+
+        date_string = "'" + str(todays_date_year) + "-" + str(todays_date_month) + "-" + str(todays_date_day) + "'"
+
+        print
+        print
+        print "date string"
+        print date_string
+        print
+        print
+        thirty_days_past = datetime.today() + timedelta(-30)
+        print thirty_days_past
+
+        thirty_days_past_month = '{:02d}'.format(thirty_days_past.month)
+        thirty_days_past_day = '{:02d}'.format(thirty_days_past.day)
+        thirty_days_past_year = '{:02d}'.format(thirty_days_past.year)
+
+        thirty_days_string = "'" + str(thirty_days_past_year) + "-" + str(thirty_days_past_month) + "-" + str(thirty_days_past_day) + "'"
+        print
+        print
+        print "thirty thirty_days_string"
+        print thirty_days_string
+        print
+        print
+        query_test = date_query(thirty_days_string, date_string)
+        print "query test"
+        print query_test
+        print
         print
 
         # April category totals
