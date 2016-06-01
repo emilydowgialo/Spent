@@ -30,7 +30,7 @@ def index():
     return render_template("homepage.html", user_session_info=session)
 
 
-@app.route('/edit-profile', methods=["POST"])
+@app.route('/edit-profile')
 def edit_profile():
     """ Go to the profile edit page """
 
@@ -261,31 +261,15 @@ def dashboard(id):
         ########### PAST 30 DAY TOTALS ###########
 
         # This is today's date
-        todays_date = datetime.now()
-
-        # We want to only have the year, month, and day of the datetime object
-        todays_date_month = '{:02d}'.format(todays_date.month)
-        todays_date_day = '{:02d}'.format(todays_date.day)
-        todays_date_year = '{:02d}'.format(todays_date.year)
-
-        # Concatenate the datetime information we need
-        date_string = "'" + str(todays_date_year) + "-" + str(todays_date_month) + "-" + str(todays_date_day) + "'"
+        date_string = datetime.today().strftime('%Y-%m-%d')
+        # '2016-05-31'
 
         # This is the date 30 days in the past from today
-        thirty_days_past = datetime.today() + timedelta(-30)
-
-        # Like before, we want to only have the year, month, and day of the
-        # datetime object
-        thirty_days_past_month = '{:02d}'.format(thirty_days_past.month)
-        thirty_days_past_day = '{:02d}'.format(thirty_days_past.day)
-        thirty_days_past_year = '{:02d}'.format(thirty_days_past.year)
-
-        # Concatenate the year, month, and day info
-        thirty_days_string = "'" + str(thirty_days_past_year) + "-" + str(thirty_days_past_month) + "-" + str(thirty_days_past_day) + "'"
+        thirty_days_past = (datetime.today() + timedelta(-30)).strftime('%Y-%m-%d')
 
         # Call the date_query function in tools.py using today's date and
         # the date 30 days in the past - returns a list of expenditure objects
-        date_query_expenditures = date_query(thirty_days_string, date_string)
+        date_query_expenditures = date_query(thirty_days_past, date_string)
 
         # This empty list will hold the expenditures associated with the id
         # of the user in the session
