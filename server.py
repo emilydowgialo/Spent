@@ -258,83 +258,57 @@ def dashboard(id):
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
 
-        # Query for certain time period - this is a list of objects
-        april = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-04-01', '2016-05-01')).all()
-        # may = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-05-01', '2016-06-01')).all()
-        # june = Expenditure.query.filter(Expenditure.date_of_expenditure.between('2016-06-01', '2016-07-01')).all()
+        ########### PAST 30 DAY TOTALS ###########
 
-        print
-        print
-        # print 'april'
-        # print april
-
-        # this is a class
-        # print type(april)
-        print
+        # This is today's date
         todays_date = datetime.now()
-        print
-        print
-        print
+
+        # We want to only have the year, month, and day of the datetime object
         todays_date_month = '{:02d}'.format(todays_date.month)
         todays_date_day = '{:02d}'.format(todays_date.day)
         todays_date_year = '{:02d}'.format(todays_date.year)
-        print todays_date_month
-        print todays_date_day
-        print todays_date_year
-        print
 
+        # Concatenate the datetime information we need
         date_string = "'" + str(todays_date_year) + "-" + str(todays_date_month) + "-" + str(todays_date_day) + "'"
 
-        print
-        print
-        print "date string"
-        print date_string
-        print
-        print
+        # This is the date 30 days in the past from today
         thirty_days_past = datetime.today() + timedelta(-30)
-        print thirty_days_past
 
+        # Like before, we want to only have the year, month, and day of the
+        # datetime object
         thirty_days_past_month = '{:02d}'.format(thirty_days_past.month)
         thirty_days_past_day = '{:02d}'.format(thirty_days_past.day)
         thirty_days_past_year = '{:02d}'.format(thirty_days_past.year)
 
+        # Concatenate the year, month, and day info
         thirty_days_string = "'" + str(thirty_days_past_year) + "-" + str(thirty_days_past_month) + "-" + str(thirty_days_past_day) + "'"
-        print
-        print
-        print "thirty thirty_days_string"
-        print thirty_days_string
-        print
-        print
-        query_test = date_query(thirty_days_string, date_string)
-        print "query test"
-        print query_test
-        print
-        print
 
-        # April category totals
-        if april:
+        # Call the date_query function in tools.py using today's date and
+        # the date 30 days in the past - returns a list of expenditure objects
+        date_query_expenditures = date_query(thirty_days_string, date_string)
 
-            queries = []
+        # This empty list will hold the expenditures associated with the id
+        # of the user in the session
+        queries = []
 
-            for query in april:
-                if query.expenditure_userid == id:
-                    queries.append(query)
-                    print query.category_id
-                    print queries
+        # Iterate over the list of exoenditure objects to extract the
+        # expenditures associated with the user
+        for query in date_query_expenditures:
+            if query.expenditure_userid == id:
+                queries.append(query)
+                print "query cat id and queries"
+                print query.category_id
+                print queries
 
-            print get_total_for_category(2, queries)
-            print get_total_for_category(1, queries)
-            print get_total_for_category(3, queries)
-            print get_total_for_category(4, queries)
-            print get_total_for_category(5, queries)
-            print get_total_for_category(6, queries)
+        print "cat totals"
+        print get_total_for_category(2, queries)
+        print get_total_for_category(1, queries)
+        print get_total_for_category(3, queries)
+        print get_total_for_category(4, queries)
+        print get_total_for_category(5, queries)
+        print get_total_for_category(6, queries)
 
-        print
-        print
-        print
-        print
-        print
-        print
+        ########### TOTAL PRICE AND AVERAGE SPENT ###########
 
         # Unpacking the total price and average spent
         total_food_price, avg_food_expenditures = expenditure_function(3, id)
@@ -346,6 +320,8 @@ def dashboard(id):
         total_price = (total_food_price + total_groceries_price + total_clothing_price +
                        total_entertainment_price + total_travel_price +
                        total_online_purchase_price)
+
+        ########### BUDGET ###########
 
         # Calling the function for each of the expenditure categories
         food_budget_minus_expenses = budget_totals(3, id, total_food_price)
