@@ -37,28 +37,45 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
 
-        <li><a href="/edit-profile" id="edit-profile-account">Account</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#editProfile" id="edit-profile-account">Account</a></li>
 
-        <!-- BEGIN ACCOUNT MODAL -->
-        <!-- FIX ME: GET MODAL WORKING -->
-        <div class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
+        <!-- Modal -->
+        <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileModal">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Edit Profile Information</h4>
+        </div>
+
+        <div class="modal-body">
+
+        <form action="/profile-edit" method="POST" id="form-profile-edit">
+            <fieldset class="form-group">
+            <label for="name">Name</label>
+                <input type="text" class="form-control" id="profile-name" placeholder="Edit your name" name="profile-name">
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="email">Email</label>
+                <input type="text" class="form-control" id="profile-email" name="profile-email">
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="password">New Password</label>
+                <input type="password" class="form-control" id="new-password" name="new-password">
+            </fieldset>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button>
+            </form> -->
+
+        </div>
+
+        <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<!-- END ACCOUNT MODAL -->
+    </div>
+  </div>
+</div><!-- END OF MODAL -->
 
         <li><a href="/logout" id="sign-out">Sign Out</a></li>
 
@@ -162,24 +179,19 @@
             </div>
             <div class="panel-body">
 
-                <!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Add Expenditure
-</button> -->
-
 <a href="#" data-toggle="modal" data-target="#addExpenditureModal">Add Expenditure</a>
 
 <!-- Modal -->
-<div class="modal fade" id="addExpenditureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="addExpenditureModal" tabindex="-1" role="dialog" aria-labelledby="addExpenditureModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Expenditure</h4>
+        <h4 class="modal-title" id="myModalLabel">Edit Profile Information</h4>
       </div>
       <div class="modal-body">
 
-
+        <!-- START THE FORM -->
         <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
             <fieldset class="form-group">
             <label for="category">Category</label>
@@ -216,16 +228,16 @@
             <label for="where-bought">Description:</label>
                 <textarea class="form-control" id="description" rows="3" name="description"></textarea>
             </fieldset>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
 
             <script src="/static/js/submit-expenditure.js"></script>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form><!-- END THE FORM -->
+
+    </div>
     </div>
   </div>
 </div><!-- END OF MODAL -->

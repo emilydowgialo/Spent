@@ -30,19 +30,6 @@ def index():
     return render_template("homepage.html", user_session_info=session)
 
 
-@app.route('/edit-profile')
-def edit_profile():
-    """ Go to the profile edit page """
-
-    # Set the value of the user id of the user in the session
-    id = session.get('id')
-
-    # This is the user object
-    user = User.query.filter_by(id=id).first()
-
-    return render_template("edit-profile.html", user=user)
-
-
 @app.route('/profile-edit', methods=["POST"])
 def profile_edit():
     """ Edit profile information """
@@ -54,16 +41,21 @@ def profile_edit():
     user_info = User.query.filter_by(id=id).first()
 
     # Get information from the forms
-    name = request.form.get("name")
-    password = request.form.get("password")
+    name = request.form.get("profile-name")
+    email = request.form.get("profile-email")
+    password = request.form.get("new-password")
 
     # Replace info in the database with new info
     if name:
         user_info.name = name
         db.session.commit()
 
-    else:
+    if password:
         user_info.password = password
+        db.session.commit()
+
+    if email:
+        user_info.email = email
         db.session.commit()
 
     return redirect(url_for('dashboard', id=id))
@@ -240,7 +232,6 @@ def expenditure_types_data():
 def dashboard(id):
     """ This is the user dashboard """
 
-    # TO FIX: make it so you can't view other dashboards
     # TO FIX: hash passwords
 
     # If the user id is in the session, this will render the dashboard
