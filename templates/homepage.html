@@ -14,8 +14,7 @@
 <div class="container"><!-- BOOTSTRAP CONTAINER DIV FOR ALL CONTENT -->
 
     <div class=login-div><!-- THIS DIV CONTAINS THE LOGIN FORM -->
-
-        <div class="panel panel-default"><!-- PANEL DIV -->
+        <div class="panel panel-default">
             <div class="panel-heading">
             <h3 class="panel-title">Login</h3>
         </div>
@@ -37,53 +36,49 @@
 
                 <a href="#" data-toggle="modal" data-target="#signUp">Sign Up</a>
 
-                <!-- SIGN UP MODAL -->
-                <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUp">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="signUpForm">Sign up</h4>
-                        </div>
-                    <div class="modal-body">
-
-                        <form action="/sign-up" method="POST">
-                            <fieldset class="form-group">
-                            <label for="InputName">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
-                            </fieldset>
-                            <fieldset class="form-group">
-                            <label for="InputEmail1">Email address</label>
-                                <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
-                            </fieldset>
-                            <fieldset class="form-group">
-                            <label for="InputPassword1">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Password" name="password">
-                            </fieldset>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
-                        </form><!-- CLOSE THE SUBMIT FORM -->
-                        </div>
-                    </div>
-                </div>
-                </div><!-- CLOSE MODAL -->
-
             </p>
 
         </div><!--CLOSE THE PANEL DIVS -->
         </div>
-
-
-
-
     </div><!-- CLOSE THE LOGIN DIV -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUp">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Sign up</h4>
+        </div>
 
+        <div class="modal-body">
+
+        <form action="/sign-up" method="POST">
+                <fieldset class="form-group">
+                <label for="InputName">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                </fieldset>
+                <fieldset class="form-group">
+                <label for="InputEmail1">Email address</label>
+                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                </fieldset>
+                <fieldset class="form-group">
+                <label for="InputPassword1">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                </fieldset>
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form><!-- CLOSE THE SUBMIT FORM -->
+      </div>
+    </div>
+    </div>
+    </div><!-- CLOSE MODAL -->
 
 </div><!-- END BOOTSTRAP CONTAINER DIV -->
 

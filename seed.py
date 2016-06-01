@@ -80,11 +80,15 @@ def load_budget():
         budget = budget_data[1]
         category_id = budget_data[2]
         budget_userid = budget_data[3]
+        budget_start_date = budget_data[4]
+        budget_end_date = budget_data[5]
 
         budget = Budget(id=id,
                         budget=budget,
                         category_id=category_id,
-                        budget_userid=budget_userid)
+                        budget_userid=budget_userid,
+                        budget_start_date=budget_start_date,
+                        budget_end_date=budget_end_date)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(budget)

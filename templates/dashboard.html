@@ -50,21 +50,26 @@
 
         <div class="modal-body">
 
-        <form action="/profile-edit" method="POST" id="form-profile-edit">
-            <fieldset class="form-group">
-            <label for="name">Name</label>
-                <input type="text" class="form-control" id="profile-name" placeholder="Edit your name" name="profile-name">
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="email">Email</label>
-                <input type="text" class="form-control" id="profile-email" name="profile-email">
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="password">New Password</label>
-                <input type="password" class="form-control" id="new-password" name="new-password">
-            </fieldset>
-            <!-- <button type="submit" class="btn btn-primary">Submit</button>
-            </form> -->
+                <p>
+                    <b>Your name:</b> {{name}}<br>
+                    <b>Your email:</b> {{email}}<br>
+                </p>
+
+            <form action="/profile-edit" method="POST" id="form-profile-edit">
+                <fieldset class="form-group">
+                <label for="name">New name</label>
+                    <input type="text" class="form-control" id="profile-name" placeholder="Edit your name" name="profile-name">
+                </fieldset>
+                <fieldset class="form-group">
+                <label for="email">New email</label>
+                    <input type="text" class="form-control" id="profile-email" placeholder="Add a new email" name="profile-email">
+                </fieldset>
+                <fieldset class="form-group">
+                <label for="password">New password</label>
+                    <input type="password" class="form-control" id="new-password" placeholder="Add a new password" name="new-password">
+                </fieldset>
+                <!-- <button type="submit" class="btn btn-primary">Submit</button>
+                </form> -->
 
         </div>
 
@@ -86,24 +91,17 @@
 
 
 
-<div class="row-fluid"><!-- div for columns -->
-    <div class="col-md-4"><!-- first column div -->
+<div class="row-fluid"><!-- DIV FOR COLUMNS -->
+    <div class="col-md-4"><!-- FIRST COLUMN DIV -->
 
-        <div class="panel panel-default"><!-- testing panels -->
+        <div class="panel panel-default"><!-- FIRST PANEL DIV -->
             <div class="panel-heading">
-                <h3 class="panel-title">Panel 1</h3>
+                <h3 class="panel-title">Average Spent Per Category</h3>
             </div>
             <div class="panel-body">
 
-                <div id="map"></div>
-
                     <!-- Charts -->
                     <p>
-
-                        <div class="expenditure-chart">
-                            <canvas id="donutChart"></canvas>
-                            <div id="donutLegend" class="chart-legend"></div>
-                        </div>
 
                         <div class="expenditure-chart">
                             <canvas id="barChart"></canvas>
@@ -113,22 +111,29 @@
                     </p>
             </div><!-- end test panels -->
         </div>
-    </div><!-- end first column div -->
 
-    <div class="col-md-4"><!-- the second bootstrap column -->
+        <div class="panel panel-default"><!-- FIRST COLUMN SECOND PANEL -->
+            <div class="panel-heading"><b>Total Spent Per Category</b></div>
+            <div class="panel-body">
+
+                <div class="expenditure-chart">
+                    <canvas id="donutChart"></canvas>
+                    <div id="donutLegend" class="chart-legend"></div>
+                </div>
+
+            </div>
+        </div><!-- END FIRST COLUMN SECOND PANEL -->
+
+    </div><!-- END FIRST COLUMN DIV -->
+
+
+
+    <div class="col-md-4"><!-- SECOND BOOTSTRAP COLUMN -->
         <div class="panel panel-default"><!-- SECOND BOOTSTRAP PANEL -->
             <div class="panel-heading">
                 <h3 class="panel-title">Panel 2</h3>
             </div>
             <div class="panel-body"><!--BOOTSTRAP PANEL BODY 2 -->
-                <p>
-                    Welcome {{name}}<br>
-                </p>
-
-                <p>
-                    Your email: {{email}}<br>
-                    Your password: {{password}}
-                </p>
 
                 <!-- <div id="tracking-div"> --><!-- BEGIN TRACKING DIV -->
                     <!-- <b>Tracking Info:</b><br>
@@ -166,13 +171,94 @@
                 <p>
 
             </div><!-- END THE SECOND PANEL DIV -->
+
         </div>
+
+        <div class="panel panel-default"><!-- BUDGET PANEL -->
+        <div class="panel-heading"><b>Budget</b></div>
+            <div class="panel-body">
+
+                <h2>Budget left:</h2>
+
+                    <p>
+
+                        Food: <span id="budget-left-3">{{ food_budget_minus_expenses }}</span><br>
+                        Travel: <span id="budget-left-2">{{ travel_budget_minus_expenses }}</span><br>
+                        Clothing: <span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span><br>
+                        Entertainment: <span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span><br>
+                        Online purchases: <span id="budget-left-1">{{ online_budget_minus_expenses }}</span><br>
+                        Groceries: <span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span><br>
+
+                    </p>
+
+                    <p>
+                        Total spent: {{ total_price }}
+                    </p>
+
+                <p>
+                    <h2>Budget:</h2>
+                </p>
+
+                    <p>
+                    <!-- BUDGET PER CATEGORY FIX ME-->
+
+                    <!-- Food: <span id="budget-3">{{ food_budget_minus_expenses }}</span><br>
+                    Travel: <span id="budget-2">{{ travel_budget_minus_expenses }}</span><br>
+                    Clothing: <span id="budget-5">{{ clothing_budget_minus_expenses }}</span><br>
+                    Entertainment: <span id="budget-6">{{ entertainment_budget_minus_expenses }}</span><br>
+                    Online purchases: <span id="budget-1">{{ online_budget_minus_expenses }}</span><br>
+                    Groceries: <span id="budget-4">{{ groceries_budget_minus_expenses }}</span><br> -->
+
+                    </p>
+
+                <p>
+
+                <div id="budget-div">
+                    {% for budget in budget %}
+                        <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
+
+                            <li>
+                                {{ budget.budget }}<br>
+                                {{ budget.category.category }}<br>
+                            </li>
+                                <input type="Submit" value="Remove">
+                        </form>
+
+                    {% endfor %}
+
+                    Food:
+
+                </div>
+
+                <h2>Budget</h2>
+
+                <form action="/add-budget" method="POST" id="budget-form">
+                    Category:
+                        <select name="category" id="category-field">
+                            <option value="3">Food</option>
+                            <option value="2">Travel</option>
+                            <option value="1">Online Purchase</option>
+                            <option value="5">Clothing</option>
+                            <option value="4">Groceries</option>
+                            <option value="6">Entertainment</option>
+                        </select>
+                <p>
+                    Budget: <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
+                </p>
+                    <input type="submit" value="Submit" id="budget-submit">
+                </form>
+
+                <script src="/static/js/submit-budget.js"></script>
+
+            </div>
+        </div><!-- END BUDGET PANEL -->
+
     </div><!-- end the second column div -->
 
 
     <!-- Budget section -->
 
-    <div class="col-md-4"><!-- open third column div -->
+    <div class="col-md-4"><!-- OPEN THIRD PANEL DIV -->
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Expenditures</h3>
@@ -242,66 +328,6 @@
   </div>
 </div><!-- END OF MODAL -->
 
-                <h2>Budget left:</h2>
-
-                    <p>
-
-                        Food: <span id="budget-left-3">{{ food_budget_minus_expenses }}</span><br>
-                        Travel: <span id="budget-left-2">{{ travel_budget_minus_expenses }}</span><br>
-                        Clothing: <span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span><br>
-                        Entertainment: <span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span><br>
-                        Online purchases: <span id="budget-left-1">{{ online_budget_minus_expenses }}</span><br>
-                        Groceries: <span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span><br>
-
-                    </p>
-
-                    <p>
-                        Total spent: {{ total_price }}
-                    </p>
-
-                <p>
-                    <h2>Budget:</h2>
-                </p>
-
-                <p>
-
-                <div id="budget-div">
-                    {% for budget in budget %}
-                        <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
-
-                            <li>
-                                {{ budget.budget }}<br>
-                                {{ budget.category.category }}<br>
-                            </li>
-                                <input type="Submit" value="Remove">
-                        </form>
-
-                    {% endfor %}
-
-                    Food:
-
-                </div>
-
-                <h2>Budget</h2>
-
-                <form action="/add-budget" method="POST" id="budget-form">
-                    Category:
-                        <select name="category" id="category-field">
-                            <option value="3">Food</option>
-                            <option value="2">Travel</option>
-                            <option value="1">Online Purchase</option>
-                            <option value="5">Clothing</option>
-                            <option value="4">Groceries</option>
-                            <option value="6">Entertainment</option>
-                        </select>
-                <p>
-                    Budget: <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
-                </p>
-                    <input type="submit" value="Submit" id="budget-submit">
-                </form>
-
-                <script src="/static/js/submit-budget.js"></script>
-
             <!-- Expenditures div -->
             <p><h2>Expenditures:</h2>
             </p>
@@ -320,14 +346,47 @@
 
                     <input type="Submit" value="Remove">
                 </form>
+
                 {% if expenditure.tracking_num %}
+
                 <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form">
+
                     <!-- Data attributes are something you can assign to any HTML
                     element and you can access the attributes within Javascript
                     using JQuery's data function -->
-                    <input type="submit" value="Track Your Package" class="submit-tracking" data-trackingnum="{{expenditure.tracking_num}}" data-cats="kitties">
+                    <!-- <input type="submit" value="Track Your Package" class="submit-tracking" data-trackingnum="{{expenditure.tracking_num}}" data-cats="kitties"> -->
+
+                <button type="submit" class="submit-tracking" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
+                Track Your Package
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="trackingModal" tabindex="-1" role="dialog" aria-labelledby="trackingModalLabel">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="packageTrackModalLabel">Track Your Package</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div id="map"></div><!-- MAP DIV -->
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"> -->
+                    <!-- Data attributes are something you can assign to any HTML
+                    element and you can access the attributes within Javascript
+                    using JQuery's data function -->
+                    <!-- <input type="submit" value="Track Your Package" class="submit-tracking" data-trackingnum="{{expenditure.tracking_num}}" data-cats="kitties">
                     <br>
-                </form>
+                </form> -->
                 {% endif %}
 
               {% endfor %}
@@ -335,12 +394,12 @@
 
 
             </div><!-- END THE THIRD PANEL DIV -->
-        </div>
-    <!-- end the third div -->
+        </div><!-- END OF THIRD DIV -->
+
     </div>
 
-<!-- ends the container div -->
-</div>
+
+</div><!-- END THE CONTAINER DIV -->
 
 <!-- JS stuff -->
 <script src="/static/js/map.js"></script>

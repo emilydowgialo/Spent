@@ -34,6 +34,8 @@ class Budget(db.Model):
     budget = db.Column(db.Numeric(15, 2))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     budget_userid = db.Column(db.Integer, db.ForeignKey('users.id'))
+    budget_start_date = db.Column(db.DateTime)
+    budget_end_date = db.Column(db.DateTime)
 
     user = db.relationship("User", backref=db.backref('budget'))
 
@@ -78,9 +80,6 @@ class Expenditure(db.Model):
 # 2     Entertainment Maven      {"entertainment": 1000}
 # 3     Travel Fan               {"travel": 2000}
 
-
-
-
 # if category_id == 3 and total_expenditures > 500 and not_awarded:
 #     add_to_intermediate_table(badge_id=1, user_id=user_id)
 # elif category_id == 4 and total_expenditures > 1000 ....
@@ -95,8 +94,6 @@ class Expenditure(db.Model):
 #     # keys = ["food"],  values = [500]
 #     if keys[0] == category and total_expenditures_for_this_category > values[0]:
 #         add_to_intermediate_table(badge_id=badge.id, user_id=user_id)
-
-
 
 # intermediate table:
 # user_id
