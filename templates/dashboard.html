@@ -39,7 +39,7 @@
 
         <li><a href="#" data-toggle="modal" data-target="#editProfile" id="edit-profile-account">Account</a></li>
 
-        <!-- Modal -->
+        <!-- MODAL -->
         <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileModal">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -178,6 +178,48 @@
         <div class="panel-heading"><b>Budget</b></div>
             <div class="panel-body">
 
+                <a href="#" data-toggle="modal" data-target="#addBudget" id="add-budget">Add Budget</a>
+
+        <!-- MODAL -->
+        <div class="modal fade" id="addBudget" tabindex="-1" role="dialog" aria-labelledby="addBudgetModal">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="addBudgetModalLabel">Add Budget</h4>
+        </div>
+
+        <div class="modal-body">
+
+                <form action="/add-budget" method="POST" id="budget-form">
+            <fieldset class="form-group">
+            <label for="category">Category</label>
+                 <select name="category" class="form-control" id="category-field">
+                    <option value="3">Food</option>
+                    <option value="2">Travel</option>
+                    <option value="1">Online Purchase</option>
+                    <option value="5">Clothing</option>
+                    <option value="4">Groceries</option>
+                    <option value="6">Entertainment</option>
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
+            <label for="price">Budget</label>
+                <input type="text" class="form-control" id="budget" placeholder="Enter budget" name="budget">
+            </fieldset>
+
+        </div>
+
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="budget-submit">Save changes</button>
+        </form>
+        <script src="/static/js/submit-budget.js"></script>
+      </div>
+    </div>
+  </div>
+</div><!-- END OF MODAL -->
+
                 <h2>Budget left:</h2>
 
                     <p>
@@ -226,30 +268,7 @@
 
                     {% endfor %}
 
-                    Food:
-
                 </div>
-
-                <h2>Budget</h2>
-
-                <form action="/add-budget" method="POST" id="budget-form">
-                    Category:
-                        <select name="category" id="category-field">
-                            <option value="3">Food</option>
-                            <option value="2">Travel</option>
-                            <option value="1">Online Purchase</option>
-                            <option value="5">Clothing</option>
-                            <option value="4">Groceries</option>
-                            <option value="6">Entertainment</option>
-                        </select>
-                <p>
-                    Budget: <input type="text" id="budget" placeholder="Add your budget" name="budget"><p>
-                </p>
-                    <input type="submit" value="Submit" id="budget-submit">
-                </form>
-
-                <script src="/static/js/submit-budget.js"></script>
-
             </div>
         </div><!-- END BUDGET PANEL -->
 
@@ -281,7 +300,7 @@
         <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
             <fieldset class="form-group">
             <label for="category">Category</label>
-                 <select name="catrgory" class="form-control" id="category-field">
+                 <select name="category" class="form-control" id="category-field">
                     <option value="3">Food</option>
                     <option value="2">Travel</option>
                     <option value="1">Online Purchase</option>
