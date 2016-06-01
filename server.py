@@ -300,13 +300,20 @@ def dashboard(id):
                 print query.category_id
                 print queries
 
-        print "cat totals"
-        print get_total_for_category(2, queries)
-        print get_total_for_category(1, queries)
-        print get_total_for_category(3, queries)
-        print get_total_for_category(4, queries)
-        print get_total_for_category(5, queries)
-        print get_total_for_category(6, queries)
+        # Call the get_total_for_category function in tools.py to get the total
+        # amount spent per category
+        cat_totals_cat_2 = get_total_for_category(2, queries)
+        print cat_totals_cat_2
+        cat_totals_cat_1 = get_total_for_category(1, queries)
+        print cat_totals_cat_1
+        cat_totals_cat_4 = get_total_for_category(4, queries)
+        print cat_totals_cat_4
+        cat_totals_cat_5 = get_total_for_category(5, queries)
+        print cat_totals_cat_5
+        cat_totals_cat_6 = get_total_for_category(6, queries)
+        print cat_totals_cat_6
+        cat_totals_cat_3 = get_total_for_category(3, queries)
+        print cat_totals_cat_3
 
         ########### TOTAL PRICE AND AVERAGE SPENT ###########
 
