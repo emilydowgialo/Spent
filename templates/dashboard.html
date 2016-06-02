@@ -96,7 +96,7 @@
 
         <div class="panel panel-default"><!-- FIRST PANEL DIV -->
             <div class="panel-heading">
-                <h3 class="panel-title">Average Spent Per Category</h3>
+                <h3 class="panel-title">Average Spent Per Category Over Last 30 Days</h3>
             </div>
             <div class="panel-body">
 
@@ -131,22 +131,9 @@
     <div class="col-md-4"><!-- SECOND BOOTSTRAP COLUMN -->
         <div class="panel panel-default"><!-- SECOND BOOTSTRAP PANEL -->
             <div class="panel-heading">
-                <h3 class="panel-title">Panel 2</h3>
+                <h3 class="panel-title">Metrics For Budget Between Dates</h3>
             </div>
             <div class="panel-body"><!--BOOTSTRAP PANEL BODY 2 -->
-
-                <!-- <div id="tracking-div"> --><!-- BEGIN TRACKING DIV -->
-                    <!-- <b>Tracking Info:</b><br>
-                    <p>
-                        <form action="/tracking" method="POST" id="tracking-form">
-                            Tracking Number: <input type="text" id="tracking-number" name="tracking-number"><br>
-                            Carrier: <input type="text" id="carrier" name="carrier"><br>
-                                <input type="submit" value="Submit Tracking Info" id="tracking-submit">
-                        </form><br>
-
-                        <span id="tracking-span"></span><br>
-                    </p>
-                </div> --><!--END TRACKING DIV -->
 
                 <!-- test 9374889676090040179500 usps -->
 
@@ -194,7 +181,7 @@
                 <form action="/add-budget" method="POST" id="budget-form">
             <fieldset class="form-group">
             <label for="category">Category</label>
-                 <select name="category" class="form-control" id="category-field">
+                 <select name="category" class="form-control" id="category-field-budget">
                     <option value="3">Food</option>
                     <option value="2">Travel</option>
                     <option value="1">Online Purchase</option>
@@ -252,12 +239,12 @@
                     <p>
                     <!-- BUDGET PER CATEGORY FIX ME-->
 
-                    <!-- Food: <span id="budget-3">{{ food_budget_minus_expenses }}</span><br>
-                    Travel: <span id="budget-2">{{ travel_budget_minus_expenses }}</span><br>
-                    Clothing: <span id="budget-5">{{ clothing_budget_minus_expenses }}</span><br>
-                    Entertainment: <span id="budget-6">{{ entertainment_budget_minus_expenses }}</span><br>
-                    Online purchases: <span id="budget-1">{{ online_budget_minus_expenses }}</span><br>
-                    Groceries: <span id="budget-4">{{ groceries_budget_minus_expenses }}</span><br> -->
+                        Food: <span id="budget-3">{{ food_budget_minus_expenses }}</span><br>
+                        Travel: <span id="budget-2">{{ food_budget_minus_expenses }}</span><br>
+                        Clothing: <span id="budget-5">{{ food_budget_minus_expenses }}</span><br>
+                        Entertainment: <span id="budget-6">{{ food_budget_minus_expenses }}</span><br>
+                        Online purchases: <span id="budget-1">{{ food_budget_minus_expenses }}</span><br>
+                        Groceries: <span id="budget-4">{{ food_budget_minus_expenses }}</span><br>
 
                     </p>
 
@@ -308,7 +295,7 @@
         <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
             <fieldset class="form-group">
             <label for="category">Category</label>
-                 <select name="category" class="form-control" id="category-field">
+                 <select name="category-field" class="form-control" id="category-field">
                     <option value="3">Food</option>
                     <option value="2">Travel</option>
                     <option value="1">Online Purchase</option>

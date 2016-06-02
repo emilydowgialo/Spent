@@ -1,11 +1,19 @@
 from model import Expenditure, Budget
 
+from datetime import datetime
 
-def expenditure_function(category_id, id):
+
+def expenditure_function(category_id, id, start, end):
     """ Calculate the total amount and avg spent in one particular category """
 
+    ### PLAN: I think I need to have start and end budget dates as parameters,
+    # then filter between those dates in the expenditure query, so I don't
+    # have to add anything else to the function
+
     # List of expenditure objects
-    expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
+    expenditures = Expenditure.query.filter_by(
+        category_id=category_id, expenditure_userid=id).filter(
+        Expenditure.date_of_expenditure.between(start, end)).all()
 
     # Initialize the total price at 0
     total_price = 0
@@ -31,21 +39,12 @@ def get_dates_for_budget(category_id, id):
     # Get budget object
     budget = Budget.query.filter_by(category_id=category_id, budget_userid=id).all()
 
-    # budget_start_date = 0
-    # budget_end_date = 0
-
-    print
-    print "budget"
-    print budget
-    print
-
-    # Get the start and end dates
-    for item in budget:
-        print item
-        print item.budget_start_date
-        start_date = item.budget_start_date
-        end_date = item.budget_end_date
-        return start_date, end_date
+    if len(budget) > 0:
+        start_date = budget[0].budget_start_date
+        end_date = budget[0].budget_end_date
+    else:
+        start_date = datetime.now()
+        end_date = start_date
 
     # Return start and end dates
     return start_date, end_date

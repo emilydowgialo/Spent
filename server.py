@@ -65,17 +65,11 @@ def profile_edit():
 def tracking_with_id(tracking_num):
     """ Handle the tracking information and display on the map """
 
+    # Get the expenditure associated with the tracking number
     expenditure_object = Expenditure.query.filter_by(tracking_num=tracking_num).first()
 
+    # Get the carrier associated with the tracking number
     carrier = expenditure_object.tracking_num_carrier
-
-    print
-    print
-    print "tracking num and carrier"
-    print tracking_num
-    print carrier
-    print
-    print
 
     def shippo_url(track_num, carrier_info):
         """ Creates api call using tracking information the user input via the form """
@@ -108,21 +102,28 @@ def tracking_with_id(tracking_num):
 
 @app.route('/total-spent.json')
 def budget_types_data():
-    """ Bar chart """
+    """ Bar chart shows totals for last 30 days """
 
     id = session.get('id')
+
+    # This is today's date
+    today = datetime.today().strftime('%Y-%m-%d')
+    # '2016-05-31'
+
+    # This is the date 30 days in the past from today
+    thirty_days_past = (datetime.today() + timedelta(-30)).strftime('%Y-%m-%d')
 
     # If the user id is in the session, this will render the dashboard
     # template, which will display their information and expenditure information
     if 'id' in session:
 
         # Unpacking the total price and average spent
-        total_food_price, avg_food_expenditures = expenditure_function(3, id)
-        total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id)
-        total_clothing_price, avg_clothing_expenditures = expenditure_function(5, id)
-        total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id)
-        total_travel_price, avg_travel_expenditures = expenditure_function(2, id)
-        total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id)
+        total_food_price, avg_food_expenditures = expenditure_function(3, id, thirty_days_past, today)
+        total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id, thirty_days_past, today)
+        total_clothing_price, avg_clothing_expenditures = expenditure_function(5, id, thirty_days_past, today)
+        total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id, thirty_days_past, today)
+        total_travel_price, avg_travel_expenditures = expenditure_function(2, id, thirty_days_past, today)
+        total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id, thirty_days_past, today)
 
     data_dict = {
         "labels": ["Food", "Groceries", "Clothing", "Entertainment", "Travel", "Online Purchase"],
@@ -156,31 +157,25 @@ def budget_types_data():
 
 @app.route('/expenditure-types.json')
 def expenditure_types_data():
-    """ Return data about expenditures """
+    """ Return data about expenditures to the donut chart """
 
     # Get the id of the user in the session
     id = session.get('id')
 
-    def get_expenditures(category_id, id):
-        """ Gets a list of expenditure prices """
+    # This is today's date
+    today = datetime.today().strftime('%Y-%m-%d')
+    # '2016-05-31'
 
-        expenditures = Expenditure.query.filter_by(category_id=category_id, expenditure_userid=id).all()
-
-        expenditure_list = []
-        for expenditure in expenditures:
-            expenditure = expenditure.price
-            expenditure_list.append(expenditure)
-
-        expenditure_total = int(sum(expenditure_list))
-        return expenditure_total
+    # This is the date 30 days in the past from today
+    thirty_days_past = (datetime.today() + timedelta(-30)).strftime('%Y-%m-%d')
 
     # Get the total amount spent per category by calling the get_expenditures function
-    travel_expenditures = get_expenditures(2, id)
-    entertainment_expenditures = get_expenditures(6, id)
-    groceries_expenditures = get_expenditures(4, id)
-    clothing_expenditures = get_expenditures(5, id)
-    food_expenditures = get_expenditures(3, id)
-    online_purchase_expenditures = get_expenditures(1, id)
+    travel_expenditures, avg_travel = expenditure_function(2, id, thirty_days_past, today)
+    entertainment_expenditures, avg_entertainment = expenditure_function(6, id, thirty_days_past, today)
+    groceries_expenditures, avg_groceries = expenditure_function(4, id, thirty_days_past, today)
+    clothing_expenditures, avg_clothing = expenditure_function(5, id, thirty_days_past, today)
+    food_expenditures, avg_food = expenditure_function(3, id, thirty_days_past, today)
+    online_purchase_expenditures, avg_online = expenditure_function(1, id, thirty_days_past, today)
 
     # Jsonified info
     data_list_of_dicts = {
@@ -290,13 +285,32 @@ def dashboard(id):
         cat_totals_cat_3 = get_total_for_category(3, queries)
         print cat_totals_cat_3
 
-        ########### GET BUDGET START AND END DATES
+        ########### GET BUDGET START AND END DATES ###########
 
         # Calls the get_dates_for_budget function in tools.py
-        cat_2_start, cat_2_end = get_dates_for_budget(3, id)
+        cat_3_start, cat_3_end = get_dates_for_budget(3, id)
+        cat_1_start, cat_1_end = get_dates_for_budget(1, id)
+        cat_2_start, cat_2_end = get_dates_for_budget(2, id)
+        cat_4_start, cat_4_end = get_dates_for_budget(4, id)
+        cat_5_start, cat_5_end = get_dates_for_budget(5, id)
+        cat_6_start, cat_6_end = get_dates_for_budget(6, id)
 
-        # Strips datetime object to year, month, day
-        cat_2_stripped = cat_2_start.strftime('%Y-%m-%d')
+        # Strips datetime objects to year, month, day
+        cat_3_start_date = cat_3_start.strftime('%Y-%m-%d')
+        cat_1_start_date = cat_1_start.strftime('%Y-%m-%d')
+        cat_2_start_date = cat_2_start.strftime('%Y-%m-%d')
+        cat_4_start_date = cat_4_start.strftime('%Y-%m-%d')
+        cat_5_start_date = cat_5_start.strftime('%Y-%m-%d')
+        cat_6_start_date = cat_6_start.strftime('%Y-%m-%d')
+
+        cat_3_end_date = cat_3_end.strftime('%Y-%m-%d')
+        cat_1_end_date = cat_1_end.strftime('%Y-%m-%d')
+        cat_2_end_date = cat_2_end.strftime('%Y-%m-%d')
+        cat_4_end_date = cat_4_end.strftime('%Y-%m-%d')
+        cat_5_end_date = cat_5_end.strftime('%Y-%m-%d')
+        cat_6_end_date = cat_6_end.strftime('%Y-%m-%d')
+
+        # TO DO: use this info in the metrics functions
 
         print
         print
@@ -305,19 +319,19 @@ def dashboard(id):
         print "dates cat 2"
         print cat_2_start, cat_2_end
         print type(cat_2_start), type(cat_2_end)
-        print cat_2_stripped
+        # print cat_2_stripped
         print
         print
 
         ########### TOTAL PRICE AND AVERAGE SPENT ###########
 
         # Unpacking the total price and average spent
-        total_food_price, avg_food_expenditures = expenditure_function(3, id)
-        total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id)
-        total_clothing_price, avg_clothing_expenditures = expenditure_function(5, id)
-        total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id)
-        total_travel_price, avg_travel_expenditures = expenditure_function(2, id)
-        total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id)
+        total_food_price, avg_food_expenditures = expenditure_function(3, id, cat_3_start_date, cat_3_end_date)
+        total_groceries_price, avg_groceries_expenditures = expenditure_function(4, id, cat_4_start_date, cat_4_end_date)
+        total_clothing_price, avg_clothing_expenditures = expenditure_function(5, id, cat_5_start_date, cat_5_end_date)
+        total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id, cat_6_start_date, cat_6_end_date)
+        total_travel_price, avg_travel_expenditures = expenditure_function(2, id, cat_2_start_date, cat_2_end_date)
+        total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id, cat_1_start_date, cat_1_end_date)
 
         total_price = (total_food_price + total_groceries_price + total_clothing_price +
                        total_entertainment_price + total_travel_price +
@@ -418,7 +432,8 @@ def add_budget():
     db.session.add(new_budget)
     db.session.commit()
 
-    total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id)
+    # Call functions in tools.py
+    total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id, start_date, end_date)
     cat_budget_minus_expenses = budget_totals(category_id, id, total_cat_price)
 
     budget_info = {
@@ -449,6 +464,14 @@ def add_expenditure():
     tracking_num = request.form.get("tracking-num")
     tracking_num_carrier = request.form.get("tracking-num-carrier")
 
+    print
+    print
+    print request.form
+    print
+    print
+
+    start_date, end_date = get_dates_for_budget(category_id, id)
+
     # Create a new expenditure object to insert into the expenditures table
     new_expenditure = Expenditure(category_id=category_id,
                                   price=price,
@@ -464,7 +487,7 @@ def add_expenditure():
     db.session.commit()
 
     # Unpacking the function call
-    total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id)
+    total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id, start_date, end_date)
 
     expenditure_info = {
         'total_cat_price': total_cat_price,

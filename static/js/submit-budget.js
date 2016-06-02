@@ -6,35 +6,48 @@ function replaceBudget(results) {
     // Callback
     updateBudgetMinusExpenses(results);
 
+    // The results budget
     var budget = results;
 
+    // This is the category at hand
+    var stringToAppend = String(budget.budget);
+
+    // This is the element to edit
+    var budgetElement = $('#budget-' + String(budget.category_id));
+
+  // Appends the info to the element
+  budgetElement.html(stringToAppend);
+  console.log("finished replaceBudget");
+
+    // var budget = results;
+
     // Appends code for new expense
-    var stringToAppend = '<form action="/remove-budget/' + String(budget.id) +
-      '" method="POST" id="category-' + String(budget.category_id) + '">' +
-      '<li>' +
-      String(budget.budget) +
-      '<br>' +
-      String(budget.category) +
-      '<br>' +
-      '</li>' +
-      '<input type="Submit" value="Remove">' +
-      '</form>';
+    // var stringToAppend = '<form action="/remove-budget/' + String(budget.id) +
+    //   '" method="POST" id="category-' + String(budget.category_id) + '">' +
+    //   '<li>' +
+    //   String(budget.budget) +
+    //   '<br>' +
+    //   String(budget.category) +
+    //   '<br>' +
+    //   '</li>' +
+    //   '<input type="Submit" value="Remove">' +
+    //   '</form>';
 
-    console.log(stringToAppend);
+    // console.log(stringToAppend);
 
-    // This is the specific element
-    var categoryElement = $('#category-' + String(budget.category_id));
+    // // This is the specific element
+    // var categoryElement = $('#category-' + String(budget.category_id));
 
-    console.log(categoryElement);
+    // console.log(categoryElement);
 
-    // If the element exists, replace with the new element
-    if (categoryElement.length > 0) {
-      categoryElement.replaceWith(stringToAppend);
-    } else {
-      $('#budget-div').append(stringToAppend);
-      console.log(results);
-      console.log("Finished replaceBudget");
-    }
+    // // If the element exists, replace with the new element
+    // if (categoryElement.length > 0) {
+    //   categoryElement.replaceWith(stringToAppend);
+    // } else {
+    //   $('#budget-div').append(stringToAppend);
+    //   console.log(results);
+    //   console.log("Finished replaceBudget");
+    // }
 }
 
 function updateBudgetMinusExpenses(resp) {
