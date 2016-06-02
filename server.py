@@ -11,7 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
-from tools import expenditure_function, budget_totals, get_total_for_category, date_query, get_dates_for_budget
+from tools import expenditure_function, budget_totals, get_total_for_category, date_query, get_dates_for_budget, get_budget_per_category
 
 from sqlalchemy.sql import and_
 
@@ -237,7 +237,37 @@ def dashboard(id):
         user = User.query.filter_by(id=id).first()
 
         # This is the user's budget
-        budget = Budget.query.filter_by(budget_userid=id).all()
+        # budget = Budget.query.filter_by(budget_userid=id).all()
+
+        ####### GET THE USER'S BUDGETS
+
+        cat_1_budget = get_budget_per_category(1, id)
+        cat_2_budget = get_budget_per_category(2, id)
+        cat_3_budget = get_budget_per_category(3, id)
+        cat_4_budget = get_budget_per_category(4, id)
+        cat_5_budget = get_budget_per_category(5, id)
+        cat_6_budget = get_budget_per_category(6, id)
+
+        print
+        print
+        print
+        print "cat_1_budget"
+        print cat_1_budget
+        print
+        print "cat 2 budget"
+        print cat_2_budget
+        print
+        print "cat 3 budget"
+        print cat_3_budget
+        print
+        print
+        print
+        print
+        print
+        print
+        print
+        print
+        print
 
         # This is the expenditure object, which contains information about
         # expenditures specific to the user from the expenditure table in the
@@ -310,19 +340,6 @@ def dashboard(id):
         cat_5_end_date = cat_5_end.strftime('%Y-%m-%d')
         cat_6_end_date = cat_6_end.strftime('%Y-%m-%d')
 
-        # TO DO: use this info in the metrics functions
-
-        print
-        print
-        print
-        print
-        print "dates cat 2"
-        print cat_2_start, cat_2_end
-        print type(cat_2_start), type(cat_2_end)
-        # print cat_2_stripped
-        print
-        print
-
         ########### TOTAL PRICE AND AVERAGE SPENT ###########
 
         # Unpacking the total price and average spent
@@ -372,8 +389,13 @@ def dashboard(id):
                                                 food_budget_minus_expenses=food_budget_minus_expenses,
                                                 online_budget_minus_expenses=online_budget_minus_expenses,
                                                 entertainment_budget_minus_expenses=entertainment_budget_minus_expenses,
-                                                total_price=total_price,
-                                                budget=budget)
+                                                cat_1_budget=cat_1_budget,
+                                                cat_2_budget=cat_1_budget,
+                                                cat_3_budget=cat_3_budget,
+                                                cat_4_budget=cat_4_budget,
+                                                cat_5_budget=cat_5_budget,
+                                                cat_6_budget=cat_6_budget,
+                                                total_price=total_price)
 
 
 @app.route('/remove-budget/<int:id>', methods=["POST"])

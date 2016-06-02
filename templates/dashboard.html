@@ -135,9 +135,7 @@
             </div>
             <div class="panel-body"><!--BOOTSTRAP PANEL BODY 2 -->
 
-                <!-- test 9374889676090040179500 usps -->
-
-                <!-- Various metrics -->
+                <!-- TOTAL AND AVERAGE SPENT -->
 
                 <p>
                     Total spent on food: <span id="total-spent-3">{{ total_food_price }}</span><br>
@@ -167,7 +165,7 @@
 
                 <a href="#" data-toggle="modal" data-target="#addBudget" id="add-budget">Add Budget</a>
 
-        <!-- MODAL -->
+        <!-- ADD BUDGET MODAL -->
         <div class="modal fade" id="addBudget" tabindex="-1" role="dialog" aria-labelledby="addBudgetModal">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -209,11 +207,10 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary" id="budget-submit">Save changes</button>
         </form>
-        <script src="/static/js/submit-budget.js"></script>
       </div>
     </div>
   </div>
-</div><!-- END OF MODAL -->
+</div><!-- END OF NEW BUDGET MODAL -->
 
                 <h2>Budget left:</h2>
 
@@ -237,33 +234,19 @@
                 </p>
 
                     <p>
-                    <!-- BUDGET PER CATEGORY FIX ME-->
+                    <!-- BUDGET PER CATEGORY FIX ME SO THIS ISN'T HARD CODED WITH FOOD BUDGET MINUS EXPENSES -->
 
-                        Food: <span id="budget-3">{{ food_budget_minus_expenses }}</span><br>
-                        Travel: <span id="budget-2">{{ food_budget_minus_expenses }}</span><br>
-                        Clothing: <span id="budget-5">{{ food_budget_minus_expenses }}</span><br>
-                        Entertainment: <span id="budget-6">{{ food_budget_minus_expenses }}</span><br>
-                        Online purchases: <span id="budget-1">{{ food_budget_minus_expenses }}</span><br>
-                        Groceries: <span id="budget-4">{{ food_budget_minus_expenses }}</span><br>
+                        Food: <span id="budget-3">{{ cat_3_budget }}</span><br>
+                        Travel: <span id="budget-2">{{ cat_2_budget }}</span><br>
+                        Clothing: <span id="budget-5">{{ cat_5_budget }}</span><br>
+                        Entertainment: <span id="budget-6">{{ cat_6_budget }}</span><br>
+                        Online purchases: <span id="budget-1">{{ cat_1_budget }}</span><br>
+                        Groceries: <span id="budget-4">{{ cat_4_budget }}</span><br>
 
                     </p>
 
                 <p>
 
-                <div id="budget-div">
-                    {% for budget in budget %}
-                        <form action="/remove-budget/{{ budget.id }}" method="POST" id="category-{{budget.category_id}}">
-
-                            <li>
-                                {{ budget.budget }}<br>
-                                {{ budget.category.category }}<br>
-                            </li>
-                                <input type="Submit" value="Remove">
-                        </form>
-
-                    {% endfor %}
-
-                </div>
             </div>
         </div><!-- END BUDGET PANEL -->
 
@@ -329,12 +312,11 @@
                 <textarea class="form-control" id="description" rows="3" name="description"></textarea>
             </fieldset>
 
-            <script src="/static/js/submit-expenditure.js"></script>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
+
     </form><!-- END THE FORM -->
 
     </div>
@@ -394,13 +376,7 @@
                     </div>
                     </div>
                 </div>
-                <!-- <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"> -->
-                    <!-- Data attributes are something you can assign to any HTML
-                    element and you can access the attributes within Javascript
-                    using JQuery's data function -->
-                    <!-- <input type="submit" value="Track Your Package" class="submit-tracking" data-trackingnum="{{expenditure.tracking_num}}" data-cats="kitties">
-                    <br>
-                </form> -->
+
                 {% endif %}
 
               {% endfor %}
@@ -415,10 +391,12 @@
 
 </div><!-- END THE CONTAINER DIV -->
 
-<!-- JS stuff -->
+<!-- JAVASCRIPT -->
 <script src="/static/js/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnuRecqKx9vRHOa2X6OeYloFTevfJ9GkA&callback=initMap" async defer></script>
 <script src="/static/js/charts.js"></script>
+<script src="/static/js/submit-expenditure.js"></script>
+<script src="/static/js/submit-budget.js"></script>
 
 
 {% endblock %}

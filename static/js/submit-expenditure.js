@@ -4,10 +4,14 @@ function showExpenditureResults(result) {
     updateTotalSpent(result);
     updateAverageSpent(result);
     appendExpenditure(result);
+    charts();
 }
 
 function submitExpenditure(evt) {
     evt.preventDefault();
+
+    // Close the modal via Javascript when the event is triggered
+    $('#addExpenditureModal').modal('toggle');
 
     var formInputs = {
         "category": $("#category-field").val(),

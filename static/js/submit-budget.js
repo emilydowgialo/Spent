@@ -18,36 +18,6 @@ function replaceBudget(results) {
   // Appends the info to the element
   budgetElement.html(stringToAppend);
   console.log("finished replaceBudget");
-
-    // var budget = results;
-
-    // Appends code for new expense
-    // var stringToAppend = '<form action="/remove-budget/' + String(budget.id) +
-    //   '" method="POST" id="category-' + String(budget.category_id) + '">' +
-    //   '<li>' +
-    //   String(budget.budget) +
-    //   '<br>' +
-    //   String(budget.category) +
-    //   '<br>' +
-    //   '</li>' +
-    //   '<input type="Submit" value="Remove">' +
-    //   '</form>';
-
-    // console.log(stringToAppend);
-
-    // // This is the specific element
-    // var categoryElement = $('#category-' + String(budget.category_id));
-
-    // console.log(categoryElement);
-
-    // // If the element exists, replace with the new element
-    // if (categoryElement.length > 0) {
-    //   categoryElement.replaceWith(stringToAppend);
-    // } else {
-    //   $('#budget-div').append(stringToAppend);
-    //   console.log(results);
-    //   console.log("Finished replaceBudget");
-    // }
 }
 
 function updateBudgetMinusExpenses(resp) {
@@ -70,6 +40,9 @@ function updateBudgetMinusExpenses(resp) {
 function updateBudget(evt) {
     evt.preventDefault();
 
+    // Close the modal via Javascript when the event is triggered
+    $('#addBudget').modal('toggle');
+
     // Gather info from the budget form
     var budget = $('#budget-form').serialize();
 
@@ -80,4 +53,3 @@ function updateBudget(evt) {
 
 // Submit button click event
 $('#budget-submit').click(updateBudget);
-

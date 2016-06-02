@@ -50,7 +50,6 @@ def get_dates_for_budget(category_id, id):
     return start_date, end_date
 
 
-# The following functon gets the budget minus expenditures
 def budget_totals(category_id, id, total_price):
     """ Calculate budget minus expenditures made """
 
@@ -70,6 +69,21 @@ def budget_totals(category_id, id, total_price):
         expenditure_budget_minus_expenses = "You haven't added a budget yet"
 
     return expenditure_budget_minus_expenses
+
+
+def get_budget_per_category(category_id, id):
+    """ Gets budget for particular category """
+
+    # Query the database for budgets associated with the user at hand
+    budget = Budget.query.filter_by(budget_userid=id, category_id=category_id).all()
+
+    # If a budget exists, return it, otherwise return 0
+    if len(budget) > 0:
+        budget = budget[0].budget
+    else:
+        budget = 0
+
+    return budget
 
 
 def get_total_for_category(cat, lst):
