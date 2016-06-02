@@ -11,7 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
-from tools import expenditure_function, budget_totals, get_total_for_category, date_query
+from tools import expenditure_function, budget_totals, get_total_for_category, date_query, get_dates_for_budget
 
 from sqlalchemy.sql import and_
 
@@ -290,6 +290,21 @@ def dashboard(id):
         cat_totals_cat_3 = get_total_for_category(3, queries)
         print cat_totals_cat_3
 
+        ########### GET BUDGET START AND END DATES
+
+        dates_cat_2 = get_dates_for_budget(3, id)
+
+        print
+        print
+        print
+        print
+        print "dates cat 2"
+        print dates_cat_2
+        print
+        print
+        print
+        print
+
         ########### TOTAL PRICE AND AVERAGE SPENT ###########
 
         # Unpacking the total price and average spent
@@ -299,6 +314,7 @@ def dashboard(id):
         total_entertainment_price, avg_entertainment_expenditures = expenditure_function(6, id)
         total_travel_price, avg_travel_expenditures = expenditure_function(2, id)
         total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id)
+
         total_price = (total_food_price + total_groceries_price + total_clothing_price +
                        total_entertainment_price + total_travel_price +
                        total_online_purchase_price)
@@ -373,6 +389,8 @@ def add_budget():
     # Get values from the form
     budget = request.form.get("budget")
     category_id = int(request.form.get("category"))
+    start_date = request.form.get("start-date")
+    end_date = request.form.get("end-date")
 
     user_budget_query = Budget.query.filter_by(budget_userid=id).all()
 
@@ -388,7 +406,9 @@ def add_budget():
     # category in the database for the user
     new_budget = Budget(budget=budget,
                         category_id=category_id,
-                        budget_userid=id)
+                        budget_userid=id,
+                        budget_start_date=start_date,
+                        budget_end_date=end_date)
 
     # Insert the new budget into the budget table and commit the insert
     db.session.add(new_budget)

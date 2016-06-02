@@ -44,8 +44,8 @@ class Budget(db.Model):
     def __repr__(self):
         """ Provide useful info """
 
-        return "<Budget id=%s budget=%s budget_userid=%s category=%s>" % (
-            self.id, self.budget, self.budget_userid, self.category)
+        return "<Budget id=%s budget=%s budget_userid=%s category=%s budget_start_date=%s budget_end_date=%s>" % (
+            self.id, self.budget, self.budget_userid, self.category, self.budget_start_date, self.budget_end_date)
 
 
 class Expenditure(db.Model):

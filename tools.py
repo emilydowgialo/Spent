@@ -25,6 +25,28 @@ def expenditure_function(category_id, id):
     return float(total_price), float(avg_expenditures)
 
 
+def get_dates_for_budget(category_id, id):
+
+    budget = Budget.query.filter_by(category_id=category_id, budget_userid=id).all()
+
+    # budget_start_date = 0
+    # budget_end_date = 0
+
+    print
+    print "budget"
+    print budget
+    print
+
+    for item in budget:
+        print item
+        print item.budget_start_date
+        start_date = item.budget_start_date
+        end_date = item.budget_end_date
+        return start_date, end_date
+
+    return start_date, end_date
+
+
 # The following functon gets the budget minus expenditures
 def budget_totals(category_id, id, total_price):
     """ Calculate budget minus expenditures made """
