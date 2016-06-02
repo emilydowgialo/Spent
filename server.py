@@ -292,16 +292,20 @@ def dashboard(id):
 
         ########### GET BUDGET START AND END DATES
 
-        dates_cat_2 = get_dates_for_budget(3, id)
+        # Calls the get_dates_for_budget function in tools.py
+        cat_2_start, cat_2_end = get_dates_for_budget(3, id)
+
+        # Strips datetime object to year, month, day
+        cat_2_stripped = cat_2_start.strftime('%Y-%m-%d')
 
         print
         print
         print
         print
         print "dates cat 2"
-        print dates_cat_2
-        print
-        print
+        print cat_2_start, cat_2_end
+        print type(cat_2_start), type(cat_2_end)
+        print cat_2_stripped
         print
         print
 

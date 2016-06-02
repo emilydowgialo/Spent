@@ -26,7 +26,9 @@ def expenditure_function(category_id, id):
 
 
 def get_dates_for_budget(category_id, id):
+    """ Get the start and end date for a budget """
 
+    # Get budget object
     budget = Budget.query.filter_by(category_id=category_id, budget_userid=id).all()
 
     # budget_start_date = 0
@@ -37,6 +39,7 @@ def get_dates_for_budget(category_id, id):
     print budget
     print
 
+    # Get the start and end dates
     for item in budget:
         print item
         print item.budget_start_date
@@ -44,6 +47,7 @@ def get_dates_for_budget(category_id, id):
         end_date = item.budget_end_date
         return start_date, end_date
 
+    # Return start and end dates
     return start_date, end_date
 
 
