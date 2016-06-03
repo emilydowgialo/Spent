@@ -82,6 +82,22 @@ def tracking_with_id(tracking_num):
     result = requests.get(shippo_tracking)
     data = json.loads(result.content)
 
+    ###### TO DO: DISPLAY DELIVERY STATUS AND ADDRESS INFO
+
+    print
+    print
+    print
+    print "tracking data"
+    print data
+    print
+    print
+    status = data['tracking_status']['status']
+    print status
+    print
+    print
+    print
+    print
+
     final_dest = data['tracking_status']['location']
 
     city = final_dest['city']
@@ -182,38 +198,38 @@ def expenditure_types_data():
         'expenditures': [
             {
                 "value": travel_expenditures,
-                "color": "#F7464A",
+                "color": "#c5d5cb",
                 "highlight": "#FF5A5E",
                 "label": "Travel"
             },
             {
                 "value": entertainment_expenditures,
-                "color": "#46BFBD",
+                "color": "#9fa8a3",
                 "highlight": "#5AD3D1",
                 "label": "Entertainment"
             },
             {
                 "value": groceries_expenditures,
-                "color": "#4dff4d",
+                "color": "#e3e0cf",
                 "highlight": "#5AD3D1",
                 "label": "Groceries"
             },
             {
                 "value": clothing_expenditures,
-                "color": "#bf80ff",
+                "color": "#edd9c0",
                 "highlight": "#5AD3D1",
                 "label": "Clothing"
             },
             {
                 "value": food_expenditures,
-                "color": "#ffcc80",
+                "color": "#c0dfd9",
                 "highlight": "#5AD3D1",
                 "label": "Food"
             },
             {
                 "value": online_purchase_expenditures,
-                "color": "blue",
-                "highlight": "#FFC870",
+                "color": "black",
+                "highlight": "#b3c2bf",
                 "label": "Online Purchase"
             }
         ]
@@ -236,9 +252,6 @@ def dashboard(id):
         # This is the user object
         user = User.query.filter_by(id=id).first()
 
-        # This is the user's budget
-        # budget = Budget.query.filter_by(budget_userid=id).all()
-
         ####### GET THE USER'S BUDGETS
 
         cat_1_budget = get_budget_per_category(1, id)
@@ -247,27 +260,6 @@ def dashboard(id):
         cat_4_budget = get_budget_per_category(4, id)
         cat_5_budget = get_budget_per_category(5, id)
         cat_6_budget = get_budget_per_category(6, id)
-
-        print
-        print
-        print
-        print "cat_1_budget"
-        print cat_1_budget
-        print
-        print "cat 2 budget"
-        print cat_2_budget
-        print
-        print "cat 3 budget"
-        print cat_3_budget
-        print
-        print
-        print
-        print
-        print
-        print
-        print
-        print
-        print
 
         # This is the expenditure object, which contains information about
         # expenditures specific to the user from the expenditure table in the
@@ -299,21 +291,6 @@ def dashboard(id):
                 print "query cat id and queries"
                 print query.category_id
                 print queries
-
-        # Call the get_total_for_category function in tools.py to get the total
-        # amount spent per category
-        cat_totals_cat_2 = get_total_for_category(2, queries)
-        print cat_totals_cat_2
-        cat_totals_cat_1 = get_total_for_category(1, queries)
-        print cat_totals_cat_1
-        cat_totals_cat_4 = get_total_for_category(4, queries)
-        print cat_totals_cat_4
-        cat_totals_cat_5 = get_total_for_category(5, queries)
-        print cat_totals_cat_5
-        cat_totals_cat_6 = get_total_for_category(6, queries)
-        print cat_totals_cat_6
-        cat_totals_cat_3 = get_total_for_category(3, queries)
-        print cat_totals_cat_3
 
         ########### GET BUDGET START AND END DATES ###########
 
@@ -390,11 +367,23 @@ def dashboard(id):
                                                 online_budget_minus_expenses=online_budget_minus_expenses,
                                                 entertainment_budget_minus_expenses=entertainment_budget_minus_expenses,
                                                 cat_1_budget=cat_1_budget,
-                                                cat_2_budget=cat_1_budget,
+                                                cat_2_budget=cat_2_budget,
                                                 cat_3_budget=cat_3_budget,
                                                 cat_4_budget=cat_4_budget,
                                                 cat_5_budget=cat_5_budget,
                                                 cat_6_budget=cat_6_budget,
+                                                cat_1_start_date=cat_1_start_date,
+                                                cat_2_start_date=cat_2_start_date,
+                                                cat_3_start_date=cat_3_start_date,
+                                                cat_4_start_date=cat_4_start_date,
+                                                cat_5_start_date=cat_5_start_date,
+                                                cat_6_start_date=cat_6_start_date,
+                                                cat_1_end_date=cat_1_end_date,
+                                                cat_2_end_date=cat_2_end_date,
+                                                cat_3_end_date=cat_3_end_date,
+                                                cat_4_end_date=cat_4_end_date,
+                                                cat_5_end_date=cat_5_end_date,
+                                                cat_6_end_date=cat_6_end_date,
                                                 total_price=total_price)
 
 

@@ -66,7 +66,7 @@ def budget_totals(category_id, id, total_price):
         expenditure_budget_minus_expenses = float(budget_total) - float(total_price)
 
     else:
-        expenditure_budget_minus_expenses = "You haven't added a budget yet"
+        expenditure_budget_minus_expenses = 0
 
     return expenditure_budget_minus_expenses
 

@@ -12,3 +12,34 @@ div.login-div {
     transform: translate(-50%, -50%)
 }
 
+body {
+    background-color: #e9ece5;
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #000000;
+    color: white;
+
+}
+
+/*REMOVES ROUNDED EDGES*/
+* {
+  border-radius: 0 !important;
+}
+
+/*REMOVES PANEL DROP SHADOW*/
+.panel {
+    border: 0;
+}
+
+/*REMOVES PANEL DROP SHADOW*/
+.table > thead > tr > th, .table > thead > tr > td {
+    border: 0;
+}
+
+/*ADD DROP SHADOW*/
+.panel-default {
+    box-shadow: 5px 5px;
+    color: #000000;
+}
