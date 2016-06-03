@@ -91,9 +91,6 @@ def tracking_with_id(tracking_num):
     print data
     print
     print
-    status = data['tracking_status']['status']
-    print status
-    print
     print
     print
     print
@@ -105,11 +102,16 @@ def tracking_with_id(tracking_num):
     zipcode = final_dest['zip']
     country = final_dest['country']
 
+    tracking_status = str(data['tracking_status']['status'])
+    print tracking_status
+    print type(tracking_status)
+
     address_info = {
         'city': city,
         'state': state,
         'zipcode': zipcode,
-        'country': country
+        'country': country,
+        'tracking_status': tracking_status
     }
 
     # Return jsonified budget info to the map
