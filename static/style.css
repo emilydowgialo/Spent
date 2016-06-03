@@ -1,7 +1,9 @@
+/*MAP*/
 #map {
     height: 300px;
 }
 
+/*LOGIN DIV*/
 div.login-div {
     margin: 0;
     /*background: yellow;*/
@@ -14,14 +16,19 @@ div.login-div {
 
 body {
     background-color: #e9ece5;
-    /*background-image: url("/static/pexels-photo.jpg");
-    background-size: 100%;*/
 }
 
+/*HOMEPAGE BACKGROUND IMAGE*/
+.homepage-container-div {
+    background-image: url("/static/pexels-photo.jpg");
+    background-size: 100%;
+}
+
+/*PANEL HEADINGS*/
 .panel > .panel-heading {
     background-image: none;
-    background-color: #000000;
-    color: white;
+    background-color: ##3b3a36;
+    color: #5a5c51;
 
 }
 
@@ -43,5 +50,59 @@ body {
 /*ADD DROP SHADOW*/
 .panel-default {
     box-shadow: 5px 5px;
-    color: #000000;
+    color: #5a5c51;
 }
+
+/*LINK COLORS*/
+a {
+color: #9fa8a3 !important;
+}
+/*END OF LINK COLORS*/
+
+/*BUTTONS*/
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-primary {
+    background: #9fa8a3;
+    color: #ffffff;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #c0dfd9;
+}
+
+.btn-primary:active, .btn-primary.active {
+    background: #9fa8a3;
+    box-shadow: none;
+}
+/*END BUTTONS*/
+
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }

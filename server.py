@@ -82,19 +82,6 @@ def tracking_with_id(tracking_num):
     result = requests.get(shippo_tracking)
     data = json.loads(result.content)
 
-    ###### TO DO: DISPLAY DELIVERY STATUS AND ADDRESS INFO
-
-    print
-    print
-    print
-    print "tracking data"
-    print data
-    print
-    print
-    print
-    print
-    print
-
     final_dest = data['tracking_status']['location']
 
     city = final_dest['city']
@@ -102,9 +89,8 @@ def tracking_with_id(tracking_num):
     zipcode = final_dest['zip']
     country = final_dest['country']
 
-    tracking_status = str(data['tracking_status']['status'])
-    print tracking_status
-    print type(tracking_status)
+    # This is the delivery status of the paackage
+    tracking_status = data['tracking_status']['status']
 
     address_info = {
         'city': city,
@@ -114,7 +100,7 @@ def tracking_with_id(tracking_num):
         'tracking_status': tracking_status
     }
 
-    # Return jsonified budget info to the map
+    # Return jsonified budget info to map.js
     return jsonify(address_info)
 
 
@@ -201,37 +187,37 @@ def expenditure_types_data():
             {
                 "value": travel_expenditures,
                 "color": "#c5d5cb",
-                "highlight": "#FF5A5E",
+                "highlight": "#3fb0ac",
                 "label": "Travel"
             },
             {
                 "value": entertainment_expenditures,
                 "color": "#9fa8a3",
-                "highlight": "#5AD3D1",
+                "highlight": "#3fb0ac",
                 "label": "Entertainment"
             },
             {
                 "value": groceries_expenditures,
                 "color": "#e3e0cf",
-                "highlight": "#5AD3D1",
+                "highlight": "#3fb0ac",
                 "label": "Groceries"
             },
             {
                 "value": clothing_expenditures,
                 "color": "#edd9c0",
-                "highlight": "#5AD3D1",
+                "highlight": "#3fb0ac",
                 "label": "Clothing"
             },
             {
                 "value": food_expenditures,
                 "color": "#c0dfd9",
-                "highlight": "#5AD3D1",
+                "highlight": "#3fb0ac",
                 "label": "Food"
             },
             {
                 "value": online_purchase_expenditures,
-                "color": "black",
-                "highlight": "#b3c2bf",
+                "color": "#b3c2bf",
+                "highlight": "#3fb0ac",
                 "label": "Online Purchase"
             }
         ]
@@ -654,7 +640,7 @@ if __name__ == "__main__":
 
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.debug = True
+    # app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
     spent_database = 'postgres:///spending'

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<body class="homepage-container-div">
+
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul class=flashes>
@@ -22,12 +24,16 @@
 
             <form action="/login-form" method="POST">
                 <fieldset class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <input type="text" class="form-control" id="email" placeholder="Email" name="email">
+                    </div>
                 </fieldset>
                 <fieldset class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-lock"></i>
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                    </div>
                 </fieldset>
                 <button type="submit" class="btn btn-primary pull-right">Submit</button>
             </form>
@@ -83,6 +89,6 @@
 
 </div><!-- END BOOTSTRAP CONTAINER DIV -->
 
-
+</body>
 
 {% endblock %}

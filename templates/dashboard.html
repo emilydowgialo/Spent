@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<body>
+
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul class=flashes>
@@ -92,7 +94,7 @@
 
 
 <div class="row-fluid"><!-- DIV FOR COLUMNS -->
-    <div class="col-md-4"><!-- FIRST COLUMN DIV -->
+    <div class="col-md-6"><!-- FIRST COLUMN DIV -->
 
         <div class="panel panel-default"><!-- FIRST PANEL DIV -->
             <div class="panel-heading">
@@ -128,7 +130,7 @@
 
                 <div class="panel panel-default"><!-- TOTAL SPENT TABLE PANEL -->
             <!-- Default panel contents -->
-            <div class="panel-heading"><b>TOTAL SPENT OVER THE LAST 30 DAYS</b></div>
+            <div class="panel-heading"><b>TOTAL SPENT</b></div>
 
                 <!-- Table -->
                 <table class="table">
@@ -138,32 +140,46 @@
                         <tr>
                           <th>Category</th>
                           <th>Total Spent</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <th scope="row">Clothing</th>
-                          <td><span id="total-spent-5">${{ total_clothing_price }}</span></td>
+                          <td>$<span id="total-spent-5">{{ total_clothing_price }}</span></td>
+                          <td>{{ cat_5_start_date }}</td>
+                          <td>{{ cat_5_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Entertainment</th>
-                          <td><span id="total-spent-6">${{ total_entertainment_price }}</span></td>
+                          <td>$<span id="total-spent-6">{{ total_entertainment_price }}</span></td>
+                          <td>{{ cat_6_start_date }}</td>
+                          <td>{{ cat_6_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Food</th>
-                          <td colspan="2"><span id="total-spent-3">${{ total_food_price }}</span></td>
+                          <td>$<span id="total-spent-3">{{ total_food_price }}</span></td>
+                          <td>{{ cat_3_start_date }}</td>
+                          <td>{{ cat_3_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Groceries</th>
-                          <td colspan="2"><span id="total-spent-4">${{ total_groceries_price }}</span></td>
+                          <td>$<span id="total-spent-4">{{ total_groceries_price }}</span></td>
+                          <td>{{ cat_4_start_date }}</td>
+                          <td>{{ cat_4_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Online Purchases</th>
-                          <td colspan="2"><span id="total-spent-1">${{ total_online_purchase_price }}</span></td>
+                          <td>$<span id="total-spent-1">{{ total_online_purchase_price }}</span></td>
+                          <td>{{ cat_1_start_date }}</td>
+                          <td>{{ cat_1_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Travel</th>
-                          <td colspan="2"><span id="total-spent-2">${{ total_travel_price }}</span></td>
+                          <td>$<span id="total-spent-2">{{ total_travel_price }}</span></td>
+                          <td>{{ cat_2_start_date }}</td>
+                          <td>{{ cat_2_end_date }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -174,7 +190,7 @@
 
         <div class="panel panel-default"><!-- AVERAGE SPENT TABLE PANEL -->
             <!-- Default panel contents -->
-            <div class="panel-heading"><b>AVERAGE SPENT OVER THE LAST 30 DAYS</b></div>
+            <div class="panel-heading"><b>AVERAGE SPENT</b></div>
 
                 <!-- Table -->
                 <table class="table">
@@ -184,32 +200,46 @@
                         <tr>
                           <th>Category</th>
                           <th>Average Spent</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <th scope="row">Clothing</th>
-                          <td><span id="avg-5">${{ avg_clothing_expenditures }}</span></td>
+                          <td>$<span id="avg-5">{{ avg_clothing_expenditures }}</span></td>
+                          <td>{{ cat_5_start_date }}</td>
+                          <td>{{ cat_5_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Entertainment</th>
-                          <td><span id="avg-6">${{ avg_entertainment_expenditures }}</span></td>
+                          <td>$<span id="avg-6">{{ avg_entertainment_expenditures }}</span></td>
+                          <td>{{ cat_6_start_date }}</td>
+                          <td>{{ cat_6_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Food</th>
-                          <td colspan="2"><span id="avg-3">${{ avg_food_expenditures }}</span></td>
+                          <td>$<span id="avg-3">{{ avg_food_expenditures }}</span></td>
+                          <td>{{ cat_3_start_date }}</td>
+                          <td>{{ cat_3_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Groceries</th>
-                          <td colspan="2"><span id="avg-4">${{ avg_groceries_expenditures }}</span></td>
+                          <td>$<span id="avg-4">{{ avg_groceries_expenditures }}</span></td>
+                          <td>{{ cat_4_start_date }}</td>
+                          <td>{{ cat_4_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Online Purchases</th>
-                          <td colspan="2"><span id="avg-1">${{ avg_online_expenditures }}</span></td>
+                          <td>$<span id="avg-1">{{ avg_online_expenditures }}</span></td>
+                          <td>{{ cat_1_start_date }}</td>
+                          <td>{{ cat_1_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Travel</th>
-                          <td colspan="2"><span id="avg-2">${{ avg_travel_expenditures }}</span></td>
+                          <td>$<span id="avg-2">{{ avg_travel_expenditures }}</span></td>
+                          <td>{{ cat_2_start_date }}</td>
+                          <td>{{ cat_2_end_date }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -223,7 +253,7 @@
     </div><!-- END FIRST COLUMN DIV -->
 
 
-    <div class="col-md-8"><!-- SECOND BOOTSTRAP COLUMN -->
+    <div class="col-md-6"><!-- SECOND BOOTSTRAP COLUMN -->
 
 
         <div class="panel panel-default"><!-- BUDGET TABLE PANEL -->
@@ -299,43 +329,43 @@
                       <tbody>
                         <tr>
                           <th scope="row">Clothing</th>
-                          <td><span id="budget-5">${{ cat_5_budget }}</span></td>
-                          <td><span id="budget-left-5">${{ clothing_budget_minus_expenses }}</span></td>
+                          <td>$<span id="budget-5">{{ cat_5_budget }}</span></td>
+                          <td>$<span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span></td>
                           <td>{{ cat_5_start_date }}</td>
                           <td>{{ cat_5_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Entertainment</th>
-                          <td><span id="budget-6">${{ cat_6_budget }}</span></td>
-                          <td><span id="budget-left-6">${{ entertainment_budget_minus_expenses }}</span></td>
+                          <td>$<span id="budget-6">{{ cat_6_budget }}</span></td>
+                          <td>$<span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span></td>
                           <td>{{ cat_6_start_date }}</td>
                           <td>{{ cat_6_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Food</th>
-                          <td><span id="budget-3">${{ cat_3_budget }}</span></td>
-                          <td><span id="budget-left-3">${{ food_budget_minus_expenses }}</span></td>
+                          <td>$<span id="budget-3">{{ cat_3_budget }}</span></td>
+                          <td>$<span id="budget-left-3">{{ food_budget_minus_expenses }}</span></td>
                           <td>{{ cat_3_start_date }}</td>
                           <td>{{ cat_3_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Groceries</th>
-                          <td><span id="budget-4">${{ cat_4_budget }}</span></td>
-                          <td><span id="budget-left-4">${{ groceries_budget_minus_expenses }}</span></td>
+                          <td>$<span id="budget-4">{{ cat_4_budget }}</span></td>
+                          <td>$<span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span></td>
                           <td>{{ cat_4_start_date }}</td>
                           <td>{{ cat_4_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Online Purchases</th>
-                          <td><span id="budget-1">${{ cat_1_budget }}</span></td>
-                          <td><span id="budget-left-1">${{ online_budget_minus_expenses }}</span></td>
+                          <td>$<span id="budget-1">{{ cat_1_budget }}</span></td>
+                          <td>$<span id="budget-left-1">{{ online_budget_minus_expenses }}</span></td>
                           <td>{{ cat_1_start_date }}</td>
                           <td>{{ cat_1_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Travel</th>
-                          <td><span id="budget-2">${{ cat_2_budget }}</span></td>
-                          <td><span id="budget-left-2">${{ travel_budget_minus_expenses }}</span></td>
+                          <td>$<span id="budget-2">{{ cat_2_budget }}</span></td>
+                          <td>$<span id="budget-left-2">{{ travel_budget_minus_expenses }}</span></td>
                           <td>{{ cat_2_start_date }}</td>
                           <td>{{ cat_2_end_date }}</td>
                         </tr>
@@ -355,7 +385,7 @@
 <a href="#" data-toggle="modal" data-target="#addExpenditureModal">Add Expenditure</a>
 
 <!-- Modal -->
-<div class="modal fade" id="expenditureModal" tabindex="-1" role="dialog" aria-labelledby="addExpenditureModal">
+<div class="modal fade" id="addExpenditureModal" tabindex="-1" role="dialog" aria-labelledby="addExpenditureModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -482,7 +512,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                     </div>
                     </div>
@@ -511,5 +540,6 @@
 <script src="/static/js/submit-expenditure.js"></script>
 <script src="/static/js/submit-budget.js"></script>
 
+</body>
 
 {% endblock %}

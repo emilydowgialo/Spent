@@ -37,10 +37,12 @@ function geocodeAddress(geocoder, resultsMap, addressToUse) {
 
 function appendTrackingInfo(address) {
 
+  // This is the tracking info object
   var trackingInfo = address;
   console.log("this is append tracking info trackingInfo");
   console.log(trackingInfo);
 
+  // Define variables for info we need
   var trackingStatus = String(trackingInfo.tracking_status);
   var trackingCity = trackingInfo.city;
   var trackingState = trackingInfo.state;
@@ -50,6 +52,7 @@ function appendTrackingInfo(address) {
   console.log("this is tracking status");
   console.log(trackingStatus);
 
+  // Display the information on the front end
   console.log(trackingStatus);
   $('#tracking-status').html(trackingStatus);
   $('#tracking-city').html(trackingCity);
@@ -66,6 +69,7 @@ function trackingInfo(results) {
     console.log("this is address");
     console.log(address);
 
+    // Call the map function and the tracking info function
     initMap(address);
     appendTrackingInfo(address);
 
