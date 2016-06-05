@@ -380,18 +380,17 @@
                       </tbody>
                     </table>
 
-                                    </table>
+                                    </table><!-- END OF BUDGET TABLE -->
 
         </div><!-- END BUDGET TABLE PANEL -->
 
         <div class="panel panel-default"><!-- EXPENDITURE PANEL -->
             <div class="panel-heading">
                 <h3 class="panel-title">EXPENDITURES</h3>
+                <a href="#" data-toggle="modal" data-target="#addExpenditureModal">Add Expenditure</a>
             </div>
-            <div class="panel-body">
-
-<a href="#" data-toggle="modal" data-target="#addExpenditureModal">Add Expenditure</a>
-
+            <!-- <div class="panel-body">
+ -->
 <!-- Modal -->
 <div class="modal fade" id="addExpenditureModal" tabindex="-1" role="dialog" aria-labelledby="addExpenditureModal">
   <div class="modal-dialog" role="document">
@@ -452,39 +451,47 @@
   </div>
 </div><!-- END OF MODAL -->
 
-            <!-- Expenditures div -->
-            <p><h2>Expenditures:</h2>
-            </p>
+          <!-- Table -->
 
-            <div id="expenditures-div">
 
-              {% for expenditure in expenditures %}
-              <form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Category</th>
+                          <th>Price</th>
+                          <th>Date</th>
+                          <th>Place</th>
+                          <th>Description</th>
+                          <th>Track</th>
+                          <th>Remove</th>
+                        </tr>
+                      </thead>
+                      <tbody>
 
-                {{ expenditure.date_of_expenditure }}<br>
-                {{ expenditure.category.category }}<br>
-                {{ expenditure.price }}<br>
-                {{ expenditure.where_bought }}<br>
-                {{ expenditure.description }}<br>
-                {{ expenditure.tracking_num }}
+                        {% for expenditure in expenditures %}
 
-                    <input type="Submit" value="Remove">
-                </form>
+                        <tr>
+                          <th scope="row">{{ expenditure.category.category }}</th>
+                          <td>$<span id="budget-5">{{ expenditure.price }}</span></td>
+                          <td><span id="budget-left-5">{{ expenditure.date_of_expenditure }}</span></td>
+                          <td>{{ expenditure.where_bought }}</td>
+                          <td>{{ expenditure.description }}</td>
+                          <td>{% if expenditure.tracking_num %}<form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"><button type="submit" class="btn btn-lg btn-custom" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
+                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                </button></form>{% endif %}</td>
+                          <td><form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
+                            <button type="submit" class="btn btn-lg btn-custom" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+                            </button>
+                            </form></td>
+                        </tr>
 
-                {% if expenditure.tracking_num %}
+                        {% endfor %}
 
-                <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form">
+                      </tbody>
+                    </table>
 
-                    <!-- Data attributes are something you can assign to any HTML
-                    element and you can access the attributes within Javascript
-                    using JQuery's data function -->
-                    <!-- <input type="submit" value="Track Your Package" class="submit-tracking" data-trackingnum="{{expenditure.tracking_num}}" data-cats="kitties"> -->
-
-                <button type="submit" class="submit-tracking" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
-                Track Your Package
-                </button>
-
-                <!-- Modal -->
+                    <!-- Modal -->
                 <div class="modal fade" id="trackingModal" tabindex="-1" role="dialog" aria-labelledby="trackingModalLabel">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -525,10 +532,7 @@
                     </div>
                 </div>
 
-                {% endif %}
 
-              {% endfor %}
-            </div>
 
 
             </div><!-- END THE THIRD PANEL DIV -->

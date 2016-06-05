@@ -48,10 +48,10 @@ body {
 }
 
 /*ADD DROP SHADOW*/
-/*.panel-default {
-    box-shadow: 5px 5px;
+.panel-default {
+    box-shadow: 2px 2px;
     color: #5a5c51;
-}*/
+}
 
 /*LINK COLORS*/
 a {
@@ -112,3 +112,19 @@ color: #9fa8a3 !important;
 /* add padding  */
 .left-addon input  { padding-left:  30px; }
 .right-addon input { padding-right: 30px; }
+
+/*Glyphicon style*/
+.btn-custom {
+    background-color: rgba(0, 0, 0, 0.0);
+    position: absolute;
+    padding: 10px;
+    border-color: #CCCCCC;
+    color: #333333;
+ }
+.btn-custom:hover {
+   background-color: gba(0, 0, 0, 0.0);
+   position: absolute;
+   padding: 10px;
+   border-color: #fff;
+   color: #333333;
+}

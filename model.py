@@ -70,37 +70,6 @@ class Expenditure(db.Model):
 
     category = db.relationship("Category", backref=db.backref('expenditures'))
 
-# badges:
-# id
-# name
-# criteria (can be json blob)
-
-
-# 1     Hungry Hungry Hippo      {"food": 500}
-# 2     Entertainment Maven      {"entertainment": 1000}
-# 3     Travel Fan               {"travel": 2000}
-
-# if category_id == 3 and total_expenditures > 500 and not_awarded:
-#     add_to_intermediate_table(badge_id=1, user_id=user_id)
-# elif category_id == 4 and total_expenditures > 1000 ....
-#     add_to_intermediate_table(badge_id=2, user_id=user_id)
-# lots more if statements
-
-
-# Otherwise
-# for badge in Badge.all():
-#     criteria = json.loads(badge.criteria)
-#     keys, values = criteria.iteritems()
-#     # keys = ["food"],  values = [500]
-#     if keys[0] == category and total_expenditures_for_this_category > values[0]:
-#         add_to_intermediate_table(badge_id=badge.id, user_id=user_id)
-
-# intermediate table:
-# user_id
-# badge_id
-
-# users:
-# already created
 
 def init_app():
     # So that we can use Flask-SQLAlchemy, we'll make a Flask app

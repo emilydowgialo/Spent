@@ -231,8 +231,6 @@ def expenditure_types_data():
 def dashboard(id):
     """ This is the user dashboard """
 
-    # TO FIX: hash passwords
-
     # If the user id is in the session, this will render the dashboard
     # template, which will display their information and expenditure information
     if 'id' in session:
@@ -284,15 +282,6 @@ def dashboard(id):
 
         # Calls the get_dates_for_budget function in tools.py
         cat_3_start, cat_3_end = get_dates_for_budget(3, id)
-
-        print
-        print "cat_3_start"
-        print cat_3_start
-        print cat_3_end
-        print
-        print
-        print
-        print
 
         cat_1_start, cat_1_end = get_dates_for_budget(1, id)
         cat_2_start, cat_2_end = get_dates_for_budget(2, id)
@@ -473,9 +462,12 @@ def add_expenditure():
     tracking_num = request.form.get("tracking-num")
     tracking_num_carrier = request.form.get("tracking-num-carrier")
 
+    date_of_expenditure_stripped = date_of_expenditure.strftime('%Y-%m-%d')
+
     print
     print
-    print request.form
+    print "date of expenditure cats"
+    print date_of_expenditure_stripped
     print
     print
 
@@ -484,7 +476,7 @@ def add_expenditure():
     # Create a new expenditure object to insert into the expenditures table
     new_expenditure = Expenditure(category_id=category_id,
                                   price=price,
-                                  date_of_expenditure=date_of_expenditure,
+                                  date_of_expenditure=date_of_expenditure_stripped,
                                   where_bought=where_bought,
                                   description=description,
                                   expenditure_userid=id,
