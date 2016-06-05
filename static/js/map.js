@@ -35,10 +35,10 @@ function geocodeAddress(geocoder, resultsMap, addressToUse) {
     });
   }
 
-function appendTrackingInfo(address) {
+function appendTrackingInfo(info) {
 
   // This is the tracking info object
-  var trackingInfo = address;
+  var trackingInfo = info;
   console.log("this is append tracking info trackingInfo");
   console.log(trackingInfo);
 

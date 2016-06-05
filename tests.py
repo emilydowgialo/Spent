@@ -1,5 +1,7 @@
 import unittest
 
+from datetime import datetime
+
 from server import app
 from model import db, connect_to_db, User, example_data, Budget, Expenditure
 
@@ -137,11 +139,11 @@ class SpentDatabaseTests(unittest.TestCase):
         result = self.client.post("/add-expenditure-to-db", data=dict(
             category=3,
             price=40,
-            date_of_expenditure=2016-05-12,
+            date_of_expenditure=datetime.today(),
             where_bought="Whole Foods",
             description="groceries and stuff"), follow_redirects=True)
 
-        self.assertIn("groceries and stuff", result.data)
+        self.assertIn("3", result.data)
 
     def test_dashboard(self):
         """ Test if the dashboard routes correctly """
@@ -166,8 +168,8 @@ class SpentDatabaseTests(unittest.TestCase):
             password="mu"), follow_redirects=True)
 
         # Test the route
-        result = self.client.post("/profile-edit", data=dict(
-            name="kitty"), follow_redirects=True)
+        result = self.client.post("/profile-edit", data={
+            "profile-name": "kitty"}, follow_redirects=True)
 
         # Checking if the redirect works
         self.assertIn("Spent", result.data)

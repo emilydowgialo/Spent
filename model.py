@@ -128,7 +128,7 @@ def example_data():
     """Create example data for the test database."""
 
     fakeuser = User(name="Mu", email="mu@mu.com", password="mu")
-    fakebudget = Budget(budget=1000, category_id=3)
+    fakebudget = Budget(budget=1000, category_id=3, budget_start_date="2016-05-07", budget_end_date="2016-06-15")
     fakecat = Category(category="Food", id=3)
     fakecat2 = Category(category="Travel", id=2)
     fakeexpenditure = Expenditure(category_id=2, price=500,

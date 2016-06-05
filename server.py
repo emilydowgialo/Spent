@@ -284,6 +284,16 @@ def dashboard(id):
 
         # Calls the get_dates_for_budget function in tools.py
         cat_3_start, cat_3_end = get_dates_for_budget(3, id)
+
+        print
+        print "cat_3_start"
+        print cat_3_start
+        print cat_3_end
+        print
+        print
+        print
+        print
+
         cat_1_start, cat_1_end = get_dates_for_budget(1, id)
         cat_2_start, cat_2_end = get_dates_for_budget(2, id)
         cat_4_start, cat_4_end = get_dates_for_budget(4, id)

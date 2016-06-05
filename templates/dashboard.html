@@ -58,17 +58,25 @@
                 </p>
 
             <form action="/profile-edit" method="POST" id="form-profile-edit">
+
                 <fieldset class="form-group">
-                <label for="name">New name</label>
+                <!-- <label for="name">New name</label> -->
+                <div class="inner-addon left-addon">
+                  <i class="glyphicon glyphicon-user"></i>
                     <input type="text" class="form-control" id="profile-name" placeholder="Edit your name" name="profile-name">
+                  </div>
                 </fieldset>
                 <fieldset class="form-group">
-                <label for="email">New email</label>
+                  <div class="inner-addon left-addon">
+                  <i class="glyphicon glyphicon-envelope"></i>
                     <input type="text" class="form-control" id="profile-email" placeholder="Add a new email" name="profile-email">
+                  </div>
                 </fieldset>
                 <fieldset class="form-group">
-                <label for="password">New password</label>
+                <div class="inner-addon left-addon">
+                  <i class="glyphicon glyphicon-lock"></i>
                     <input type="password" class="form-control" id="new-password" placeholder="Add a new password" name="new-password">
+                  </div>
                 </fieldset>
                 <!-- <button type="submit" class="btn btn-primary">Submit</button>
                 </form> -->

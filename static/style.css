@@ -20,7 +20,7 @@ body {
 
 /*HOMEPAGE BACKGROUND IMAGE*/
 .homepage-container-div {
-    background-image: url("/static/pexels-photo.jpg");
+    background-image: url("/static/spent-background.jpg");
     background-size: 100%;
 }
 
@@ -48,16 +48,22 @@ body {
 }
 
 /*ADD DROP SHADOW*/
-.panel-default {
+/*.panel-default {
     box-shadow: 5px 5px;
     color: #5a5c51;
-}
+}*/
 
 /*LINK COLORS*/
 a {
 color: #9fa8a3 !important;
 }
 /*END OF LINK COLORS*/
+
+/*FORM FOCUS*/
+.form-control:focus {
+  border-color: #c0dfd9;
+  box-shadow: inset 0 1px 1px #c0dfd9, 0 0 8px #c0dfd9;
+}
 
 /*BUTTONS*/
 .btn {
