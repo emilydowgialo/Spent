@@ -20,6 +20,7 @@ function initMap(thing) {
 
 function geocodeAddress(geocoder, resultsMap, addressToUse) {
 
+    // if addressToUse exists statement would fix the error
     var addressYay = String(addressToUse.city) + String(addressToUse.state);
 
     geocoder.geocode({'address': addressYay}, function(results, status) {

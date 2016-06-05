@@ -535,8 +535,23 @@ def add_expenditure():
 
 
 @app.route('/remove-expenditure/<int:id>', methods=["POST"])
-def remove_expenditure(id):
+def remove_expenditure(id, description):
     """ Remove an expenditure from the database """
+
+    # if id is undefined, ping database and look for that id, otherwise
+    # run everything as it is
+
+    # search for description - this is unique to the purchase. search for id
+    # by description
+
+    expenditure_description = Expenditure.query.filter_by(description=description).first()
+
+    print
+    print
+    print "expenditure_description"
+    print expenditure_description
+    print
+    print
 
     # This is the expenditure object we are working with
     expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
