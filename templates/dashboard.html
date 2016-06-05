@@ -138,7 +138,7 @@
 
                 <div class="panel panel-default"><!-- TOTAL SPENT TABLE PANEL -->
             <!-- Default panel contents -->
-            <div class="panel-heading"><b>TOTAL SPENT</b></div>
+            <div class="panel-heading"><h3 class="panel-title">TOTAL SPENT</h3></div>
 
                 <!-- Table -->
                 <table class="table">
@@ -198,7 +198,7 @@
 
         <div class="panel panel-default"><!-- AVERAGE SPENT TABLE PANEL -->
             <!-- Default panel contents -->
-            <div class="panel-heading"><b>AVERAGE SPENT</b></div>
+            <div class="panel-heading"><h3 class="panel-title">AVERAGE SPENT</h3></div>
 
                 <!-- Table -->
                 <table class="table">
@@ -322,14 +322,14 @@
 </div><!-- END OF NEW BUDGET MODAL -->
 
                 <!-- Table -->
-                <table class="table">
+                <!-- <table class="table"> -->
 
                     <table class="table table-striped">
                       <thead>
                         <tr>
                           <th>Category</th>
                           <th>Budget</th>
-                          <th>Budget Remaining</th>
+                          <th>Remaining</th>
                           <th>Start Date</th>
                           <th>End Date</th>
                         </tr>
@@ -383,6 +383,98 @@
                                     </table><!-- END OF BUDGET TABLE -->
 
         </div><!-- END BUDGET TABLE PANEL -->
+
+        <div class="panel panel-default"><!-- TOTAL SPENT TABLE PANEL -->
+            <!-- Default panel contents -->
+            <div class="panel-heading"><h3 class="panel-title">BUDGET REMAINING</h3></div>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Budget Remaining</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Clothing</th>
+                  <td>
+
+                    <div class="progress"><!-- CLOTHING -->
+              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ clothing_progress }}%">
+              <!-- <span class="sr-only">60% Complete</span> -->
+              </div>
+            </div><!-- END CLOTHING -->
+
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Entertainment</th>
+                  <td>
+
+                    <div class="progress"><!-- CLOTHING -->
+              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ entertainment_progress }}%">
+              <!-- <span class="sr-only">60% Complete</span> -->
+              </div>
+            </div><!-- END CLOTHING -->
+
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Food</th>
+                  <td>
+
+                    <div class="progress"><!-- CLOTHING -->
+              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ food_progress }}%">
+              <!-- <span class="sr-only">60% Complete</span> -->
+              </div>
+            </div><!-- END CLOTHING -->
+
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Groceries</th>
+                  <td>
+
+                    <div class="progress"><!-- CLOTHING -->
+              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ groceries_progress }}%">
+              <!-- <span class="sr-only">60% Complete</span> -->
+              </div>
+            </div><!-- END CLOTHING -->
+
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Online Purchases</th>
+                  <td>
+
+                    <div class="progress"><!-- CLOTHING -->
+              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ online_progress }}%">
+              <!-- <span class="sr-only">60% Complete</span> -->
+              </div>
+            </div><!-- END CLOTHING -->
+
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">Travel</th>
+                  <td>
+
+                    <div class="progress"><!-- CLOTHING -->
+              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ travel_progress }}%">
+              <!-- <span class="sr-only">60% Complete</span> -->
+              </div>
+            </div><!-- END CLOTHING -->
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+  <!-- </div> -->
+</div><!-- END PROGRESS PANEL -->
+
+
 
         <div class="panel panel-default"><!-- EXPENDITURE PANEL -->
             <div class="panel-heading">
@@ -454,7 +546,7 @@
           <!-- Table -->
 
 
-                    <table class="table table-striped" id="cats">
+                    <table class="table table-striped" id="table-expenditure-table">
                       <thead>
                         <tr>
                           <th>Category</th>
@@ -473,10 +565,10 @@
                         <tr>
                           <th scope="row">{{ expenditure.category.category }}</th>
                           <td>${{ expenditure.price }}</td>
-                          <td>{{ expenditure.date_of_expenditure }}</td>
+                          <td>{{ expenditure.date_of_expenditure.strftime('%Y-%m-%d') }}</td>
                           <td>{{ expenditure.where_bought }}</td>
                           <td>{{ expenditure.description }}</td>
-                          <td>{% if expenditure.tracking_num %}<form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"><button type="submit" class="btn btn-lg btn-custom" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
+                          <td>{% if expenditure.tracking_num %}<form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"><button type="submit" class="btn btn-lg btn-custom submit-tracking" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                 </button></form>{% endif %}</td>
                           <td><form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">

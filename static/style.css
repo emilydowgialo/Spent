@@ -98,6 +98,23 @@ color: #9fa8a3 !important;
     position: relative;
 }
 
+/*PROGRESS BARS*/
+.progress {
+    background: rgba(245, 245, 245, 1);
+    border: 0px solid rgba(245, 245, 245, 1);
+    border-radius: 4px;
+    height: 20px;
+    background-color: #c0dfd9;
+}
+
+.progress-bar-custom {
+    background: rgba(66, 139, 202, 1);
+}
+
+table .progress {
+    margin-bottom: 0;
+}
+
 /* style icon */
 .inner-addon .glyphicon {
   position: absolute;

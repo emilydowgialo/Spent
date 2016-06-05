@@ -56,10 +56,7 @@ class Expenditure(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     price = db.Column(db.Numeric(15, 2))
-    # Tell users to enter in 2014-03-12. On backend, datetime.datetime.strptime('2014-03-12', '%Y-%m-%d')
-    # bootstrap datepicker
     date_of_expenditure = db.Column(db.DateTime)
-    # Will know the user id based on who is logged in to the session
     expenditure_userid = db.Column(db.Integer, db.ForeignKey('users.id'))
     where_bought = db.Column(db.String(100))
     description = db.Column(db.UnicodeText)

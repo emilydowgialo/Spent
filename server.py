@@ -282,7 +282,6 @@ def dashboard(id):
 
         # Calls the get_dates_for_budget function in tools.py
         cat_3_start, cat_3_end = get_dates_for_budget(3, id)
-
         cat_1_start, cat_1_end = get_dates_for_budget(1, id)
         cat_2_start, cat_2_end = get_dates_for_budget(2, id)
         cat_4_start, cat_4_end = get_dates_for_budget(4, id)
@@ -328,6 +327,36 @@ def dashboard(id):
         travel_budget_minus_expenses = budget_totals(2, id, total_travel_price)
         entertainment_budget_minus_expenses = budget_totals(6, id, total_entertainment_price)
 
+        ############# PROGRESS BAR ##############
+        clothing_progress_calc = (float(clothing_budget_minus_expenses)/float(cat_5_budget))
+        clothing_progress = str(clothing_progress_calc * 100)
+        online_progress_calc = (float(online_budget_minus_expenses)/float(cat_1_budget))
+        online_progress = str(online_progress_calc * 100)
+        food_progress_calc = (float(food_budget_minus_expenses)/float(cat_3_budget))
+        food_progress = str(food_progress_calc * 100)
+        groceries_progress_calc = (float(groceries_budget_minus_expenses)/float(cat_4_budget))
+        groceries_progress = str(groceries_progress_calc * 100)
+        entertainment_progress_calc = (float(entertainment_budget_minus_expenses)/float(cat_6_budget))
+        entertainment_progress = str(entertainment_progress_calc * 100)
+        travel_progress_calc = (float(travel_budget_minus_expenses)/float(cat_5_budget))
+        travel_progress = str(travel_progress_calc * 100)
+
+        print
+        print
+        print
+        print
+        print
+        print "clothing progress"
+        print clothing_progress
+        print
+        print
+        print
+        print
+        print
+        print
+        print
+        print
+
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
                                                 name=user.name,
@@ -371,6 +400,12 @@ def dashboard(id):
                                                 cat_4_end_date=cat_4_end_date,
                                                 cat_5_end_date=cat_5_end_date,
                                                 cat_6_end_date=cat_6_end_date,
+                                                clothing_progress=clothing_progress,
+                                                entertainment_progress=entertainment_progress,
+                                                online_progress=online_progress,
+                                                food_progress=food_progress,
+                                                groceries_progress=groceries_progress,
+                                                travel_progress=travel_progress,
                                                 total_price=total_price)
 
 
@@ -449,7 +484,7 @@ def add_budget():
 @app.route('/add-expenditure-to-db', methods=["POST"])
 def add_expenditure():
     """ Add new expenditure to the database """
-
+    print "catscatscats"
     # Set the value of the user id of the user in the session
     id = session.get('id')
 
@@ -462,21 +497,12 @@ def add_expenditure():
     tracking_num = request.form.get("tracking-num")
     tracking_num_carrier = request.form.get("tracking-num-carrier")
 
-    date_of_expenditure_stripped = date_of_expenditure.strftime('%Y-%m-%d')
-
-    print
-    print
-    print "date of expenditure cats"
-    print date_of_expenditure_stripped
-    print
-    print
-
     start_date, end_date = get_dates_for_budget(category_id, id)
 
     # Create a new expenditure object to insert into the expenditures table
     new_expenditure = Expenditure(category_id=category_id,
                                   price=price,
-                                  date_of_expenditure=date_of_expenditure_stripped,
+                                  date_of_expenditure=date_of_expenditure,
                                   where_bought=where_bought,
                                   description=description,
                                   expenditure_userid=id,
@@ -495,7 +521,7 @@ def add_expenditure():
         'avg_cat_expenditures': avg_cat_expenditures,
         'category_id': category_id,
         'expenditure_id': new_expenditure.id,
-        'date_of_expenditure': new_expenditure.date_of_expenditure,
+        'date_of_expenditure': new_expenditure.date_of_expenditure.strftime('%Y-%m-%d'),
         'where_bought': new_expenditure.where_bought,
         'description': new_expenditure.description,
         'price': str(new_expenditure.price),
