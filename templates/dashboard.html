@@ -454,7 +454,7 @@
           <!-- Table -->
 
 
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="cats">
                       <thead>
                         <tr>
                           <th>Category</th>
@@ -472,8 +472,8 @@
 
                         <tr>
                           <th scope="row">{{ expenditure.category.category }}</th>
-                          <td>$<span id="budget-5">{{ expenditure.price }}</span></td>
-                          <td><span id="budget-left-5">{{ expenditure.date_of_expenditure }}</span></td>
+                          <td>${{ expenditure.price }}</td>
+                          <td>{{ expenditure.date_of_expenditure }}</td>
                           <td>{{ expenditure.where_bought }}</td>
                           <td>{{ expenditure.description }}</td>
                           <td>{% if expenditure.tracking_num %}<form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"><button type="submit" class="btn btn-lg btn-custom" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">

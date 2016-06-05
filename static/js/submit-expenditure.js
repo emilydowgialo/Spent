@@ -33,30 +33,46 @@ function appendExpenditure(result) {
 
   var expenditure = result;
 
-  var stringToAppend = '<form action="/remove-expenditure/' + String(expenditure.expenditure_id) +
-  '" method="POST" id="expenditure-' + String(expenditure.expenditure_id) + '">' +
-  String(expenditure.date_of_expenditure) +
-  '<br>' +
+  var stringToAppend = '<tr>' +
+  '<th scope="row">' +
   String(expenditure.category) +
-  '<br>' +
+  '</th>' +
+  '<td>' +
   String(expenditure.price) +
-  '<br>' +
+  '</td>' +
+  '<td>' +
+  String(expenditure.date_of_expenditure) +
+  '</td>' +
+  '<td>' +
   String(expenditure.where_bought) +
-  '<br>' +
+  '</td>' +
+  '<td>' +
   String(expenditure.description) +
-  '<br>' +
-  String(expenditure.tracking_num)+
-  '<br>' +
-  '<input type="Submit" value="Remove">' +
-  '</form>' +
-  '<br>' +
-  '<form action="/tracking/' + String(expenditure.tracking_num) + '" method="POST" id="tracking-form">' +
-  '<input type="submit" value="Track Your Package">' +
-  '<br>' +
-  '</form>';
+  '</td>' +
+  '<td>';
+
+  if (expenditure.tracking_num) {
+
+    stringToAppend += '<form action="tracking/' + String(expenditure.tracking_num) +
+    'method="POST" class="tracking-form"><button type="submit" class="btn btn-lg ' +
+    'btn-custom" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" ' +
+    'data-trackingnum="' + String(expenditure.tracking_num) + '">' +
+    '<span class="glyphicon glyphicon-send" aria-hidden="true"></span>' +
+    '</button></form>'
+  }
+
+  stringToAppend += '</td>' +
+  '<td><form action="/remove-expenditure/' +
+  String(expenditure.id) + '" method="POST" id="expenditure-' +
+  String(expenditure.id) + '">' +
+  '<button type="submit" class="btn btn-lg btn-custom" aria-label="Left Align">' +
+  '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>' +
+  '</button>' +
+  '</form></td>' +
+  '</tr>';
 
   console.log(stringToAppend);
-  $('#expenditures-div').append(stringToAppend);
+  $('#table-expenditure-table').append(stringToAppend);
   console.log("finished with appendExpenditure");
 
 }
