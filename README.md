@@ -30,15 +30,23 @@ Spent is a Flask app built on a Flask server with a PostgreSQL database, with SQ
 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
 
+
 The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto updating widgets, which illustrate spending metrics and statistics. The user enters budgets for categories along with a date range. The user's spending stats are tabulated based on this date range, and graphically shows the user how much they have left in their budget, as well as the average and total amount they have spent.
 
 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-dashboard-screenshot.png "Spent Login")
 
+
 Online purchases can be monitored with Spent’s dynamic package tracking feature, which displays the last place a package was scanned, its delivery status, and plots its current location on a map.
 
 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-map-screenshot.png "Spent Login")
+
+
+Spent is a one-page dashboard. There is beauty and functionality in simplicity, and the user's flow is kept direct and clean. The user inputs budget and expenditure information in modal window forms that do not take them away from the main dashboard, keeping their experience focused.
+
+
+![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-modal-screenshot.png "Spent Login")
 
 
 ## About the Developer
