@@ -9,7 +9,9 @@ Spent was created by Emily Dowgialo during the Spring 2016 cohort at Hackbright 
 
 ## Features
 
-The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto updating widgets, which illustrate spending metrics and statistics.
+![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
+
+The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto updating widgets, which illustrate spending metrics and statistics. The user enters budgets for categories along with a date range. The user's spending stats are tabulated based on this date range, and graphically shows the user how much they have left in their budget, as well as the average and total amount they have spent.
 
 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-dashboard-screenshot.png "Spent Login")
@@ -39,8 +41,3 @@ Online purchases can be monitored with Spent’s dynamic package tracking featur
 - Shippo API
 
 Spent is a Flask app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the ORM used to interact with this database. The front end templating uses Jinja. HTML was built using Bootstrap. The Javascript uses JQuery and AJAX to interact with the backend so everything updates in real time. The graphs displaying total and average spent are rendered using Chart.js, a free Javascript charting library. The map is built using the Google Maps API, which interacts with the Shippo package tracking API.
-
-
-## Screenshots
-
-![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
