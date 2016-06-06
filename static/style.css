@@ -84,11 +84,11 @@ color: #9fa8a3 !important;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-    background: #c0dfd9;
+    background: #F37257;
 }
 
 .btn-primary:active, .btn-primary.active {
-    background: #9fa8a3;
+    background: #AFC1CC;
     box-shadow: none;
 }
 /*END BUTTONS*/
@@ -104,11 +104,11 @@ color: #9fa8a3 !important;
     border: 0px solid rgba(245, 245, 245, 1);
     border-radius: 4px;
     height: 20px;
-    background-color: #c0dfd9;
+    background-color: #AFC1CC;
 }
 
 .progress-bar-custom {
-    background: rgba(66, 139, 202, 1);
+    background: #F37257;
 }
 
 table .progress {
@@ -138,6 +138,7 @@ table .progress {
     border-color: #CCCCCC;
     color: #333333;
  }
+
 .btn-custom:hover {
    background-color: gba(0, 0, 0, 0.0);
    position: absolute;

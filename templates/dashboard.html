@@ -15,7 +15,7 @@
 
 <div class="container">
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default"><!-- NAVBAR -->
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -78,8 +78,6 @@
                     <input type="password" class="form-control" id="new-password" placeholder="Add a new password" name="new-password">
                   </div>
                 </fieldset>
-                <!-- <button type="submit" class="btn btn-primary">Submit</button>
-                </form> -->
 
         </div>
 
@@ -119,7 +117,7 @@
                         </div>
 
                     </p>
-            </div><!-- end test panels -->
+            </div><!-- END FIRST PANEL -->
         </div>
 
         <div class="panel panel-default"><!-- FIRST COLUMN SECOND PANEL -->
@@ -136,63 +134,62 @@
             </div>
         </div><!-- END FIRST COLUMN SECOND PANEL -->
 
-                <div class="panel panel-default"><!-- TOTAL SPENT TABLE PANEL -->
-            <!-- Default panel contents -->
-            <div class="panel-heading"><h3 class="panel-title">TOTAL SPENT</h3></div>
+        <div class="panel panel-default"><!-- TOTAL SPENT TABLE PANEL -->
+          <!-- Default panel contents -->
+          <div class="panel-heading"><h3 class="panel-title">TOTAL SPENT</h3></div>
+              <!-- Table -->
+              <table class="table">
 
-                <!-- Table -->
-                <table class="table">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Total Spent</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Clothing</th>
+                        <td>$<span id="total-spent-5">{{ total_clothing_price }}</span></td>
+                        <td>{{ cat_5_start_date }}</td>
+                        <td>{{ cat_5_end_date }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Entertainment</th>
+                        <td>$<span id="total-spent-6">{{ total_entertainment_price }}</span></td>
+                        <td>{{ cat_6_start_date }}</td>
+                        <td>{{ cat_6_end_date }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Food</th>
+                        <td>$<span id="total-spent-3">{{ total_food_price }}</span></td>
+                        <td>{{ cat_3_start_date }}</td>
+                        <td>{{ cat_3_end_date }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Groceries</th>
+                        <td>$<span id="total-spent-4">{{ total_groceries_price }}</span></td>
+                        <td>{{ cat_4_start_date }}</td>
+                        <td>{{ cat_4_end_date }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Online Purchases</th>
+                        <td>$<span id="total-spent-1">{{ total_online_purchase_price }}</span></td>
+                        <td>{{ cat_1_start_date }}</td>
+                        <td>{{ cat_1_end_date }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Travel</th>
+                        <td>$<span id="total-spent-2">{{ total_travel_price }}</span></td>
+                        <td>{{ cat_2_start_date }}</td>
+                        <td>{{ cat_2_end_date }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
 
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Category</th>
-                          <th>Total Spent</th>
-                          <th>Start Date</th>
-                          <th>End Date</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">Clothing</th>
-                          <td>$<span id="total-spent-5">{{ total_clothing_price }}</span></td>
-                          <td>{{ cat_5_start_date }}</td>
-                          <td>{{ cat_5_end_date }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Entertainment</th>
-                          <td>$<span id="total-spent-6">{{ total_entertainment_price }}</span></td>
-                          <td>{{ cat_6_start_date }}</td>
-                          <td>{{ cat_6_end_date }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Food</th>
-                          <td>$<span id="total-spent-3">{{ total_food_price }}</span></td>
-                          <td>{{ cat_3_start_date }}</td>
-                          <td>{{ cat_3_end_date }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Groceries</th>
-                          <td>$<span id="total-spent-4">{{ total_groceries_price }}</span></td>
-                          <td>{{ cat_4_start_date }}</td>
-                          <td>{{ cat_4_end_date }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Online Purchases</th>
-                          <td>$<span id="total-spent-1">{{ total_online_purchase_price }}</span></td>
-                          <td>{{ cat_1_start_date }}</td>
-                          <td>{{ cat_1_end_date }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Travel</th>
-                          <td>$<span id="total-spent-2">{{ total_travel_price }}</span></td>
-                          <td>{{ cat_2_start_date }}</td>
-                          <td>{{ cat_2_end_date }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                                    </table>
+              </table>
 
         </div><!-- END TOTAL SPENT TABLE PANEL -->
 
@@ -252,10 +249,9 @@
                       </tbody>
                     </table>
 
-                                    </table>
+                </table>
 
         </div><!-- END AVERAGE SPENT TABLE PANEL -->
-
 
 
     </div><!-- END FIRST COLUMN DIV -->
@@ -329,7 +325,6 @@
                         <tr>
                           <th>Category</th>
                           <th>Budget</th>
-                          <th>Remaining</th>
                           <th>Start Date</th>
                           <th>End Date</th>
                         </tr>
@@ -338,42 +333,36 @@
                         <tr>
                           <th scope="row">Clothing</th>
                           <td>$<span id="budget-5">{{ cat_5_budget }}</span></td>
-                          <td>$<span id="budget-left-5">{{ clothing_budget_minus_expenses }}</span></td>
                           <td>{{ cat_5_start_date }}</td>
                           <td>{{ cat_5_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Entertainment</th>
                           <td>$<span id="budget-6">{{ cat_6_budget }}</span></td>
-                          <td>$<span id="budget-left-6">{{ entertainment_budget_minus_expenses }}</span></td>
                           <td>{{ cat_6_start_date }}</td>
                           <td>{{ cat_6_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Food</th>
                           <td>$<span id="budget-3">{{ cat_3_budget }}</span></td>
-                          <td>$<span id="budget-left-3">{{ food_budget_minus_expenses }}</span></td>
                           <td>{{ cat_3_start_date }}</td>
                           <td>{{ cat_3_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Groceries</th>
                           <td>$<span id="budget-4">{{ cat_4_budget }}</span></td>
-                          <td>$<span id="budget-left-4">{{ groceries_budget_minus_expenses }}</span></td>
                           <td>{{ cat_4_start_date }}</td>
                           <td>{{ cat_4_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Online Purchases</th>
                           <td>$<span id="budget-1">{{ cat_1_budget }}</span></td>
-                          <td>$<span id="budget-left-1">{{ online_budget_minus_expenses }}</span></td>
                           <td>{{ cat_1_start_date }}</td>
                           <td>{{ cat_1_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Travel</th>
                           <td>$<span id="budget-2">{{ cat_2_budget }}</span></td>
-                          <td>$<span id="budget-left-2">{{ travel_budget_minus_expenses }}</span></td>
                           <td>{{ cat_2_start_date }}</td>
                           <td>{{ cat_2_end_date }}</td>
                         </tr>
@@ -391,87 +380,86 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Category</th>
+                  <th class="col-md-1">Category</th>
                   <th>Budget Remaining</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th scope="row">Clothing</th>
-                  <td>
+                  <td class="col-md-6">
 
                     <div class="progress"><!-- CLOTHING -->
-              <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ clothing_progress }}%">
-              <!-- <span class="sr-only">60% Complete</span> -->
-              </div>
-            </div><!-- END CLOTHING -->
+                      <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ clothing_progress }}%">
+                      ${{ clothing_budget_minus_expenses }}
+                      </div>
+                    </div><!-- END CLOTHING -->
 
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Entertainment</th>
-                  <td>
+                  <td class="col-md-6">
 
                     <div class="progress"><!-- CLOTHING -->
-              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ entertainment_progress }}%">
-              <!-- <span class="sr-only">60% Complete</span> -->
-              </div>
-            </div><!-- END CLOTHING -->
+                      <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ entertainment_progress }}%">
+                      ${{ entertainment_budget_minus_expenses }}
+                      </div>
+                    </div><!-- END CLOTHING -->
 
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Food</th>
-                  <td>
+                  <td class="col-md-6">
 
                     <div class="progress"><!-- CLOTHING -->
-              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ food_progress }}%">
-              <!-- <span class="sr-only">60% Complete</span> -->
-              </div>
-            </div><!-- END CLOTHING -->
+                      <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ food_progress }}%">
+                      ${{ food_budget_minus_expenses }}
+                      </div>
+                    </div><!-- END CLOTHING -->
 
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Groceries</th>
-                  <td>
+                  <td class="col-md-6">
 
                     <div class="progress"><!-- CLOTHING -->
-              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ groceries_progress }}%">
-              <!-- <span class="sr-only">60% Complete</span> -->
-              </div>
-            </div><!-- END CLOTHING -->
+                      <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ groceries_progress }}%">
+                      ${{ groceries_budget_minus_expenses }}
+                      </div>
+                    </div><!-- END CLOTHING -->
 
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Online Purchases</th>
-                  <td>
+                  <td class="col-md-6">
 
                     <div class="progress"><!-- CLOTHING -->
-              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ online_progress }}%">
-              <!-- <span class="sr-only">60% Complete</span> -->
-              </div>
-            </div><!-- END CLOTHING -->
+                      <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ online_progress }}%">
+                      ${{ online_budget_minus_expenses }}
+                      </div>
+                    </div><!-- END CLOTHING -->
 
                   </td>
                 </tr>
                 <tr>
                   <th scope="row">Travel</th>
-                  <td>
+                  <td class="col-md-6">
 
                     <div class="progress"><!-- CLOTHING -->
-              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ travel_progress }}%">
-              <!-- <span class="sr-only">60% Complete</span> -->
-              </div>
-            </div><!-- END CLOTHING -->
+                      <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ travel_progress }}%">
+                      ${{ travel_budget_minus_expenses }}
+                      </div>
+                    </div><!-- END CLOTHING -->
 
                   </td>
                 </tr>
               </tbody>
             </table>
 
-  <!-- </div> -->
 </div><!-- END PROGRESS PANEL -->
 
 
@@ -481,70 +469,68 @@
                 <h3 class="panel-title">EXPENDITURES</h3>
                 <a href="#" data-toggle="modal" data-target="#addExpenditureModal">Add Expenditure</a>
             </div>
-            <!-- <div class="panel-body">
- -->
-<!-- Modal -->
-<div class="modal fade" id="addExpenditureModal" tabindex="-1" role="dialog" aria-labelledby="addExpenditureModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="addExpenditure">Add New Expenditure</h4>
-      </div>
-      <div class="modal-body">
 
-        <!-- START THE FORM -->
-        <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
-            <fieldset class="form-group">
-            <label for="category">Category</label>
-                 <select name="category-field" class="form-control" id="category-field">
-                    <option value="3">Food</option>
-                    <option value="2">Travel</option>
-                    <option value="1">Online Purchase</option>
-                    <option value="5">Clothing</option>
-                    <option value="4">Groceries</option>
-                    <option value="6">Entertainment</option>
-                </select>
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="price">Price</label>
-                <input type="text" class="form-control" id="price" placeholder="Enter price" name="price">
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="where-bought">Where was this purchase?</label>
-                <input type="text" class="form-control" id="wherebought" name="wherebought">
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="date">Date</label>
-                <input type="date" class="form-control" id="date" name="date">
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="tracking-num">Tracking Number (Optional)</label>
-                <input type="text" class="form-control" id="tracking-num" name="tracking-num">
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="tracking-num-carrier">Carrier (Optional)</label>
-                <input type="text" class="form-control" id="tracking-num-carrier" name="carrier">
-            </fieldset>
-            <fieldset class="form-group">
-            <label for="where-bought">Description:</label>
-                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
-            </fieldset>
+                <!-- EXPENDITURE MODAL -->
+                <div class="modal fade" id="addExpenditureModal" tabindex="-1" role="dialog" aria-labelledby="addExpenditureModal">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="addExpenditure">Add New Expenditure</h4>
+                      </div>
+                      <div class="modal-body">
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <!-- START THE FORM -->
+                        <form action="/add-expenditure-to-db" method="POST" id="expenditure-form">
+                            <fieldset class="form-group">
+                            <label for="category">Category</label>
+                                 <select name="category-field" class="form-control" id="category-field">
+                                    <option value="3">Food</option>
+                                    <option value="2">Travel</option>
+                                    <option value="1">Online Purchase</option>
+                                    <option value="5">Clothing</option>
+                                    <option value="4">Groceries</option>
+                                    <option value="6">Entertainment</option>
+                                </select>
+                            </fieldset>
+                            <fieldset class="form-group">
+                            <label for="price">Price</label>
+                                <input type="text" class="form-control" id="price" placeholder="Enter price" name="price">
+                            </fieldset>
+                            <fieldset class="form-group">
+                            <label for="where-bought">Where was this purchase?</label>
+                                <input type="text" class="form-control" id="wherebought" name="wherebought">
+                            </fieldset>
+                            <fieldset class="form-group">
+                            <label for="date">Date</label>
+                                <input type="date" class="form-control" id="date" name="date">
+                            </fieldset>
+                            <fieldset class="form-group">
+                            <label for="tracking-num">Tracking Number (Optional)</label>
+                                <input type="text" class="form-control" id="tracking-num" name="tracking-num">
+                            </fieldset>
+                            <fieldset class="form-group">
+                            <label for="tracking-num-carrier">Carrier (Optional)</label>
+                                <input type="text" class="form-control" id="tracking-num-carrier" name="carrier">
+                            </fieldset>
+                            <fieldset class="form-group">
+                            <label for="where-bought">Description:</label>
+                                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+                            </fieldset>
 
-    </form><!-- END THE FORM -->
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
 
-    </div>
-    </div>
-  </div>
-</div><!-- END OF MODAL -->
+                    </form><!-- END THE FORM -->
 
-          <!-- Table -->
+                    </div>
+                    </div>
+                  </div>
+                </div><!-- END OF MODAL -->
 
+          <!-- TABLE -->
 
                     <table class="table table-striped" id="table-expenditure-table">
                       <thead>
@@ -569,8 +555,8 @@
                           <td>{{ expenditure.where_bought }}</td>
                           <td>{{ expenditure.description }}</td>
                           <td>{% if expenditure.tracking_num %}<form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"><button type="submit" class="btn btn-lg btn-custom submit-tracking" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
-                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                </button></form>{% endif %}</td>
+                          <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                          </button></form>{% endif %}</td>
                           <td><form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
                             <button type="submit" class="btn btn-lg btn-custom" aria-label="Left Align">
                             <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
@@ -583,7 +569,7 @@
                       </tbody>
                     </table>
 
-                    <!-- Modal -->
+                    <!-- MODAL -->
                 <div class="modal fade" id="trackingModal" tabindex="-1" role="dialog" aria-labelledby="trackingModalLabel">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -624,15 +610,12 @@
                     </div>
                 </div>
 
+              </div><!-- END THE THIRD PANEL DIV -->
+            </div><!-- END OF THIRD DIV -->
 
+          </div>
 
-
-            </div><!-- END THE THIRD PANEL DIV -->
-        </div><!-- END OF THIRD DIV -->
-
-    </div>
-
-        </div><!-- end the second column div -->
+        </div><!-- END THE SECOND COLUMN DIV -->
 
 
 </div><!-- END THE CONTAINER DIV -->

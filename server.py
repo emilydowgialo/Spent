@@ -11,7 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
-from tools import expenditure_function, budget_totals, get_total_for_category, date_query, get_dates_for_budget, get_budget_per_category
+from tools import expenditure_function, budget_totals, date_query, get_dates_for_budget, get_budget_per_category
 
 from sqlalchemy.sql import and_
 
@@ -130,26 +130,26 @@ def budget_types_data():
         total_online_purchase_price, avg_online_expenditures = expenditure_function(1, id, thirty_days_past, today)
 
     data_dict = {
-        "labels": ["Food", "Groceries", "Clothing", "Entertainment", "Travel", "Online Purchase"],
+        "labels": ["Food", "Groceries", "Clothing", "Entertainment", "Travel", "Online Purchases"],
         "datasets": [
             {
                 "label": "Total Spent",
-                "fillColor": "rgba(220,220,220,0.2)",
-                "strokeColor": "rgba(220,220,220,1)",
-                "pointColor": "rgba(220,220,220,1)",
+                "fillColor": "#F37257",
+                "strokeColor": "#F37257",
+                "pointColor": "#F37257",
                 "pointStrokeColor": "#fff",
                 "pointHighlightFill": "#fff",
-                "pointHighlightStroke": "rgba(220,220,220,1)",
+                "pointHighlightStroke": "#F37257",
                 "data": [total_food_price, total_groceries_price, total_clothing_price, total_entertainment_price, total_travel_price, total_online_purchase_price]
             },
             {
                 "label": "Average",
-                "fillColor": "rgba(151,187,205,0.2)",
-                "strokeColor": "rgba(151,187,205,1)",
-                "pointColor": "rgba(151,187,205,1)",
+                "fillColor": "#AFC1CC",
+                "strokeColor": "#AFC1CC",
+                "pointColor": "#AFC1CC",
                 "pointStrokeColor": "#fff",
                 "pointHighlightFill": "#fff",
-                "pointHighlightStroke": "rgba(151,187,205,1)",
+                "pointHighlightStroke": "#AFC1CC",
                 "data": [avg_food_expenditures, avg_groceries_expenditures, avg_clothing_expenditures, avg_entertainment_expenditures, avg_travel_expenditures, avg_online_expenditures]
             }
         ]
@@ -186,38 +186,38 @@ def expenditure_types_data():
         'expenditures': [
             {
                 "value": travel_expenditures,
-                "color": "#c5d5cb",
-                "highlight": "#3fb0ac",
+                "color": "#F4D27A",
+                "highlight": "#963019",
                 "label": "Travel"
             },
             {
                 "value": entertainment_expenditures,
-                "color": "#9fa8a3",
-                "highlight": "#3fb0ac",
+                "color": "#517281",
+                "highlight": "#963019",
                 "label": "Entertainment"
             },
             {
                 "value": groceries_expenditures,
-                "color": "#e3e0cf",
-                "highlight": "#3fb0ac",
+                "color": "#7895A2",
+                "highlight": "#963019",
                 "label": "Groceries"
             },
             {
                 "value": clothing_expenditures,
-                "color": "#edd9c0",
-                "highlight": "#3fb0ac",
+                "color": "#AFC1CC",
+                "highlight": "#963019",
                 "label": "Clothing"
             },
             {
                 "value": food_expenditures,
-                "color": "#c0dfd9",
-                "highlight": "#3fb0ac",
+                "color": "#F37257",
+                "highlight": "#963019",
                 "label": "Food"
             },
             {
                 "value": online_purchase_expenditures,
-                "color": "#b3c2bf",
-                "highlight": "#3fb0ac",
+                "color": "#F68D5C",
+                "highlight": "#963019",
                 "label": "Online Purchase"
             }
         ]
@@ -338,24 +338,8 @@ def dashboard(id):
         groceries_progress = str(groceries_progress_calc * 100)
         entertainment_progress_calc = (float(entertainment_budget_minus_expenses)/float(cat_6_budget))
         entertainment_progress = str(entertainment_progress_calc * 100)
-        travel_progress_calc = (float(travel_budget_minus_expenses)/float(cat_5_budget))
+        travel_progress_calc = (float(travel_budget_minus_expenses)/float(cat_2_budget))
         travel_progress = str(travel_progress_calc * 100)
-
-        print
-        print
-        print
-        print
-        print
-        print "clothing progress"
-        print clothing_progress
-        print
-        print
-        print
-        print
-        print
-        print
-        print
-        print
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",
@@ -535,23 +519,8 @@ def add_expenditure():
 
 
 @app.route('/remove-expenditure/<int:id>', methods=["POST"])
-def remove_expenditure(id, description):
+def remove_expenditure(id):
     """ Remove an expenditure from the database """
-
-    # if id is undefined, ping database and look for that id, otherwise
-    # run everything as it is
-
-    # search for description - this is unique to the purchase. search for id
-    # by description
-
-    expenditure_description = Expenditure.query.filter_by(description=description).first()
-
-    print
-    print
-    print "expenditure_description"
-    print expenditure_description
-    print
-    print
 
     # This is the expenditure object we are working with
     expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
