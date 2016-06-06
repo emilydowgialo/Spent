@@ -13,6 +13,7 @@ Spent was created by Emily Dowgialo during the Spring 2016 cohort at Hackbright 
 - Python
 - Flask
 - SQLAlchemy
+- Jinja2
 - HTML
 - CSS
 - Javascript
