@@ -369,7 +369,7 @@
                       </tbody>
                     </table>
 
-                                    </table><!-- END OF BUDGET TABLE -->
+                </table><!-- END OF BUDGET TABLE -->
 
         </div><!-- END BUDGET TABLE PANEL -->
 
@@ -499,7 +499,7 @@
                             </fieldset>
                             <fieldset class="form-group">
                             <label for="where-bought">Where was this purchase?</label>
-                                <input type="text" class="form-control" id="wherebought" name="wherebought">
+                                <input type="text" class="form-control" id="wherebought" placeholder="Where did you make this purchase?" name="wherebought">
                             </fieldset>
                             <fieldset class="form-group">
                             <label for="date">Date</label>
@@ -507,15 +507,19 @@
                             </fieldset>
                             <fieldset class="form-group">
                             <label for="tracking-num">Tracking Number (Optional)</label>
-                                <input type="text" class="form-control" id="tracking-num" name="tracking-num">
+                                <input type="text" class="form-control" id="tracking-num" placeholder="Enter the tracking number if applicable" name="tracking-num">
                             </fieldset>
                             <fieldset class="form-group">
                             <label for="tracking-num-carrier">Carrier (Optional)</label>
-                                <input type="text" class="form-control" id="tracking-num-carrier" name="carrier">
+                            <select name="carrier" class="form-control" id="tracking-num-carrier">
+                                    <option value="3">USPS</option>
+                                    <option value="2">UPS</option>
+                                    <option value="1">FedEx</option>
+                                </select>
                             </fieldset>
                             <fieldset class="form-group">
                             <label for="where-bought">Description:</label>
-                                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+                                <textarea class="form-control" id="description" rows="3" name="description" placeholder="Describe your purchase"></textarea>
                             </fieldset>
 
                       </div>

@@ -1,6 +1,8 @@
 "use strict";
 
 function showExpenditureResults(result) {
+
+    // Callbacks
     updateTotalSpent(result);
     updateAverageSpent(result);
     appendExpenditure(result);
@@ -13,6 +15,7 @@ function submitExpenditure(evt) {
     // Close the modal via Javascript when the event is triggered
     $('#addExpenditureModal').modal('toggle');
 
+    // Gather data from the form
     var formInputs = {
         "category": $("#category-field").val(),
         "price": $("#price").val(),
@@ -23,6 +26,7 @@ function submitExpenditure(evt) {
         "tracking-num-carrier": $("#tracking-num-carrier").val()
     };
 
+    // Post info to this route to add to the database
     $.post("/add-expenditure-to-db",
            formInputs,
            showExpenditureResults
@@ -30,6 +34,7 @@ function submitExpenditure(evt) {
 }
 
 function appendExpenditure(result) {
+  // This function appends a new expenditure in the Expenditures widget
 
   var expenditure = result;
 
@@ -71,6 +76,7 @@ function appendExpenditure(result) {
   '</form></td>' +
   '</tr>';
 
+  // Append the HTML at this ID
   console.log(stringToAppend);
   $('#table-expenditure-table').append(stringToAppend);
   console.log("finished with appendExpenditure");
@@ -78,6 +84,7 @@ function appendExpenditure(result) {
 }
 
 function updateTotalSpent(result) {
+  // This function updates the total amount spent on the front end
 
   var expenditure = result;
   console.log(expenditure.total_cat_price);
@@ -91,6 +98,7 @@ function updateTotalSpent(result) {
 }
 
 function updateAverageSpent(result) {
+  // This function updates the average amount spent on the front end
 
   var average = result;
   console.log(average.avg_cat_expenditures);

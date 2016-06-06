@@ -6,10 +6,6 @@ from datetime import datetime
 def expenditure_function(category_id, id, start, end):
     """ Calculate the total amount and avg spent in one particular category """
 
-    ### PLAN: I think I need to have start and end budget dates as parameters,
-    # then filter between those dates in the expenditure query, so I don't
-    # have to add anything else to the function
-
     # List of expenditure objects
     expenditures = Expenditure.query.filter_by(
         category_id=category_id, expenditure_userid=id).filter(
