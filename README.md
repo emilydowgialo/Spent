@@ -6,11 +6,11 @@
 
 The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto updating widgets, which illustrate spending metrics and statistics.
 
-![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
+![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-dashboard-screenshot.png "Spent Login")
 
 Online purchases can be monitored with Spent’s dynamic package tracking feature, which displays the last place a package was scanned, its delivery status, and plots its current location on a map.
 
-![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
+![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-map-screenshot.png "Spent Login")
 
 Spent was created by Emily Dowgialo during the Spring 2016 cohort at Hackbright Academy. Learn about the developer on [LinkedIn](https://www.linkedin.com/in/emilydowgialo).
 
