@@ -23,7 +23,7 @@
 - Google Maps API
 - Shippo API
 
-Spent is a Flask app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the ORM used to interact with this database. The front end templating uses Jinja. HTML was built using Bootstrap. The Javascript uses JQuery and AJAX to interact with the backend so everything updates in real time. The graphs displaying total and average spent are rendered using Chart.js, a free Javascript charting library. The map is built using the Google Maps API, which interacts with the Shippo package tracking API.
+Spent is a Flask app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the ORM used to interact with this database. The front end templating uses Jinja. HTML was built using Bootstrap. The Javascript uses JQuery and AJAX to interact with the backend so everything updates in real time. The graphs displaying total and average amount spent are rendered using Chart.js, a free Javascript charting library. The map is built using the Google Maps API, which interacts with the Shippo package tracking API.
 
 
 ## Features
@@ -47,6 +47,11 @@ Spent is a one-page dashboard. There is beauty and functionality in simplicity, 
 
 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-modal-screenshot.png "Spent Login")
+
+
+## Version 2.0
+
+Spent 2.0 will give users the ability to toggle between which categories and timeframes to display on the charts. It will also be gamified - users will receive badges for certain milestones, such as staying under budget for a given period of time.
 
 
 ## About the Developer
