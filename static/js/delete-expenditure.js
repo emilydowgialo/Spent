@@ -1,4 +1,5 @@
 function deleteExpenOnPage(result) {
+    // This function will delete the expenditure row on the dashboard
 
     // Get the expenditure id
     var id = result;
