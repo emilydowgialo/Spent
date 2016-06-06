@@ -551,20 +551,26 @@
                       <tbody>
 
                         {% for expenditure in expenditures %}
-
-                        <tr>
+                        <div><!-- EXPENDITURE DIV OPEN -->
+                        <tr id="expenditure-row-{{ expenditure.id }}">
                           <th scope="row">{{ expenditure.category.category }}</th>
                           <td>${{ expenditure.price }}</td>
                           <td>{{ expenditure.date_of_expenditure.strftime('%Y-%m-%d') }}</td>
                           <td>{{ expenditure.where_bought }}</td>
                           <td>{{ expenditure.description }}</td>
-                          <td>{% if expenditure.tracking_num %}<form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"><button type="submit" class="btn btn-lg btn-custom submit-tracking" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
+                          <td>{% if expenditure.tracking_num %}
+                            <form action="/tracking/{{ expenditure.tracking_num }}" method="POST" class="tracking-form"><button type="submit" class="btn btn-lg btn-custom submit-tracking" aria-label="Left Align" data-toggle="modal" data-target="#trackingModal" data-trackingnum="{{expenditure.tracking_num}}">
                           <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                           </button></form>{% endif %}</td>
-                          <td><form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
-                            <button type="submit" class="btn btn-lg btn-custom" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+                          <td>
+                            <form action="/remove-expenditure/{{ expenditure.id }}" method="POST" id="expenditure-{{expenditure.id}}">
+
+                            <!-- AJAX DELETE EXPENDITURE -->
+
+                            <button type="submit" data-expenditureid="{{ expenditure.id }}" class="btn btn-lg btn-custom delete-expenditure" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-minus-sign" aria-hidden="true" data-expenditureid="{{ expenditure.id }}"></span>
                             </button>
+                          </div><!-- END THE EXPENDITURE ROW DIV -->
                             </form></td>
                         </tr>
 
@@ -630,6 +636,7 @@
 <script src="/static/js/charts.js"></script>
 <script src="/static/js/submit-expenditure.js"></script>
 <script src="/static/js/submit-budget.js"></script>
+<script src="/static/js/delete-expenditure.js"></script>
 
 </body>
 

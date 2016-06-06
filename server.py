@@ -238,7 +238,7 @@ def dashboard(id):
         # This is the user object
         user = User.query.filter_by(id=id).first()
 
-        ####### GET THE USER'S BUDGETS
+        ####### GET THE USER'S BUDGETS FOR EACH CATEGORY
 
         cat_1_budget = get_budget_per_category(1, id)
         cat_2_budget = get_budget_per_category(2, id)
@@ -525,14 +525,26 @@ def remove_expenditure(id):
     # This is the expenditure object we are working with
     expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
 
-    user_id = session.get('id')
+    print
+    print
+    print
+    print
+    print "CATS"
+    print
+    print
+    print
+    print
+    print
+
+    # user_id = session.get('id')
 
     # Deletes the expenditure item from the expenditure table
     db.session.delete(expenditure_at_hand)
     db.session.commit()
 
     # Redirect the user to their dashboard
-    return redirect(url_for('dashboard', id=user_id))
+    # return redirect(url_for('dashboard', id=user_id))
+    return jsonify({"expenditure_id": id})
 
 
 @app.route('/sign-up', methods=["POST"])
