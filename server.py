@@ -289,19 +289,19 @@ def dashboard(id):
         cat_6_start, cat_6_end = get_dates_for_budget(6, id)
 
         # Strips datetime objects to year, month, day
-        cat_3_start_date = cat_3_start.strftime('%Y-%m-%d')
-        cat_1_start_date = cat_1_start.strftime('%Y-%m-%d')
-        cat_2_start_date = cat_2_start.strftime('%Y-%m-%d')
-        cat_4_start_date = cat_4_start.strftime('%Y-%m-%d')
-        cat_5_start_date = cat_5_start.strftime('%Y-%m-%d')
-        cat_6_start_date = cat_6_start.strftime('%Y-%m-%d')
+        cat_3_start_date = cat_3_start.strftime('%m-%d-%Y')
+        cat_1_start_date = cat_1_start.strftime('%m-%d-%Y')
+        cat_2_start_date = cat_2_start.strftime('%m-%d-%Y')
+        cat_4_start_date = cat_4_start.strftime('%m-%d-%Y')
+        cat_5_start_date = cat_5_start.strftime('%m-%d-%Y')
+        cat_6_start_date = cat_6_start.strftime('%m-%d-%Y')
 
-        cat_3_end_date = cat_3_end.strftime('%Y-%m-%d')
-        cat_1_end_date = cat_1_end.strftime('%Y-%m-%d')
-        cat_2_end_date = cat_2_end.strftime('%Y-%m-%d')
-        cat_4_end_date = cat_4_end.strftime('%Y-%m-%d')
-        cat_5_end_date = cat_5_end.strftime('%Y-%m-%d')
-        cat_6_end_date = cat_6_end.strftime('%Y-%m-%d')
+        cat_3_end_date = cat_3_end.strftime('%m-%d-%Y')
+        cat_1_end_date = cat_1_end.strftime('%m-%d-%Y')
+        cat_2_end_date = cat_2_end.strftime('%m-%d-%Y')
+        cat_4_end_date = cat_4_end.strftime('%m-%d-%Y')
+        cat_5_end_date = cat_5_end.strftime('%m-%d-%Y')
+        cat_6_end_date = cat_6_end.strftime('%m-%d-%Y')
 
         ########### TOTAL PRICE AND AVERAGE SPENT ###########
 
@@ -525,25 +525,11 @@ def remove_expenditure(id):
     # This is the expenditure object we are working with
     expenditure_at_hand = Expenditure.query.filter_by(id=id).first()
 
-    print
-    print
-    print
-    print
-    print "CATS"
-    print
-    print
-    print
-    print
-    print
-
-    # user_id = session.get('id')
-
     # Deletes the expenditure item from the expenditure table
     db.session.delete(expenditure_at_hand)
     db.session.commit()
 
-    # Redirect the user to their dashboard
-    # return redirect(url_for('dashboard', id=user_id))
+    # Return jsonified id to delete-expenditure.js
     return jsonify({"expenditure_id": id})
 
 

@@ -2,13 +2,21 @@
 
 ## Summary
 
-**Spent** is a practical and versatile budget tracking, money management app, offering users an easy-to-read visualization of their finances and a detailed log of their spending habits. With Spent, you can create budgets, set spending goals, and store information about your recent purchases. The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto updating widgets, which illustrate spending metrics and statistics. Online purchases can be monitored with Spent’s dynamic package tracking feature, which displays the last place a package was scanned, its delivery status, and plots its current location on a map.
+**Spent** is a practical and versatile budget tracking, money management app, offering users an easy-to-read visualization of their finances and a detailed log of their spending habits. With Spent, you can create budgets, set spending goals, and store information about your recent purchases.
+
+The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto updating widgets, which illustrate spending metrics and statistics.
+
+![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
+
+Online purchases can be monitored with Spent’s dynamic package tracking feature, which displays the last place a package was scanned, its delivery status, and plots its current location on a map.
+
+![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
 
 Spent was created by Emily Dowgialo during the Spring 2016 cohort at Hackbright Academy. Learn about the developer on [LinkedIn](https://www.linkedin.com/in/emilydowgialo).
 
 ## Technologies
 
-**Tech Stack:** 
+**Tech Stack:**
 
 - Python
 - Flask
