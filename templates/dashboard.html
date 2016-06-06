@@ -152,37 +152,37 @@
                     <tbody>
                       <tr>
                         <th scope="row">Clothing</th>
-                        <td>$<span id="total-spent-5">{{ total_clothing_price }}</span></td>
+                        <td>$<span id="total-spent-5">{{ '%0.2f' % total_clothing_price|float }}</span></td>
                         <td>{{ cat_5_start_date }}</td>
                         <td>{{ cat_5_end_date }}</td>
                       </tr>
                       <tr>
                         <th scope="row">Entertainment</th>
-                        <td>$<span id="total-spent-6">{{ total_entertainment_price }}</span></td>
+                        <td>$<span id="total-spent-6">{{ '%0.2f' % total_entertainment_price|float }}</span></td>
                         <td>{{ cat_6_start_date }}</td>
                         <td>{{ cat_6_end_date }}</td>
                       </tr>
                       <tr>
                         <th scope="row">Food</th>
-                        <td>$<span id="total-spent-3">{{ total_food_price }}</span></td>
+                        <td>$<span id="total-spent-3">{{ '%0.2f' % total_food_price|float }}</span></td>
                         <td>{{ cat_3_start_date }}</td>
                         <td>{{ cat_3_end_date }}</td>
                       </tr>
                       <tr>
                         <th scope="row">Groceries</th>
-                        <td>$<span id="total-spent-4">{{ total_groceries_price }}</span></td>
+                        <td>$<span id="total-spent-4">{{ '%0.2f' % total_groceries_price|float }}</span></td>
                         <td>{{ cat_4_start_date }}</td>
                         <td>{{ cat_4_end_date }}</td>
                       </tr>
                       <tr>
                         <th scope="row">Online Purchases</th>
-                        <td>$<span id="total-spent-1">{{ total_online_purchase_price }}</span></td>
+                        <td>$<span id="total-spent-1">{{ '%0.2f' % total_online_purchase_price|float }}</span></td>
                         <td>{{ cat_1_start_date }}</td>
                         <td>{{ cat_1_end_date }}</td>
                       </tr>
                       <tr>
                         <th scope="row">Travel</th>
-                        <td>$<span id="total-spent-2">{{ total_travel_price }}</span></td>
+                        <td>$<span id="total-spent-2">{{ '%0.2f' % total_travel_price|float }}</span></td>
                         <td>{{ cat_2_start_date }}</td>
                         <td>{{ cat_2_end_date }}</td>
                       </tr>
@@ -212,37 +212,37 @@
                       <tbody>
                         <tr>
                           <th scope="row">Clothing</th>
-                          <td>$<span id="avg-5">{{ avg_clothing_expenditures }}</span></td>
+                          <td>$<span id="avg-5">{{ '%0.2f' % avg_clothing_expenditures|float }}</span></td>
                           <td>{{ cat_5_start_date }}</td>
                           <td>{{ cat_5_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Entertainment</th>
-                          <td>$<span id="avg-6">{{ avg_entertainment_expenditures }}</span></td>
+                          <td>$<span id="avg-6">{{ '%0.2f' % avg_entertainment_expenditures|float }}</span></td>
                           <td>{{ cat_6_start_date }}</td>
                           <td>{{ cat_6_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Food</th>
-                          <td>$<span id="avg-3">{{ avg_food_expenditures }}</span></td>
+                          <td>$<span id="avg-3">{{ '%0.2f' % avg_food_expenditures|float }}</span></td>
                           <td>{{ cat_3_start_date }}</td>
                           <td>{{ cat_3_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Groceries</th>
-                          <td>$<span id="avg-4">{{ avg_groceries_expenditures }}</span></td>
+                          <td>$<span id="avg-4">{{ '%0.2f' % avg_groceries_expenditures|float }}</span></td>
                           <td>{{ cat_4_start_date }}</td>
                           <td>{{ cat_4_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Online Purchases</th>
-                          <td>$<span id="avg-1">{{ avg_online_expenditures }}</span></td>
+                          <td>$<span id="avg-1">{{ '%0.2f' % avg_online_expenditures|float }}</span></td>
                           <td>{{ cat_1_start_date }}</td>
                           <td>{{ cat_1_end_date }}</td>
                         </tr>
                         <tr>
                           <th scope="row">Travel</th>
-                          <td>$<span id="avg-2">{{ avg_travel_expenditures }}</span></td>
+                          <td>$<span id="avg-2">{{ '%0.2f' % avg_travel_expenditures|float }}</span></td>
                           <td>{{ cat_2_start_date }}</td>
                           <td>{{ cat_2_end_date }}</td>
                         </tr>
@@ -391,7 +391,7 @@
 
                     <div class="progress"><!-- CLOTHING -->
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ clothing_progress }}%">
-                      ${{ clothing_budget_minus_expenses }}
+                      ${{ '%0.2f' % clothing_budget_minus_expenses|float }}
                       </div>
                     </div><!-- END CLOTHING -->
 
@@ -403,7 +403,7 @@
 
                     <div class="progress"><!-- CLOTHING -->
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ entertainment_progress }}%">
-                      ${{ entertainment_budget_minus_expenses }}
+                      ${{ '%0.2f' % entertainment_budget_minus_expenses|float }}
                       </div>
                     </div><!-- END CLOTHING -->
 
@@ -415,7 +415,7 @@
 
                     <div class="progress"><!-- CLOTHING -->
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ food_progress }}%">
-                      ${{ food_budget_minus_expenses }}
+                      ${{ '%0.2f' % food_budget_minus_expenses|float }}
                       </div>
                     </div><!-- END CLOTHING -->
 
@@ -427,7 +427,7 @@
 
                     <div class="progress"><!-- CLOTHING -->
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ groceries_progress }}%">
-                      ${{ groceries_budget_minus_expenses }}
+                      ${{ '%0.2f' % groceries_budget_minus_expenses|float }}
                       </div>
                     </div><!-- END CLOTHING -->
 
@@ -439,7 +439,7 @@
 
                     <div class="progress"><!-- CLOTHING -->
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ online_progress }}%">
-                      ${{ online_budget_minus_expenses }}
+                      ${{ '%0.2f' % online_budget_minus_expenses|float }}
                       </div>
                     </div><!-- END CLOTHING -->
 
@@ -451,7 +451,7 @@
 
                     <div class="progress"><!-- CLOTHING -->
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ travel_progress }}%">
-                      ${{ travel_budget_minus_expenses }}
+                      ${{ '%0.2f' % travel_budget_minus_expenses|float }}
                       </div>
                     </div><!-- END CLOTHING -->
 
