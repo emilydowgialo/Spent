@@ -23,7 +23,7 @@
 - Google Maps API
 - Shippo API
 
-Spent is an app built on a Flask server with a PostgreSQL database. SQLAlchemy as the ORM used to interact with this database. The front end templating uses Jinja and the HTML was built using Bootstrap. The Javascript uses JQuery and AJAX to interact with the backend. The graphs are rendered using Chart.js, a free Javascript charting library. The map is built using the Google Maps API, which works in tandem with the Shippo package tracking API.
+Spent is an app built on a Flask server with a PostgreSQL database. SQLAlchemy as the ORM used to interact with this database. The front end templating uses Jinja2, the HTML was built using Bootstrap, and the Javascript uses JQuery and AJAX to interact with the backend. The graphs are rendered using Chart.js, a free Javascript charting library. The map is built using the Google Maps API, which works in tandem with the Shippo package tracking API.
 
 
 ## Features
@@ -31,13 +31,13 @@ Spent is an app built on a Flask server with a PostgreSQL database. SQLAlchemy a
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-login-screenshot.png "Spent Login")
 
 
-The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto updating widgets, which illustrate spending metrics and statistics. The user enters budgets for categories along with a date range. The user can see their spending stats tabulated based on this date range. The bar graph and the donut chart show stats based on the user's spending habits within the last 30 days. The bar graph shows the average amount spent per category, while the donut chart displays the total amount spent. The Budget Remaining widget progress bars graphically represent how much the user has left to spend to stay within budget. Two more widgets display the average and total amounts spent per category within the date ranges given by the user. Everything on the dashboard dynamically updates in real time as the user adds new information, like a new budget, or a new expenditure.
+The interactive dashboard features graphs, which segment the user’s expenditures into categories, and auto-updating widgets, which illustrate spending metrics and statistics. The user enters budgets for categories along with a date range that is used to display spending stats over that particular time period. The bar graph and the donut chart show stats based on the user's spending habits within the last 30 days. The bar graph shows the average amount spent per category, while the donut chart displays the total amount spent. The Budget Remaining widget's progress bars graphically represent the remaining money in the user's budget. Two more widgets display the average and total amounts spent per category within the specified date range. Everything on the dashboard dynamically updates in real time as the user adds a new budget or a new expenditure.
 
 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-dashboard-screenshot.png "Spent Login")
 
 
-Online purchases can be monitored with Spent’s dynamic package tracking feature, which displays the last place a package was scanned, its delivery status, and plots its current location on a map. When the user saves a new purchase, they are given the option to input tracking information. If the user has tracking information saved, a paper airplane icon is displayed next to the corresponding purchase, and the user simply has to click on the icon to track their package.
+Online purchases can be monitored with Spent’s package tracking feature, which displays the last place a package was scanned, its delivery status, and plots its current location on a map. When the user saves a new purchase, they are given the option to input tracking information. If the user has tracking information saved, a paper airplane icon is displayed next to the corresponding purchase, and the user simply has to click on the icon to track their package.
 
 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-map-screenshot.png "Spent Login")
