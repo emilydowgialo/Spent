@@ -5,10 +5,11 @@ function initMap(thing) {
     console.log("this is initMap address");
     console.log(address);
 
+    // Custom map styling
     var customMapType = new google.maps.StyledMapType([
       {
         stylers: [
-          {hue: '#F37257'},
+          {hue: '#F68D5C'},
           {visibility: 'simplified'},
           {gamma: 0.5},
           {weight: 0.5}
@@ -22,21 +23,22 @@ function initMap(thing) {
         featureType: 'water',
         stylers: [{color: '#AFC1CC'}]
       }
-    ], {
-      name: 'Custom Style'
-  });
+      ], {
+        name: 'Custom Style'
+    });
+
   var customMapTypeId = 'custom_style';
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 37.7749, lng: -122.4194},
       zoom: 12,
       mapTypeControlOptions: {
-      mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
-    }
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
+      }
     });
 
     map.mapTypes.set(customMapTypeId, customMapType);
-  map.setMapTypeId(customMapTypeId);
+    map.setMapTypeId(customMapTypeId);
 
     var geocoder = new google.maps.Geocoder();
 
@@ -83,6 +85,7 @@ function appendTrackingInfo(info) {
 
   // Display the information on the front end
   console.log(trackingStatus);
+
   $('#tracking-status').html(trackingStatus);
   $('#tracking-city').html(trackingCity);
   $('#tracking-state').html(trackingState);
