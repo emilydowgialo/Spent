@@ -33,9 +33,9 @@ body {
 }
 
 /*REMOVES ROUNDED EDGES*/
-* {
+/** {
   border-radius: 0 !important;
-}
+}*/
 
 /*REMOVES PANEL DROP SHADOW*/
 .panel {
