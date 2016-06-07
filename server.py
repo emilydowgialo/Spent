@@ -11,7 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
-from tools import expenditure_function, budget_totals, date_query, get_dates_for_budget, get_budget_per_category
+from tools import expenditure_function, budget_totals, date_query, get_dates_for_budget, get_progress, get_budget_per_category
 
 from sqlalchemy.sql import and_
 
@@ -329,42 +329,13 @@ def dashboard(id):
 
         ############# PROGRESS BAR ##############
 
-        try:
-            clothing_progress_calc = (float(clothing_budget_minus_expenses)/float(cat_5_budget))
-        except ZeroDivisionError:
-            clothing_progress_calc = 0
-
-        try:
-            online_progress_calc = (float(clothing_budget_minus_expenses)/float(cat_5_budget))
-        except ZeroDivisionError:
-            online_progress_calc = 0
-
-        try:
-            food_progress_calc = (float(food_budget_minus_expenses)/float(cat_3_budget))
-        except ZeroDivisionError:
-            food_progress_calc = 0
-
-        try:
-            groceries_progress_calc = (float(groceries_budget_minus_expenses)/float(cat_4_budget))
-        except ZeroDivisionError:
-            groceries_progress_calc = 0
-
-        try:
-            entertainment_progress_calc = (float(entertainment_budget_minus_expenses)/float(cat_6_budget))
-        except ZeroDivisionError:
-            entertainment_progress_calc = 0
-
-        try:
-            travel_progress_calc = (float(travel_budget_minus_expenses)/float(cat_2_budget))
-        except ZeroDivisionError:
-            travel_progress_calc = 0
-
-        clothing_progress = str(clothing_progress_calc * 100)
-        online_progress = str(online_progress_calc * 100)
-        food_progress = str(food_progress_calc * 100)
-        groceries_progress = str(groceries_progress_calc * 100)
-        entertainment_progress = str(entertainment_progress_calc * 100)
-        travel_progress = str(travel_progress_calc * 100)
+        # Call get_progress in tools.py to calculate the progress bar totals
+        clothing_progress = get_progress(clothing_budget_minus_expenses, cat_5_budget)
+        online_progress = get_progress(online_budget_minus_expenses, cat_1_budget)
+        food_progress = get_progress(food_budget_minus_expenses, cat_3_budget)
+        groceries_progress = get_progress(groceries_budget_minus_expenses, cat_4_budget)
+        entertainment_progress = get_progress(entertainment_budget_minus_expenses, cat_6_budget)
+        travel_progress = get_progress(travel_budget_minus_expenses, cat_2_budget)
 
         # Renders the dashboard, which displays the following info
         return render_template("dashboard.html",

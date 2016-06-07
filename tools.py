@@ -104,3 +104,18 @@ def date_query(past, today):
     query = Expenditure.query.filter(Expenditure.date_of_expenditure.between(past, today)).all()
 
     return query
+
+
+def get_progress(cat_minus_expenses, budget):
+    """ Get the progress bar percentage """
+
+    # Get perentage for progress bar
+    try:
+        progress = (float(cat_minus_expenses)/float(budget))
+    except ZeroDivisionError:
+        progress = 0
+
+    # Multiply above total by 100 for a percentage between 1 and 100
+    cat_progress = str(progress * 100)
+
+    return cat_progress
