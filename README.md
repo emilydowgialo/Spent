@@ -20,10 +20,11 @@
 - AJAX
 - JSON
 - Bootstrap
+- Python unittests
 - Google Maps API
 - Shippo API
 
-Spent is an app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the ORM. The front end templating uses Jinja2, the HTML was built using Bootstrap, and the Javascript uses JQuery and AJAX to interact with the backend. The graphs are rendered using Chart.js. The map is built using the Google Maps API, which works in tandem with the Shippo package tracking API.
+Spent is an app built on a Flask server with a PostgreSQL database, with SQLAlchemy as the ORM. The front end templating uses Jinja2, the HTML was built using Bootstrap, and the Javascript uses JQuery and AJAX to interact with the backend. The graphs are rendered using Chart.js. The map is built using the Google Maps API, which works in tandem with the Shippo package tracking API. Server routes are tested using Python unittesting.
 
 
 ## Features
