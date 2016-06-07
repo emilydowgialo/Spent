@@ -5,10 +5,38 @@ function initMap(thing) {
     console.log("this is initMap address");
     console.log(address);
 
+    var customMapType = new google.maps.StyledMapType([
+      {
+        stylers: [
+          {hue: '#F37257'},
+          {visibility: 'simplified'},
+          {gamma: 0.5},
+          {weight: 0.5}
+        ]
+      },
+      {
+        elementType: 'labels',
+        stylers: [{visibility: 'on'}]
+      },
+      {
+        featureType: 'water',
+        stylers: [{color: '#AFC1CC'}]
+      }
+    ], {
+      name: 'Custom Style'
+  });
+  var customMapTypeId = 'custom_style';
+
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 37.7749, lng: -122.4194},
-      zoom: 12
+      zoom: 12,
+      mapTypeControlOptions: {
+      mapTypeIds: [google.maps.MapTypeId.ROADMAP, customMapTypeId]
+    }
     });
+
+    map.mapTypes.set(customMapTypeId, customMapType);
+  map.setMapTypeId(customMapTypeId);
 
     var geocoder = new google.maps.Geocoder();
 
