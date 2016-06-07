@@ -2,7 +2,7 @@
 
 ## Summary
 
-**Spent** is a practical and versatile budget tracking and money management app, offering users an easy-to-read visualization of their finances and a detailed log of their spending habits. With Spent, you can create budgets, set spending goals, and store information about your recent purchases.
+**Spent** is a practical and versatile budget tracking and money management app, offering users an easy-to-read visualization of their finances and a detailed log of their spending habits. With Spent, users can create budgets, set spending goals, and store information about recent purchases.
 
 
 ## Technologies
@@ -23,7 +23,7 @@
 - Google Maps API
 - Shippo API
 
-Spent is an app built on a Flask server with a PostgreSQL database. SQLAlchemy as the ORM used to interact with this database. The front end templating uses Jinja2, the HTML was built using Bootstrap, and the Javascript uses JQuery and AJAX to interact with the backend. The graphs are rendered using Chart.js, a free Javascript charting library. The map is built using the Google Maps API, which works in tandem with the Shippo package tracking API.
+Spent is an app built on a Flask server with a PostgreSQL database. SQLAlchemy is the ORM used to interact with this database. The front end templating uses Jinja2, the HTML was built using Bootstrap, and the Javascript uses JQuery and AJAX to interact with the backend. The graphs are rendered using Chart.js, a free Javascript charting library. The map is built using the Google Maps API, which works in tandem with the Shippo package tracking API.
 
 
 ## Features
