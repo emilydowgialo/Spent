@@ -108,15 +108,13 @@
             </div>
             <div class="panel-body">
 
-                    <!-- Charts -->
-                    <p>
+                    <!-- BAR CHART -->
 
                         <div class="expenditure-chart">
                             <canvas id="barChart"></canvas>
                             <div id="barLegend" class="chart-legend"></div>
                         </div>
 
-                    </p>
             </div><!-- END FIRST PANEL -->
         </div>
 
@@ -126,10 +124,11 @@
             </div>
             <div class="panel-body">
 
-                <div class="expenditure-chart">
-                    <canvas id="donutChart"></canvas>
-                   <!--  <div id="donutLegend" class="chart-legend"></div> -->
-                </div>
+                  <!-- DONUT CHART -->
+
+                      <div class="expenditure-chart">
+                          <canvas id="donutChart"></canvas>
+                      </div>
 
             </div>
         </div><!-- END FIRST COLUMN SECOND PANEL -->
@@ -317,8 +316,7 @@
   </div>
 </div><!-- END OF NEW BUDGET MODAL -->
 
-                <!-- Table -->
-                <!-- <table class="table"> -->
+                <!-- TABLE -->
 
                     <table class="table table-striped">
                       <thead>
@@ -389,74 +387,80 @@
                   <th scope="row">Clothing</th>
                   <td class="col-md-6">
 
-                    <div class="progress"><!-- CLOTHING -->
+                    <div class="progress">
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ clothing_progress }}%" id="progbar-clothing">
                       ${{ '%0.2f' % clothing_budget_minus_expenses|float }}
                       </div>
-                    </div><!-- END CLOTHING -->
+                    </div>
 
                   </td>
                 </tr>
+
                 <tr>
                   <th scope="row">Entertainment</th>
                   <td class="col-md-6">
 
-                    <div class="progress"><!-- CLOTHING -->
+                    <div class="progress">
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ entertainment_progress }}%">
                       ${{ '%0.2f' % entertainment_budget_minus_expenses|float }}
                       </div>
-                    </div><!-- END CLOTHING -->
+                    </div>
 
                   </td>
                 </tr>
+
                 <tr>
                   <th scope="row">Food</th>
                   <td class="col-md-6">
 
-                    <div class="progress"><!-- CLOTHING -->
+                    <div class="progress">
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ food_progress }}%">
                       ${{ '%0.2f' % food_budget_minus_expenses|float }}
                       </div>
-                    </div><!-- END CLOTHING -->
+                    </div>
 
                   </td>
                 </tr>
+
                 <tr>
                   <th scope="row">Groceries</th>
                   <td class="col-md-6">
 
-                    <div class="progress"><!-- CLOTHING -->
+                    <div class="progress">
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ groceries_progress }}%">
                       ${{ '%0.2f' % groceries_budget_minus_expenses|float }}
                       </div>
-                    </div><!-- END CLOTHING -->
+                    </div>
 
                   </td>
                 </tr>
+
                 <tr>
                   <th scope="row">Online Purchases</th>
                   <td class="col-md-6">
 
-                    <div class="progress"><!-- CLOTHING -->
+                    <div class="progress">
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ online_progress }}%">
                       ${{ '%0.2f' % online_budget_minus_expenses|float }}
                       </div>
-                    </div><!-- END CLOTHING -->
+                    </div>
 
                   </td>
                 </tr>
+
                 <tr>
                   <th scope="row">Travel</th>
                   <td class="col-md-6">
 
-                    <div class="progress"><!-- CLOTHING -->
+                    <div class="progress">
                       <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="900" style="width: {{ travel_progress }}%">
                       ${{ '%0.2f' % travel_budget_minus_expenses|float }}
                       </div>
-                    </div><!-- END CLOTHING -->
+                    </div>
 
                   </td>
                 </tr>
+
               </tbody>
             </table>
 

@@ -11,7 +11,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
 
-from tools import expenditure_function, budget_totals, date_query, get_dates_for_budget, get_progress, get_budget_per_category
+from tools import expenditure_function, budget_totals, get_dates_for_budget, get_progress, get_budget_per_category
 
 from sqlalchemy.sql import and_
 
@@ -78,7 +78,7 @@ def tracking_with_id(tracking_num):
     carrier = expenditure_object.tracking_num_carrier
 
     def shippo_url(track_num, carrier_info):
-        """ Creates api call using tracking information the user input via the form """
+        """ Creates API call using tracking information the user input via the form """
 
         url = "https://api.goshippo.com/v1/tracks/" + str(carrier_info) + "/" + str(track_num) + "/"
         return url
@@ -444,7 +444,7 @@ def add_budget():
 @app.route('/add-expenditure-to-db', methods=["POST"])
 def add_expenditure():
     """ Add new expenditure to the database """
-    print "catscatscats"
+
     # Set the value of the user id of the user in the session
     id = session.get('id')
 

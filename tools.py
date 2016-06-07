@@ -100,15 +100,6 @@ def get_total_for_category(cat, lst):
     return total
 
 
-def date_query(past, today):
-    """ Get a list of expenditure objects for the past 30 days """
-
-    # Query the database for expenditures between 2 date parameters
-    query = Expenditure.query.filter(Expenditure.date_of_expenditure.between(past, today)).all()
-
-    return query
-
-
 def get_progress(cat_minus_expenses, budget):
     """ Get the progress bar percentage """
 
