@@ -127,6 +127,9 @@ class SpentDatabaseTests(unittest.TestCase):
 
         self.assertIn("100", result.data)
 
+        # Verify that the correct category is in the database
+        self.assertTrue("3")
+
     def test_add_expenditure_success(self):
         """ Test for successfully adding an expenditure to the database """
 
@@ -146,6 +149,9 @@ class SpentDatabaseTests(unittest.TestCase):
 
         self.assertIn("3", result.data)
 
+        # Verify that the correct price was addedt to the database
+        self.assertTrue("40")
+
     def test_dashboard(self):
         """ Test if the dashboard routes correctly """
 
@@ -160,6 +166,10 @@ class SpentDatabaseTests(unittest.TestCase):
         # Test if 'Dashboard' shows
         self.assertIn("Spent", result.data)
 
+        self.assertIn("Account", result.data)
+
+        self.assertTrue("Budget")
+
     def test_profile_edit(self):
         """ Test if editing profile info works """
 
@@ -173,13 +183,16 @@ class SpentDatabaseTests(unittest.TestCase):
             "profile-name": "kitty"}, follow_redirects=True)
 
         # Checking if the redirect works
-        self.assertIn("Spent", result.data)
+        self.assertIn("kitty", result.data)
 
         # Query the database for the user
         profile_test_user = User.query.filter_by(email="mu@mu.com").first()
 
         # Verify that the new name is in the database
         self.assertTrue(profile_test_user.name == "kitty")
+
+        # Verify that the user's old name is not in the database
+        self.assertFalse(profile_test_user.name == "mu")
 
     def test_remove_budget(self):
         """ Test if a budget can be removed """

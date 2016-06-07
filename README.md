@@ -5,6 +5,11 @@
 **Spent** is a practical and versatile budget tracking and money management app, offering users an easy-to-read visualization of their finances and a detailed log of their spending habits. With Spent, users can create budgets, set spending goals, and store information about recent purchases.
 
 
+## About the Developer
+
+Spent was created by Emily Dowgialo, a software engineer in San Francisco, CA. Learn more about the developer on [LinkedIn](https://www.linkedin.com/in/emilydowgialo).
+
+
 ## Technologies
 
 **Tech Stack:**
@@ -54,13 +59,8 @@ Spent is a one-page dashboard. There is beauty and functionality in simplicity, 
 ![alt text](https://github.com/emilydowgialo/Spent/blob/master/static/spent-modal-screenshot.png "Spent Login")
 
 
-## Version 2.0
+## For Version 2.0
 
 - **More chart control:** Ability to customize the categories and timeframes the charts display
 - **Badges:** Badges for certain milestones, such as staying under budget for a given period of time
 - **Password hashing:** Passwords will be hashed before being saved to the database
-
-
-## About the Developer
-
-Spent was created by Emily Dowgialo, a software engineer in San Francisco, CA. Learn more about the developer on [LinkedIn](https://www.linkedin.com/in/emilydowgialo).

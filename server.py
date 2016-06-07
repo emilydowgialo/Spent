@@ -63,10 +63,8 @@ def profile_edit():
         'email': email
     }
 
-    # Return jsonified budget info to submit-budget.js
+    # Return jsonified budget info to submit-new-account-info.js
     return jsonify(name_info)
-
-    # return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/tracking/<tracking_num>', methods=["POST"])
@@ -259,32 +257,6 @@ def dashboard(id):
         # expenditures specific to the user from the expenditure table in the
         # database
         expenditures = Expenditure.query.filter_by(expenditure_userid=id).all()
-
-        ########### PAST 30 DAY TOTALS ###########
-
-        # This is today's date
-        date_string = datetime.today().strftime('%Y-%m-%d')
-        # '2016-05-31'
-
-        # This is the date 30 days in the past from today
-        thirty_days_past = (datetime.today() + timedelta(-30)).strftime('%Y-%m-%d')
-
-        # Call the date_query function in tools.py using today's date and
-        # the date 30 days in the past - returns a list of expenditure objects
-        date_query_expenditures = date_query(thirty_days_past, date_string)
-
-        # This empty list will hold the expenditures associated with the id
-        # of the user in the session
-        queries = []
-
-        # Iterate over the list of exoenditure objects to extract the
-        # expenditures associated with the user
-        for query in date_query_expenditures:
-            if query.expenditure_userid == id:
-                queries.append(query)
-                print "query cat id and queries"
-                print query.category_id
-                print queries
 
         ########### GET BUDGET START AND END DATES ###########
 

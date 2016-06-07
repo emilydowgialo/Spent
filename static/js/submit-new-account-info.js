@@ -21,7 +21,7 @@ function replaceInfo(results) {
   // Appends the info to the element
   nameElement.html(newName);
   emailElement.html(newEmail);
-  console.log("finished replaceBudget");
+  console.log("finished replaceInfo");
 }
 
 function updateAccountInfo(evt) {

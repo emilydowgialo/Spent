@@ -5,7 +5,6 @@ from model import User, Expenditure, Budget, Category
 
 from model import connect_to_db, db
 from server import app
-# import datetime
 
 
 def load_users():
@@ -115,12 +114,6 @@ def load_expenditures():
         description = expenditure_data[6]
         tracking_num = expenditure_data[7]
         tracking_num_carrier = expenditure_data[8]
-
-        # convert date_of_expenditure from string to datetime format
-        # if date_of_expenditure:
-        #     date_of_expenditure = datetime.datetime.strptime(date_of_expenditure, '%d-%b-%Y')
-        # else:
-        #     date_of_expenditure = None
 
         expenditure = Expenditure(id=id,
                                   category_id=category_id,

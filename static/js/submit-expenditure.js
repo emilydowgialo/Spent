@@ -38,6 +38,7 @@ function appendExpenditure(result) {
 
   var expenditure = result;
 
+  // Begin HTML to append
   var stringToAppend = '<tr>' +
   '<th scope="row">' +
   String(expenditure.category) +
@@ -56,6 +57,7 @@ function appendExpenditure(result) {
   '</td>' +
   '<td>';
 
+  // If a tracking number exists, append this
   if (expenditure.tracking_num) {
 
     stringToAppend += '<form action="tracking/' + String(expenditure.tracking_num) +
@@ -66,6 +68,7 @@ function appendExpenditure(result) {
     '</button></form>'
   }
 
+  // Continue the HTML to append
   stringToAppend += '</td>' +
   '<td><form action="/remove-expenditure/' +
   String(expenditure.id) + '" method="POST" id="expenditure-' +
@@ -86,10 +89,12 @@ function appendExpenditure(result) {
 function updateTotalSpent(result) {
   // This function updates the total amount spent on the front end
 
+  // Contains information about the expenditure
   var expenditure = result;
   console.log(expenditure.total_cat_price);
   var stringToAppend = String(expenditure.total_cat_price);
 
+  // This is the place to append the info
   var expenditureElement = $('#total-spent-' + String(expenditure.category_id));
 
   expenditureElement.html(stringToAppend);
@@ -100,10 +105,12 @@ function updateTotalSpent(result) {
 function updateAverageSpent(result) {
   // This function updates the average amount spent on the front end
 
+  // Contains info about the average
   var average = result;
   console.log(average.avg_cat_expenditures);
   var stringToAppend = String(average.avg_cat_expenditures);
 
+  // This is the place to append the info
   var avgElement = $('#avg-' + String(average.category_id));
 
   avgElement.html(stringToAppend);
@@ -111,4 +118,5 @@ function updateAverageSpent(result) {
 
 }
 
+// Event listener
 $("#expenditure-form").on("submit", submitExpenditure);

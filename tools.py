@@ -3,6 +3,9 @@ from model import Expenditure, Budget
 from datetime import datetime
 
 
+########## THIS FILE CONTAINS WIDELY USED FUNCTIONS ###########
+
+
 def expenditure_function(category_id, id, start, end):
     """ Calculate the total amount and avg spent in one particular category """
 
@@ -109,7 +112,7 @@ def date_query(past, today):
 def get_progress(cat_minus_expenses, budget):
     """ Get the progress bar percentage """
 
-    # Get perentage for progress bar
+    # Get perentage for progress bar and account for possible divide by 0 error
     try:
         progress = (float(cat_minus_expenses)/float(budget))
     except ZeroDivisionError:

@@ -1,4 +1,6 @@
 
+// Charts are from chart.js
+
 function charts() {
 
   var options = {
