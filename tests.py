@@ -139,9 +139,10 @@ class SpentDatabaseTests(unittest.TestCase):
         result = self.client.post("/add-expenditure-to-db", data=dict(
             category=3,
             price=40,
-            date_of_expenditure=datetime.today(),
+            date=datetime.now(),
             where_bought="Whole Foods",
-            description="groceries and stuff"), follow_redirects=True)
+            description="groceries and stuff"
+            ), follow_redirects=True)
 
         self.assertIn("3", result.data)
 
@@ -228,7 +229,7 @@ class SpentDatabaseTests(unittest.TestCase):
         # See if the expenditure was removed by checking if count is 0
         self.assertTrue(expenditure_test_after_removal == 0)
 
-        self.assertIn("Spent", result.data)
+        self.assertIn("1", result.data)
 
 
 if __name__ == "__main__":

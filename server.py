@@ -328,17 +328,42 @@ def dashboard(id):
         entertainment_budget_minus_expenses = budget_totals(6, id, total_entertainment_price)
 
         ############# PROGRESS BAR ##############
-        clothing_progress_calc = (float(clothing_budget_minus_expenses)/float(cat_5_budget))
+
+        try:
+            clothing_progress_calc = (float(clothing_budget_minus_expenses)/float(cat_5_budget))
+        except ZeroDivisionError:
+            clothing_progress_calc = 0
+
+        try:
+            online_progress_calc = (float(clothing_budget_minus_expenses)/float(cat_5_budget))
+        except ZeroDivisionError:
+            online_progress_calc = 0
+
+        try:
+            food_progress_calc = (float(food_budget_minus_expenses)/float(cat_3_budget))
+        except ZeroDivisionError:
+            food_progress_calc = 0
+
+        try:
+            groceries_progress_calc = (float(groceries_budget_minus_expenses)/float(cat_4_budget))
+        except ZeroDivisionError:
+            groceries_progress_calc = 0
+
+        try:
+            entertainment_progress_calc = (float(entertainment_budget_minus_expenses)/float(cat_6_budget))
+        except ZeroDivisionError:
+            entertainment_progress_calc = 0
+
+        try:
+            travel_progress_calc = (float(travel_budget_minus_expenses)/float(cat_2_budget))
+        except ZeroDivisionError:
+            travel_progress_calc = 0
+
         clothing_progress = str(clothing_progress_calc * 100)
-        online_progress_calc = (float(online_budget_minus_expenses)/float(cat_1_budget))
         online_progress = str(online_progress_calc * 100)
-        food_progress_calc = (float(food_budget_minus_expenses)/float(cat_3_budget))
         food_progress = str(food_progress_calc * 100)
-        groceries_progress_calc = (float(groceries_budget_minus_expenses)/float(cat_4_budget))
         groceries_progress = str(groceries_progress_calc * 100)
-        entertainment_progress_calc = (float(entertainment_budget_minus_expenses)/float(cat_6_budget))
         entertainment_progress = str(entertainment_progress_calc * 100)
-        travel_progress_calc = (float(travel_budget_minus_expenses)/float(cat_2_budget))
         travel_progress = str(travel_progress_calc * 100)
 
         # Renders the dashboard, which displays the following info
