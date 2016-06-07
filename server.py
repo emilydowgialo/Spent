@@ -58,7 +58,15 @@ def profile_edit():
         user_info.email = email
         db.session.commit()
 
-    return redirect(url_for('dashboard', id=id))
+    name_info = {
+        'name': name,
+        'email': email
+    }
+
+    # Return jsonified budget info to submit-budget.js
+    return jsonify(name_info)
+
+    # return redirect(url_for('dashboard', id=id))
 
 
 @app.route('/tracking/<tracking_num>', methods=["POST"])

@@ -39,7 +39,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
 
-        <li><a href="#" data-toggle="modal" data-target="#editProfile" id="edit-profile-account">Account</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#editProfile" id="edit-profile-account" id="add-account-modal">Account</a></li>
 
         <!-- MODAL -->
         <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileModal">
@@ -53,8 +53,8 @@
         <div class="modal-body">
 
                 <p>
-                    <b>Your name:</b> {{name}}<br>
-                    <b>Your email:</b> {{email}}<br>
+                    <b>Your name:</b><span id="user-name"> {{name}}</span><br>
+                    <b>Your email:</b><span id="user-email"> {{ email }}</span><br>
                 </p>
 
             <form action="/profile-edit" method="POST" id="form-profile-edit">
@@ -83,7 +83,7 @@
 
         <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary" id="submit-new-account-info">Save changes</button>
         </form>
       </div>
     </div>
@@ -637,6 +637,7 @@
 <script src="/static/js/submit-expenditure.js"></script>
 <script src="/static/js/submit-budget.js"></script>
 <script src="/static/js/delete-expenditure.js"></script>
+<script src="/static/js/submit-new-account-info.js"></script>
 
 </body>
 
