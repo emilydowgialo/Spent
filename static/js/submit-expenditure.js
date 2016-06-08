@@ -6,6 +6,7 @@ function showExpenditureResults(result) {
     updateTotalSpent(result);
     updateAverageSpent(result);
     appendExpenditure(result);
+    updateProgressBars(result);
     charts();
 }
 

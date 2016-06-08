@@ -480,6 +480,10 @@ def add_expenditure():
     # Unpacking the function call
     total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id, start_date, end_date)
 
+    budget_minus_expenses = budget_totals(category_id, id, total_cat_price)
+    cat_budget = get_budget_per_category(category_id, id)
+    category_progress = get_progress(budget_minus_expenses, cat_budget)
+
     expenditure_info = {
         'total_cat_price': total_cat_price,
         'avg_cat_expenditures': avg_cat_expenditures,
@@ -491,7 +495,9 @@ def add_expenditure():
         'price': str(new_expenditure.price),
         'category': new_expenditure.category.category,
         'tracking_num': new_expenditure.tracking_num,
-        'tracking_num_carrier': new_expenditure.tracking_num_carrier
+        'tracking_num_carrier': new_expenditure.tracking_num_carrier,
+        'cat_budget_minus_expenses': budget_minus_expenses,
+        'category_progress': category_progress
     }
 
     # Return jsonified info to submit-expenditure.js
