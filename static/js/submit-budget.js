@@ -5,6 +5,7 @@ function replaceBudget(results) {
 
     // Callback
     updateBudgetMinusExpenses(results);
+    updateProgressBars(results);
 
     // The results budget
     var budget = results;
@@ -18,6 +19,27 @@ function replaceBudget(results) {
   // Appends the info to the element
   budgetElement.html(stringToAppend);
   console.log("finished replaceBudget");
+}
+
+function updateProgressBars(results) {
+
+    // This contains info about the new budget
+    var progBarInfo = results;
+
+    console.log("this is progbarinfo");
+    console.log(progBarInfo);
+
+    // These are the elements on dashboard.html we want to change
+    var divInfo = $('#progbar-' + String(progBarInfo.category_id));
+    var progNum = $('#prognum-' + String(progBarInfo.category_id));
+
+    console.log("this is prognum and progbar");
+    console.log(progNum);
+    console.log(divInfo);
+
+    // Target the elements on dashboard.html
+    divInfo.css( "width", String(progBarInfo.category_progress) + "%" );
+    progNum.html("$" + String(progBarInfo.cat_budget_minus_expenses));
 }
 
 function updateBudgetMinusExpenses(resp) {

@@ -429,12 +429,16 @@ def add_budget():
     total_cat_price, avg_cat_expenditures = expenditure_function(category_id, id, start_date, end_date)
     cat_budget_minus_expenses = budget_totals(category_id, id, total_cat_price)
 
+    # Call get_progress in tools.py to calculate the progress bar totals
+    category_progress = get_progress(cat_budget_minus_expenses, budget)
+
     budget_info = {
         'id': new_budget.id,
         'category': new_budget.category.category,
         'category_id': category_id,
         'budget': budget,
-        'cat_budget_minus_expenses': cat_budget_minus_expenses
+        'cat_budget_minus_expenses': cat_budget_minus_expenses,
+        'category_progress': category_progress
     }
 
     # Return jsonified budget info to submit-budget.js

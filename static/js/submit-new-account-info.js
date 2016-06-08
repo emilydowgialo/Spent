@@ -18,10 +18,10 @@ function replaceInfo(results) {
     var nameElement = $('#user-name');
     var emailElement = $('#user-name');
 
-  // Appends the info to the element
-  nameElement.html(newName);
-  emailElement.html(newEmail);
-  console.log("finished replaceInfo");
+    // Changes the info
+    nameElement.html(newName);
+    emailElement.html(newEmail);
+    console.log("finished replaceInfo");
 }
 
 function updateAccountInfo(evt) {
