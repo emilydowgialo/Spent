@@ -4,3 +4,4 @@ env/
 spent.sublime-*
 htmlcov/*
 .coverage
+env

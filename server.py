@@ -15,11 +15,17 @@ from tools import expenditure_function, budget_totals, get_dates_for_budget, get
 
 from sqlalchemy.sql import and_
 
+import os
+
 app = Flask(__name__)
 
 app.secret_key = "CATS123"
 
 app.jinja_env.undefined = StrictUndefined
+
+
+spent_database = os.getenv('POSTGRES_DB_URL', 'postgres:///spending')
+connect_to_db(app, spent_database)
 
 
 @app.route('/')
@@ -636,11 +642,11 @@ if __name__ == "__main__":
 
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    # app.debug = True
+    app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-    spent_database = 'postgres:///spending'
-    connect_to_db(app, spent_database)
+    # spent_database = 'postgres:///spending'
+    # connect_to_db(app, spent_database)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)

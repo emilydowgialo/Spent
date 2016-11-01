@@ -1,6 +1,8 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
+import os
+
 db = SQLAlchemy()
 
 
@@ -68,17 +70,6 @@ class Expenditure(db.Model):
     category = db.relationship("Category", backref=db.backref('expenditures'))
 
 
-def init_app():
-    # So that we can use Flask-SQLAlchemy, we'll make a Flask app
-    from flask import Flask
-    app = Flask(__name__)
-
-    spent_database = 'postgres:///spending'
-
-    connect_to_db(app, spent_database)
-    print "Connected to DB."
-
-
 def connect_to_db(app, spent_database):
     """ Connect the database to our Flask app. """
 
@@ -122,7 +113,7 @@ if __name__ == "__main__":
 
     app = Flask(__name__)
 
-    spent_database = 'postgres:///spending'
+    spent_database = os.getenv('POSTGRES_DB_URL', 'postgres:///spending')
 
     connect_to_db(app, spent_database)
     print "Connected to DB."

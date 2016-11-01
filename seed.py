@@ -6,6 +6,8 @@ from model import User, Expenditure, Budget, Category
 from model import connect_to_db, db
 from server import app
 
+import os
+
 
 def load_users():
     """ Load users from users.csv into database """
@@ -192,7 +194,7 @@ def set_val_category_id():
 
 
 if __name__ == "__main__":
-    spent_database = 'postgres:///spending'
+    spent_database = os.getenv('POSTGRES_DB_URL', 'postgres:///spending')
     connect_to_db(app, spent_database)
 
     # In case tables haven't been created, create them
