@@ -62,6 +62,8 @@ function updateBudgetMinusExpenses(resp) {
 function updateBudget(evt) {
     evt.preventDefault();
 
+    window.Intercom('update');
+
     // Close the modal via Javascript when the event is triggered
     $('#addBudget').modal('toggle');
 
