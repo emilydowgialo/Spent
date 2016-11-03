@@ -17,11 +17,19 @@ from sqlalchemy.sql import and_
 
 import os
 
+import hashlib
+
+import hmac
+
 app = Flask(__name__)
 
 app.secret_key = "CATS123"
 
 app.jinja_env.undefined = StrictUndefined
+
+app = Flask(__name__, instance_relative_config=True)
+# app.config.from_object('config')
+app.config.from_pyfile('config.py')
 
 
 spent_database = os.getenv('POSTGRES_DB_URL', 'postgres:///spending')
@@ -250,6 +258,12 @@ def dashboard(id):
         # This is the user object
         user = User.query.filter_by(id=id).first()
 
+        ### GENERATE THE USER HASH ###
+
+        KEY = app.config['SECURE_MODE_KEY']
+        MESSAGE = str(user.id)
+        hash_result = hmac.new(KEY, MESSAGE, hashlib.sha256).hexdigest()
+
         ####### GET THE USER'S BUDGETS FOR EACH CATEGORY
 
         cat_1_budget = get_budget_per_category(1, id)
@@ -372,7 +386,8 @@ def dashboard(id):
                                                 food_progress=food_progress,
                                                 groceries_progress=groceries_progress,
                                                 travel_progress=travel_progress,
-                                                total_price=total_price)
+                                                total_price=total_price,
+                                                user_hash=hash_result)
 
 
 @app.route('/remove-budget/<int:id>', methods=["POST"])

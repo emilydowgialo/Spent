@@ -6,12 +6,15 @@ s.src='https://widget.intercom.io/widget/lwelclrf';
 var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
 <script>
 
   window.Intercom('boot', {
    app_id: 'lwelclrf',
    email: '{{ email }}',
    user_id: '{{ id }}',
+   user_hash: '{{ user_hash }}'
   });
 
 </script>

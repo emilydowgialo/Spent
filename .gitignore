@@ -5,3 +5,4 @@ spent.sublime-*
 htmlcov/*
 .coverage
 env
+instance/
