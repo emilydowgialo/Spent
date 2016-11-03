@@ -1,10 +1,10 @@
 
-function shutdownIntercom () {
+function shutdownIntercom (evt) {
 
 	evt.preventDefault();
 
 	Intercom('shutdown');
-	$.post('/add-budget');
+	window.location = '/logout';
 
 }
 
