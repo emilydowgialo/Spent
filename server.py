@@ -262,7 +262,7 @@ def dashboard(id):
 
         KEY = app.config['SECURE_MODE_KEY']
         MESSAGE = str(user.id)
-        hash_result = hmac.new(KEY, MESSAGE, hashlib.sha256).hexdigest()
+        hash_result = hmac.new(KEY, MESSAGE, hashlib.sha256).hexdigest() 
 
         ####### GET THE USER'S BUDGETS FOR EACH CATEGORY
 
