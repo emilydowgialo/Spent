@@ -23,16 +23,13 @@ import hmac
 
 app = Flask(__name__)
 
-app.secret_key = "CATS123"
-
 app.jinja_env.undefined = StrictUndefined
 
 app = Flask(__name__, instance_relative_config=True)
-# app.config.from_object('config')
-app.config.from_pyfile('config.py')
 
+app.secret_key = os.getenv('SECRET_KEY')
 
-spent_database = os.getenv('POSTGRES_DB_URL', 'postgres:///spending')
+spent_database = os.getenv('POSTGRES_DB_URL')
 connect_to_db(app, spent_database)
 
 
@@ -40,8 +37,11 @@ connect_to_db(app, spent_database)
 def index():
     """ Homepage """
 
+    APP_ID = os.getenv('APP_ID')    
+
     # This is the homepage
-    return render_template("homepage.html", user_session_info=session)
+    return render_template("homepage.html", user_session_info=session,
+                                            app_id=APP_ID)
 
 
 @app.route('/profile-edit', methods=["POST"])
@@ -260,7 +260,8 @@ def dashboard(id):
 
         ### GENERATE THE USER HASH ###
 
-        KEY = app.config['SECURE_MODE_KEY']
+        APP_ID = os.getenv('APP_ID')
+        KEY = os.getenv('SECURE_MODE_KEY')
         MESSAGE = str(user.id)
         hash_result = hmac.new(KEY, MESSAGE, hashlib.sha256).hexdigest() 
 
@@ -387,7 +388,8 @@ def dashboard(id):
                                                 groceries_progress=groceries_progress,
                                                 travel_progress=travel_progress,
                                                 total_price=total_price,
-                                                user_hash=hash_result)
+                                                user_hash=hash_result,
+                                                app_id=APP_ID)
 
 
 @app.route('/remove-budget/<int:id>', methods=["POST"])
