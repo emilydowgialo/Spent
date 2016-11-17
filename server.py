@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 import requests
 
-from flask import Flask, request, render_template, session, url_for, flash, redirect, jsonify, json
+from flask import Flask, request, render_template, session, url_for, flash, redirect, jsonify, json, abort
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, connect_to_db, db, Expenditure, Budget
@@ -79,6 +79,55 @@ def profile_edit():
 
     # Return jsonified budget info to submit-new-account-info.js
     return jsonify(name_info)
+
+
+@app.route('/webhook', methods=['GET', 'POST'])
+def intercom_webhook():
+
+    x_signature_header = request.headers['X-Hub-Signature']
+
+    print 
+    print
+    print
+    print x_signature_header
+    print
+    print
+    print
+    json_blob = request
+    print
+    print
+    print
+    print json_blob
+    print
+    print
+
+    KEY = os.getenv('MARSH_SECRET')
+    hash_result = hmac.new(KEY, json_blob, hashlib.sha1).hexdigest() 
+
+    if "sha1=" + hash_result == x_signature_header:
+
+        return 'OK'
+
+    else:
+        return "400"
+
+    # if request.method == 'POST':
+
+    #     notification = request.json
+
+    #     print
+    #     print
+    #     print
+    #     print notification
+    #     print
+    #     print
+    #     print
+
+    #     result = requests.post('http://chordal.herokuapp.com/intercom/admin-replies', data=notification)
+    #     return 'OK'
+
+    # else:
+    #     abort(400)
 
 
 @app.route('/tracking/<tracking_num>', methods=["POST"])
