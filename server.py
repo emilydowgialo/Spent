@@ -21,6 +21,8 @@ import hashlib
 
 import hmac
 
+import base64
+
 app = Flask(__name__)
 
 app.jinja_env.undefined = StrictUndefined
@@ -112,7 +114,7 @@ def intercom_webhook():
     print
     print
     print
-    print hash_result
+    print base64.encodestring(hash_result)
     print
     print
     print
