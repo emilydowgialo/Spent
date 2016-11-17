@@ -81,7 +81,7 @@ def profile_edit():
     return jsonify(name_info)
 
 
-@app.route('/webhook', methods=['GET', 'POST'])
+@app.route('/webhook', methods=['POST'])
 def intercom_webhook():
 
     x_signature_header = request.headers['X-Hub-Signature']
