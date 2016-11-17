@@ -81,7 +81,7 @@ def profile_edit():
     return jsonify(name_info)
 
 
-@app.route('/webhook', methods=['GET', 'POST'])
+@app.route('/webhook', methods=['POST'])
 def intercom_webhook():
 
     x_signature_header = request.headers['X-Hub-Signature']
@@ -109,25 +109,7 @@ def intercom_webhook():
         return 'OK'
 
     else:
-        return "400"
-
-    # if request.method == 'POST':
-
-    #     notification = request.json
-
-    #     print
-    #     print
-    #     print
-    #     print notification
-    #     print
-    #     print
-    #     print
-
-    #     result = requests.post('http://chordal.herokuapp.com/intercom/admin-replies', data=notification)
-    #     return 'OK'
-
-    # else:
-    #     abort(400)
+        return abort (400)
 
 
 @app.route('/tracking/<tracking_num>', methods=["POST"])
