@@ -93,7 +93,9 @@ def intercom_webhook():
     print
     print
     print
+
     json_blob = request.json
+
     print
     print
     print
@@ -102,7 +104,11 @@ def intercom_webhook():
     print
 
     KEY = os.getenv('MARSH_SECRET')
-    hash_result = hmac.new(KEY, json_blob, hashlib.sha1).hexdigest() 
+    print
+    print
+    print "yo"
+    hash_result = hmac.new(KEY, json_blob, hashlib.sha1).hexdigest()
+
     print
     print
     print
