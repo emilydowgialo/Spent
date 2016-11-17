@@ -81,37 +81,6 @@ def profile_edit():
     return jsonify(name_info)
 
 
-@app.route('/webhooks', methods=['GET', 'POST'])
-def intercom_webhooks():
-
-    x_signature_header = request.headers['X-Hub-Signature']
-
-    print 
-    print
-    print
-    print x_signature_header
-    print
-    print
-    print
-    json_blob = request
-    print
-    print
-    print
-    print json_blob
-    print
-    print
-
-    KEY = os.getenv('MARSH_SECRET')
-    hash_result = hmac.new(KEY, json_blob, hashlib.sha1).hexdigest() 
-
-    if "sha1=" + hash_result == x_signature_header:
-
-        return 'OK'
-
-    else:
-        return abort (400)
-
-
 @app.route('/webhook', methods=['GET', 'POST'])
 def intercom_webhook():
 
