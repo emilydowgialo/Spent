@@ -82,7 +82,7 @@ def profile_edit():
 
 
 @app.route('/webhooks', methods=['GET', 'POST'])
-def intercom_webhook():
+def intercom_webhooks():
 
     x_signature_header = request.headers['X-Hub-Signature']
 
