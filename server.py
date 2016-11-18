@@ -121,7 +121,7 @@ def intercom_webhook():
     print
     print type(hash_result)
     print hash_result
-    print
+    print "sha1=" + hash_result
     print
 
     if "sha1=" + hash_result == x_signature_header:
