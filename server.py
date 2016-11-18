@@ -109,12 +109,12 @@ def intercom_webhook():
     KEY = os.getenv('MARSH_SECRET')
 
     print
-    print
+    print type(KEY)
     print "yo"
     print "hi"
     print
 
-    hash_result = hmac.new(KEY, str(json_blob), hashlib.sha256).hexdigest()
+    hash_result = hmac.new(KEY, str(json_blob), hashlib.sha1).hexdigest()
 
     print
     print "hi"
