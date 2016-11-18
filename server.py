@@ -114,7 +114,7 @@ def intercom_webhook():
     print "hi"
     print
 
-    hash_result = hmac.new(KEY, json_blob, hashlib.sha1).hexdigest()
+    hash_result = hmac.new(KEY, str(json_blob), hashlib.sha1).hexdigest()
 
     print
     print "hi"
