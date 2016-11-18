@@ -120,7 +120,7 @@ def intercom_webhook():
     print "hi"
     print
     print type(hash_result)
-    print
+    print hash_result
     print
     print
 
