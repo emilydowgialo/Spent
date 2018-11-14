@@ -7,7 +7,7 @@
 
 ## About the Developer
 
-Spent was created by Emily Dowgialo, a software engineer in San Francisco, CA. Learn more about the developer on [LinkedIn](https://www.linkedin.com/in/emilydowgialo).
+Spent was created by Emily Dowgialo. Learn more about the developer on [LinkedIn](https://www.linkedin.com/in/emilydowgialo).
 
 
 ## Technologies
